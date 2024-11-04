@@ -1,6 +1,5 @@
 /*
 //模板
-#include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
 int main() {
@@ -871,26 +870,56 @@ int main() {
 using namespace std;
 int n,c;
 int arr[2010][2];
-int dp[400010][200000];
-void ZODP() {
-    for(int i=0;i<n*2;i++) {
-        dp[i][0]=0;
+int dp[4010][2000][2];
+int mindp(int i,int j) {
+    if(dp[i-1][j][1] < dp[i-1][j-arr[i][0]][1] + arr[i][1]) {
+        dp[i][j][1] = dp[i-1][j][1];
+        dp[i][j][0] = dp[i-1][j][0];
     }
-    for(int i=1;i<=n*2;i++) {
-        for(int j=1;j<=c;j++) {
-            if (j < arr[])
+    else {
+        dp[i][j][1] = dp[i-1][j-arr[i][0]][1] + arr[i][1];
+        dp[i][j][0] = dp[i-1][j-arr[i][0]][0] + arr[i][0];
+    }
+}
+void ZODP() {
+    for (int i = 1; i < n*2; i++) {
+        dp[i][0][0] = 0;
+        dp[i][0][1] = 0;
+    }
+    for (int i = 1; i < c; i++) {
+        dp[0][i][0] = 0;
+        dp[0][i][1] = 0;
+    }
+    for (int i = 1; i < n*2; i++) {
+        for (int j = 1 ; j < c; j++) {
+            if ( j > c) {
+                dp[i][j][0] = dp[i-1][j][0];
+                dp[i][j][1] = dp[i-1][j][1];
+            }
+            else {
+                if ( dp[i][j][0] < j) {
+                    dp[i][j][0] = dp[i-1][j][0] + arr[i][0];
+                    dp[i][j][1] = dp[i-1][j][1] + arr[i][1];
+                }
+                else {
+                    dp[i][j][1] = min(dp[i-1][j][1], dp[i-1][j-arr[i][0]][1] + arr[i][1]);
+
+                }
+            }
         }
     }
 }
+
 int main() {
     cin>>n>>c;
-    for (int i = 1; i <= n*2; i+=2) {
+    for (int i = 1; i < n*2; i+=2) {
         cin >> arr[i][0] >> arr[i][1];
         arr[i+1][0] = arr[i][0];
         arr[i+1][1] = arr[i][1];
     }
     ZODP();
-    cout
+    cout << dp[n][c][1];
+    return 0;
 }
 */
 /*
@@ -974,6 +1003,122 @@ int main() {
         }
         EG();
     }
+    return 0;
+}
+*/
+/*
+//P2240 【深基12.例1】部分背包问题
+#include <bits/stdc++.h>
+using namespace std;
+int N,T;
+struct node {
+    int m;
+    int v;
+} node[105];
+bool sorta(struct node a,struct node b) {
+    if ((double)a.v/a.m > (double)b.v/b.m) {
+        return true;
+    }
+    return false;
+}
+double mun = 0;
+int main() {
+    cin >> N >> T;
+    for (int i = 0; i < N; i++) {
+        cin >> node[i].m >> node[i].v;
+    }
+    sort(node, node+N,sorta);
+    for (int i = 0; i < N; i++) {
+        if (node[i].m <= T) {
+            T -= node[i].m;
+            mun += node[i].v;
+        }
+        else {
+            mun += ((double)node[i].v/node[i].m)*T;
+            break;
+        }
+    }
+    printf("%.2lf\n", mun);
+    return 0;
+}
+*/
+/*
+//P1223 排队接水
+#include <bits/stdc++.h>
+using namespace std;
+struct node {
+    int i;
+    int ti;
+}node[1005];
+int n;
+bool sortcmd(struct node a,struct node b) {
+    return a.ti<b.ti;
+}
+int main() {
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        cin >> node[i].ti;
+        node[i].i = i+1;
+    }
+    double numtime = 0;
+    sort(node,node+n,sortcmd);
+    for (int i = 0; i < n; i++) {
+        cout << node[i].i <<' ';
+    }
+    for (int i = 1; i < n ; i++) {
+        numtime += node[i-1].ti * (n-i);
+    }
+    cout << endl;
+    printf("%.2f\n",numtime/n);
+    return 0;
+}
+*/
+/*
+//三战7-7 礼物送给你
+#include <bits/stdc++.h>
+using namespace std;
+int n,c; //n是礼物数，c为目标好感度
+int sumc;
+int summ;
+int arr[10000][2];
+int dp[10000][10000];
+void ZODP() {
+    ; //行为只取前i个元素，列为还能丢掉的好感度值，值为丢掉礼物对应的价格之和
+    int unsumc = sumc - c;
+    for(int i = 0; i < n*2; i++) {
+        dp[i][0] = 0;
+    }
+    for(int i = 1 ; i < n*2; i++) {
+        for(int j = 0 ;j < sumc;j++) {
+            if (j < arr[i][0]) {
+                dp[i][j] = dp[i-1][j];
+            }
+            else {
+                dp[i][j] = max(dp[i-1][j], dp[i-1][j-arr[i][0]] + arr[i][1]);
+            }
+        }
+    }
+    cout << summ - dp[n*2-1][unsumc] << endl;
+}
+int main() {
+    cin >> n >> c;
+    //假定第0个元素为提升的好感度，第1个元素为价格
+    for (int i = 0; i < n*2; i+=2) {
+        cin >> arr[i][0] >> arr[i][1];
+        arr[i+1][0] = arr[i][0];
+        arr[i+1][1] = arr[i][1];
+    } //获取输入
+    sumc = 0;
+    summ = 0;
+    for (int i = 0; i < n*2; i++) {
+        sumc += arr[i][0]; //sumc为所有礼物的总好感度
+        summ += arr[i][1]; //summ为所有礼物的总花费
+    }
+    if (sumc < c) { //判断所有礼物是否可以加满好感度
+        cout << "Error!" << endl;
+        return 0;
+    }
+    ZODP();
     return 0;
 }
 */

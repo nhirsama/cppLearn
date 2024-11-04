@@ -798,3 +798,182 @@ int main() {
     return 0;
 }
 */
+/*
+//P1048 [NOIP2005 普及组] 采药   0-1背包dp首胜，迈出学习dp的第一步
+#include <bits/stdc++.h>
+using namespace std;
+int arr[105][2];
+int dp[105][1005];
+int M,T;
+void ZODP() {
+    for (int i = 1; i <= M; i++) {
+        dp[i][0] = 0;
+    }
+    for (int j = 1; j <= T; j++) {
+        dp[0][j] = 0;
+    }
+    for (int i = 1; i <= M; i++) {
+        for (int j = 0; j <= T; j++) {
+            if (j < arr[i-1][1]) {
+                dp[i][j] = dp[i-1][j];
+            }
+            else {
+                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - arr[i-1][1]] + arr[i-1][0]);
+            }
+        }
+    }
+}
+int main() {
+    cin>> T >> M;
+    for (int i = 0; i < M; i++) {
+        cin >> arr[i][1] >> arr[i][0];
+    }
+    ZODP();
+    cout << dp[M][T] << endl;
+    return 0;
+}
+*/
+/*
+//P1049 [NOIP2001 普及组] 装箱问题     还是背包dp的题，似乎有点思路了。
+#include <bits/stdc++.h>
+using namespace std;
+int V,n;
+int arr[35];
+int dp[35][20005];
+void ZODP() {
+    for(int i=0;i<n;i++) {
+        dp[i][0]=0;
+    }
+    for (int i = 1; i <= n ;i++) {
+        for (int j = 0; j <= V; j++) {
+            if (j < arr[i]) {
+                dp[i][j] = dp[i-1][j];
+            }
+            else {
+                dp[i][j] = max(dp[i-1][j],dp[i-1][j-arr[i]] + arr[i]);
+            }
+        }
+    }
+}
+int main() {
+    cin>>V>>n;
+    arr[0] = 0;
+    for (int i = 1;i<=n;i++) {
+        cin>>arr[i];
+    }
+    ZODP();
+    cout << V-dp[n][V] << endl;
+}
+*/
+/*
+//PTA ACM选拔赛7-7礼物送给你，也是01背包dp的题，趁热打铁。
+#include <bits/stdc++.h>
+using namespace std;
+int n,c;
+int arr[2010][2];
+int dp[400010][200000];
+void ZODP() {
+    for(int i=0;i<n*2;i++) {
+        dp[i][0]=0;
+    }
+    for(int i=1;i<=n*2;i++) {
+        for(int j=1;j<=c;j++) {
+            if (j < arr[])
+        }
+    }
+}
+int main() {
+    cin>>n>>c;
+    for (int i = 1; i <= n*2; i+=2) {
+        cin >> arr[i][0] >> arr[i][1];
+        arr[i+1][0] = arr[i][0];
+        arr[i+1][1] = arr[i][1];
+    }
+    ZODP();
+    cout
+}
+*/
+/*
+//Anya and 1100 //超时，唉
+#include <bits/stdc++.h>
+using namespace std;
+string input;
+int t;
+int q;
+int arr[200005][2];
+int zhuangtai[1000];
+int findstr(int a = 0, int b = input.length() - 3) {
+    if (a<0) {
+        a = 0;
+    }
+    if (b > input.length() - 3) {
+        b = input.length() - 3;
+    }
+    for (int i = a; i < b; i++) {
+        if (input[i] == '1' && input[i + 1] == '1' && input[i + 2] == '0' && input[i + 3] == '0') {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void find(int im) {
+    int der = findstr(im-3,im+4);
+    if (der == -1) {
+        if (zhuangtai[0] == 0) {
+            cout << "NO" << endl;
+        }
+        else {
+            for (int i = 1 ; i <= zhuangtai[0]; i++) {
+                if ( im -3 < zhuangtai[i] && zhuangtai[i] < im+4) {
+                    zhuangtai[i] = 0;
+                }
+            }
+        }
+    }
+    else {
+        for (int i = 1 ; i <= zhuangtai[0]; i++) {
+            if ( im -3 < zhuangtai[i] && zhuangtai[i] < im+4) {
+                zhuangtai[i] = 0;
+            }
+        }
+        for (int i = im-3 ; i < im+4 ; i++) {
+            int ba = findstr(i);
+            if (ba == -1) {}
+            else {
+                i = ba;
+                zhuangtai[zhuangtai[0]] = ba;
+                zhuangtai[0]++;
+            }
+        }
+        cout << "YES" << endl;
+    }
+}
+void find() {
+    for (int i = 0; i < input.length() - 3;i++) {
+        if (input[i] == '1' && input[i + 1] == '1' && input[i + 2] == '0' && input[i + 3] == '0') {
+            zhuangtai[zhuangtai[0]+1] = i;
+            zhuangtai[0]++;
+        }
+    }
+}
+void EG() {
+    find();
+    for (int i = 0; i < q; i++) {
+        input[arr[i][0]-1] = (char)(arr[i][1]+'0');
+        find(i);
+    }
+}
+int main() {
+    cin >> t;
+    while (t--) {
+        cin >> input;
+        cin >> q;
+        for (int i = 0; i < q; i++) {
+            cin >> arr[i][0] >> arr[i][1];
+        }
+        EG();
+    }
+    return 0;
+}
+*/

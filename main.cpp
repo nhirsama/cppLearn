@@ -1122,3 +1122,118 @@ int main() {
     return 0;
 }
 */
+/*
+//P1007 独木桥
+#include <bits/stdc++.h>
+using namespace std;
+int L,N;
+int timeMax = 0;
+int timeMin = 0;
+bool sortCmd(int a,int b) {
+    return abs(L - a*2)<abs(b*2 - L);
+}
+int main() {
+    cin >> L >> N;
+    L++;
+    int arr[N];
+    if (N == 0) {
+        cout << timeMin << " " << timeMax << endl;
+        return 0;
+    }
+    for (int &i : arr) {
+        cin >> i;
+    }
+    sort(arr,arr+N);
+    timeMax = max(L - arr[0],arr[N-1]);
+    sort(arr,arr+N,sortCmd);
+    timeMin = min(arr[0],L - arr[0]);
+    cout << timeMin << " " << timeMax << endl;
+    return 0;
+}
+*/
+/*
+//P1012 [NOIP1998 提高组] 拼数
+#include <bits/stdc++.h>
+using namespace std;
+bool sortCmd(string a, string b) {
+    return a+b>b+a;
+    // for (int i = 0; i < min(a.length(),b.length()); i++) {
+    //     if (a[i] < b[i]) {
+    //         return false;
+    //     }
+    //     if (a[i] > b[i]) {
+    //         return true;
+    //     }
+    // }
+    // if (a.length() == b.length()) {
+    //     return false;
+    // }
+    // if (a[min(a.length(),b.length())] != '\0') {
+    //     return a[min(a.length(),b.length())] > b[0];
+    // }
+    // else {
+    //     return b[min(a.length(),b.length())] > a[0];
+    // }
+    // return a.length() < b.length();
+    //
+}
+int main() {
+    int n;
+    cin >> n;
+    string arr[n];
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+    sort(arr, arr + n, sortCmd);
+    for (int i = 0; i < n; i++) {
+        cout << arr[i];
+    }
+    return 0;
+}
+*/
+/*
+//P1057 [NOIP2008 普及组] 传球游戏
+#include <bits/stdc++.h>
+using namespace std;
+int n,m;
+int dp[5000][5000];
+void DP() {
+    dp[0][0] = 1;
+    for (int i = 1; i <= m; i++) {
+        for (int j = 0; j < n; j++) {
+            if (j >= n-1) {
+                dp[i][j] = dp[i-1][j-1] + dp[i-1][0];
+            }
+            else if (j == 0) {
+                dp[i][j] = dp[i-1][n-1] + dp[i-1][j+1];
+            }
+            else {
+                dp[i][j] = dp[i-1][j-1] + dp[i-1][j+1];
+            }
+        }
+    }
+}
+int main() {
+    cin >> n >> m;
+    DP();
+    cout << dp[m][0];
+    return 0;
+}
+*/
+/*
+//P1020 [NOIP1999 提高组] 导弹拦截
+#include <bits/stdc++.h>
+using namespace std;
+int arr[100000];
+int arrlen = 0;
+int main() {
+    for (int i = 0; i < 100000; i++) {
+        cin >> arr[i];
+        if (cin.peek() == '\n') {
+            arrlen = i+1;
+            break;
+        }
+    }
+    return 0;
+}
+*/

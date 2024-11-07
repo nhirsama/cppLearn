@@ -1237,3 +1237,190 @@ int main() {
     return 0;
 }
 */
+/*
+//快速排序
+#include <bits/stdc++.h>
+using namespace std;
+int n;
+int arr[100000];
+void quickSort(int arr[], int low, int high) {
+    if (low >= high) return;
+    int i = low - 1;
+    int j = high + 1;
+    int pivot = arr[(low + high +1 ) / 2];
+    while (i < j) {
+        do i++; while (arr[i] < pivot);
+        do j--; while (arr[j] > pivot);
+        if (i < j) swap(arr[i], arr[j]);
+    }
+
+    quickSort(arr, low, i-1);
+    quickSort(arr, i, high);
+}
+int main() {
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+    quickSort(arr, 0, n-1);
+    for (int i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    return 0;
+}
+*/
+/*
+//P2676 [USACO07DEC] Bookshelf B
+#include <bits/stdc++.h>
+using namespace std;
+int N,B;
+int arr[20010];
+bool sortCmd(int a,int b) {
+    return a>b;
+}
+int main() {
+    scanf("%d %d",&N,&B);
+    for (int i = 0; i < N ; i++) {
+        scanf("%d",&arr[i]);
+    }
+    int BSum = 0;
+    sort(arr,arr+N,sortCmd);
+    for (int i = 0; i < N; i++) {
+        BSum += arr[i];
+        if (BSum >= B) {
+            printf("%d ",i+1);
+            return 0;
+        }
+    }
+}
+*/
+/*
+//P1216 [USACO1.5] [IOI1994]数字三角形 Number Triangles
+//详见LenovoCppLearn
+#include <bits/stdc++.h>
+using namespace std;
+int arr[1005][1005];
+int r;
+int dp[1005][];
+void ZODP() {
+    for
+}
+int main() {
+    cin >> r;
+    for (int i = 0; i < r; i++) {
+        for (int j = 0; j < i+1; j++) {
+            scanf("%d", &arr[i][j]);
+        }
+    }
+
+}
+*/
+/*
+//P1150 Peter 的烟
+#include <bits/stdc++.h>
+using namespace std;
+int n,k;
+int main() {
+    int nn = 0;
+    int temp = 0;
+    scanf("%d %d",&n,&k);
+    nn +=n;
+    if (n < k) {
+        cout << n << endl;
+        return 0;
+    }
+    while (n >= k) {
+        temp = n/k;
+        nn += temp;
+        n %= k;
+        n += temp;
+    }
+    cout << nn << endl;
+    return 0;
+}
+*/
+/*
+//模板
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    return 0;
+}
+*/
+/*
+//P1011 [NOIP1998 提高组] 车站   //一定要认真读题，这题没看清楚题目，后面重写一次
+#include <bits/stdc++.h>
+using namespace std;
+int upCar[50];
+int downCar[50];
+int carPeople[50];
+int a;
+void Fibonacci(int c) {
+    upCar[1] = 0;
+    carPeople[1] = a;
+    for (int n = 2; n <= c; n++) {
+        if (n == 2) {
+            upCar[2] = a;
+            downCar[2] = a;
+            carPeople[2] = a;
+            continue;
+        }
+        upCar[n] = upCar[n - 1] + upCar[n - 2];
+        downCar[n] = upCar[n-1];
+        carPeople[n] = carPeople[n-1] + upCar[n] - downCar[n];
+    }
+}
+int main() {
+    int n;
+    int m,x;
+    scanf("%d %d %d %d",&a,&n,&m,&x);
+    if (x == n) {
+        cout << m << endl;
+        return 0;
+    }
+    Fibonacci(x);
+    cout << carPeople[x] << endl;
+    return 0;
+}
+*/
+/*
+//P1151 子数整数
+#include <bits/stdc++.h>
+using namespace std;
+int K;
+int main() {
+    int num = 10000;
+    int sub1,sub2,sub3;
+    cin>>K;
+    bool a = false;
+    while (num <= 30000) {
+        sub1 = num/100;
+        sub2 = (num%10000)/10;
+        sub3 = num%1000;
+        if (sub1%K == 0 && sub2%K == 0 && sub3%K == 0) {
+            cout<< num << endl;
+            a = true;
+        }
+        num++;
+    }
+    if (!a) {
+        cout<<"No";
+    }
+    return 0;
+}
+*/
+/*
+//P1011 [NOIP1998 提高组] 车站 二战
+#include <bits/stdc++.h>
+using namespace std;
+int a,n,m,x;
+int Fibonacci(int c) {
+    if (c == 1 || c == 2) return a;
+    return Fibonacci(c - 1) *2 - Fibonacci(c - 2);
+}
+int main() {
+    scanf("%d %d %d %d",&a,&n,&m,&x);
+    Fibonacci(n);
+    return 0;
+}
+*/

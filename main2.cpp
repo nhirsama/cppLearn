@@ -187,3 +187,95 @@ void DP() {
     }
 }
 */
+/*
+//P1004 [NOIP2000 提高组] 方格取数 //此题不能用贪心写dp，两次的最优解并非是总体最优解。
+#include <bits/stdc++.h>
+using namespace std;
+int arr[15][15];
+int dp[15][15];
+int N;
+int DP();
+int main() {
+    cin >> N;
+    int x,y,n;
+    do {
+        cin >> x >> y >> n;
+        arr[x][y] = n;
+    }
+    while (n != 0);
+
+    return 0;
+}
+
+int DP() {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (i == 0) {
+                dp[i][j] = dp[i][j-1] + arr[i][j];
+            }
+            else if (j == 0) {
+                dp[i][j] = dp[i-1][j] + arr[i][j];
+            }
+            else {
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1]) + arr[i][j];
+            }
+        }
+    }
+}
+*/
+/*
+//P1028 [NOIP2001 普及组] 数的计算
+#include <bits/stdc++.h>
+using namespace std;
+int arr[1005];
+int N;
+int function1(int a);
+int main() {
+    cin >> N;
+    arr[0] = 1;
+    arr[1] = 1;
+    arr[2] = 2;
+    arr[3] = 2;
+    function1(N);
+    cout << arr[N] << endl;
+    return 0;
+}
+
+int function1(const int a) {
+
+    if (arr[a] != 0 ) return arr[a];
+    if (a%2 == 1 && arr[a-1] != 0) {
+        arr[a] = arr[a-1];
+        return arr[a];
+    }
+    int sum = 0;
+
+    for (int i = 0; i <= a/2; i++) {
+        if (arr[i] == 0) {
+            function1(i);
+        }
+        sum += arr[i];
+
+    }
+    arr[a] = sum;
+    return sum;
+}
+*/
+/*
+//P10579 [蓝桥杯 2024 国 A] 最长子段
+#include <bits/stdc++.h>
+using namespace std;
+int arr[300010];
+int n,a,b,c;
+bool sum;
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin >> n >> a >> b >> c;
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+    long long sum = 0;
+
+    return 0;
+}
+*/

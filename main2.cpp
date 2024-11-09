@@ -279,3 +279,41 @@ int main() {
     return 0;
 }
 */
+/*
+// quickSort
+#include <bits/stdc++.h>
+using namespace std;
+int arr[100010];
+int N;
+void quickSort(int l,int r);
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin >> N;
+    for (int i = 0; i < N; i++) {
+        cin >> arr[i];
+    }
+    quickSort(0,N-1);
+    for (int i = 0; i < N; i++) {
+        cout << arr[i] << " ";
+    }
+    return 0;
+}
+
+void quickSort(int l,int r) {
+    if (r <= l) return;
+    int i = l-1, j = r+1;
+    int pivot = arr[(l+r+1)/2];
+    while (i < j) {
+        do i++; while (arr[i] < pivot);
+        do j--; while (arr[j] > pivot);
+        if (i < j) swap(arr[i], arr[j]);
+    }
+    quickSort(l,i-1);
+    quickSort(i,r);
+}
+*/
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    return 0;
+}

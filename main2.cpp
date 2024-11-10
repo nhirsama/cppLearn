@@ -313,6 +313,7 @@ void quickSort(int l,int r) {
 }
 */
 /*
+//P2249 【深基13.例1】查找 //超时且有一个wa，显然是二分写的有问题
 #include <bits/stdc++.h>
 using namespace std;
 int arr[1000005];
@@ -329,7 +330,7 @@ int main() {
     for(int i=0;i<m;i++) {
         cin>>findNum[i];
     }
-    for (int i = 1; i <= m; i++) {
+    for (int i = 0; i < m; i++) {
         cout << find(findNum[i],1,n) << " ";
     }
     cout << endl;
@@ -348,18 +349,20 @@ int find(int a,int low = 1,int high = n) {
     }
     if (arr[low] == a) {
         while (arr[low - 1] == a) {
-            high--;
+            low--;
         }
         return low;
     }
+    if(low+1 == high && arr[high] != a) {
+        return -1;
+    }
     if (arr[(high+low+1)/2] > a) {
-        return find(a,low+1,(high+low+1)/2-1);
+        return find(a,low,(high+low+1)/2);
     }
     else{
-        return find(a,(high+low+1)/2+1,high-1);
+        return find(a,(high+low+1)/2,high);
     }
 }
-*/
 /*
 //T474063 「Diligent-OI R1 A」DlgtPattern
 #include <bits/stdc++.h>
@@ -487,5 +490,66 @@ int main() {
     cout << '\n';
     cout << dp[n].ans << '\n';
     return 0;
+}
+*/
+/*
+//P2249 【深基13.例1】查找
+#include <bits/stdc++.h>
+using namespace std;
+int arr[1000005];
+int n,m;
+int findNum[100005];
+int find(int a,int low ,int high);
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin>>n>>m;
+    for(int i=1;i<=n;i++) {
+        cin>>arr[i];
+    }
+    for(int i=0;i<m;i++) {
+        cin>>findNum[i];
+    }
+    for (int i = 0; i < m; i++) {
+        cout << find(findNum[i],1,n) << " ";
+    }
+    cout << endl;
+    return 0;
+}
+
+int find(int a,int low = 1,int high = n) {
+    while(low<high) {
+        int mid = (low+(high-1))/2;
+        if(arr[mid] >= a) {
+            high = mid;
+        }
+        else {
+            low = mid + 1;
+        }
+    }
+    if (arr[low] == a) return low;
+    return -1;
+}
+*/
+/*
+//P1359 租用游艇
+#include <bits/stdc++.h>
+using namespace std;
+int n;
+int arr[205][205];
+int dp[205][205];
+void dpFunction();
+int main() {
+    cin >> n;
+    for (int i = 1; i < n; i++) {
+        for (int j = n-i; j > 0;j--) {
+            cin >> arr[i][j];
+        }
+    }
+    return 0;
+}
+
+void dpFunction() {
+
 }
 */

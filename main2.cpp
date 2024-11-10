@@ -312,8 +312,180 @@ void quickSort(int l,int r) {
     quickSort(i,r);
 }
 */
+/*
+#include <bits/stdc++.h>
+using namespace std;
+int arr[1000005];
+int n,m;
+int findNum[100005];
+int find(int a,int low ,int high);
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin>>n>>m;
+    for(int i=1;i<=n;i++) {
+        cin>>arr[i];
+    }
+    for(int i=0;i<m;i++) {
+        cin>>findNum[i];
+    }
+    for (int i = 1; i <= m; i++) {
+        cout << find(findNum[i],1,n) << " ";
+    }
+    cout << endl;
+    return 0;
+}
+
+int find(int a,int low = 1,int high = n) {
+    if(low==high && arr[low] != a) {
+        return -1;
+    }
+    if (arr[high] == a) {
+        while (arr[high - 1] == a) {
+            high--;
+        }
+        return high;
+    }
+    if (arr[low] == a) {
+        while (arr[low - 1] == a) {
+            high--;
+        }
+        return low;
+    }
+    if (arr[(high+low+1)/2] > a) {
+        return find(a,low+1,(high+low+1)/2-1);
+    }
+    else{
+        return find(a,(high+low+1)/2+1,high-1);
+    }
+}
+*/
+/*
+//T474063 「Diligent-OI R1 A」DlgtPattern
 #include <bits/stdc++.h>
 using namespace std;
 int main() {
+    int x,y,p,q;
+    cin>>x>>y>>p>>q;
+    cout << min(min(x-p,p),min(y-q,q)) << endl;
     return 0;
 }
+*/
+/*
+//T530603 「Diligent-OI R1 B」DlgtArray
+#include <bits/stdc++.h>
+using namespace std;
+int n,q;
+int arrN[1000005];
+int find(int l,int r,int k);
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin >> n >> q;
+    for (int i = 1; i <= n; i++) {
+        cin >> arrN[i];
+    }
+    int l,r,k;
+    for (int i = 0; i < q; i++) {
+        cin >> l >> r >> k;
+        cout << find(l, r, k) << '\n';
+    }
+    for (int i = 0; i < q; i++) {
+
+    }
+    return 0;
+}
+
+int find(int l,int r,int k) {
+    if (r-l < k) return -1;
+    int produck = 1;
+    int sum = 0;
+    for (int i = l; i <= r; i++) {
+        if (arrN[i] == 0) {
+            produck = 0;
+            continue;
+        }
+        sum ++;
+    }
+    if (r-l+1 < k && produck == 0) return -1;
+    if (produck == 1) {
+        if (k+1 == sum) return 0;
+        return sum-k;
+    }
+    return abs(k-sum + produck);
+}
+*/
+/*
+//T454254 「Diligent-OI R1 D」DlgtTemplate
+#include <bits/stdc++.h>
+using namespace std;
+int n;
+int arr[3005];
+int arrDel[3005];
+struct dp{
+    int num;
+    int num2;
+    int fangAn2[3005];
+    int fangAn[3005];
+    int ans;
+}dp[3005];
+void delListI(int *list,int i,int length) {
+    for (int j = i; list[j] || list[j+1]; j++) {
+        list[j] = list[j+1];
+    }
+}
+//将一个dp结构体传入，并返回选了格子m后的结构体
+struct dp delNum(struct dp aa,int m) {
+    if (aa.num < arrDel[m]) {
+        aa.num2++;
+        aa.num ++;
+        aa.fangAn[aa.num-1] = m;
+        aa.fangAn2[aa.num2-1] = m;
+        aa.ans += arr[m];
+        return aa;
+    }
+    int i = 0;
+    while (i<arrDel[m]) {
+        aa.ans -= arr[aa.fangAn[0]];
+        delListI(&aa.fangAn[0],0,aa.num);
+        aa.num--;
+        i++;
+    }
+    aa.num ++;
+    aa.num2 ++;
+    aa.fangAn[aa.num-1] = m;
+    aa.ans += arr[m];
+    aa.fangAn2[aa.num2-1] = m;
+    return aa;
+}
+void dpFunc() {
+    dp[0].num = 0;
+    dp[0].ans = 0;
+    for(int i=1;i<=n;i++) {
+        struct dp aa = delNum(dp[i-1],i);
+        if (dp[i-1].ans < aa.ans) {
+            dp[i] = aa;
+        }
+        else {
+            dp[i] = dp[i-1];
+        }
+    }
+}
+int main() {
+    cin>>n;
+    for(int i=1;i<=n;i++) {
+        cin>>arr[i];
+    }
+    for(int i=1;i<=n;i++) {
+        cin>>arrDel[i];
+    }
+    dpFunc();
+    cout << dp[n].num2 << '\n';
+    for (int i = 0; i < dp[n].num2; i++) {
+        cout << dp[n].fangAn2[i] << ' ';
+    }
+    cout << '\n';
+    cout << dp[n].ans << '\n';
+    return 0;
+}
+*/

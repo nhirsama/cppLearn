@@ -375,11 +375,12 @@ int main() {
 }
 */
 /*
-//T530603 「Diligent-OI R1 B」DlgtArray
+//T530603 「Diligent-OI R1 B」DlgtArray      //用前缀和直接秒了，暴力枚举会导致TEL
 #include <bits/stdc++.h>
 using namespace std;
 int n,q;
 int arrN[1000005];
+int arrSum[1000005];    //前缀和
 int find(int l,int r,int k);
 int main() {
     ios_base::sync_with_stdio(false);
@@ -387,6 +388,7 @@ int main() {
     cin >> n >> q;
     for (int i = 1; i <= n; i++) {
         cin >> arrN[i];
+        arrSum[i] = arrSum[i - 1] + arrN[i];
     }
     int l,r,k;
     for (int i = 0; i < q; i++) {
@@ -401,14 +403,10 @@ int main() {
 
 int find(int l,int r,int k) {
     if (r-l < k) return -1;
-    int produck = 1;
-    int sum = 0;
-    for (int i = l; i <= r; i++) {
-        if (arrN[i] == 0) {
-            produck = 0;
-            continue;
-        }
-        sum ++;
+    int produck = 0;
+    int sum = arrSum[r] - arrSum[l-1];
+    if (sum == r - l + 1) {
+        produck = 1;
     }
     if (r-l+1 < k && produck == 0) return -1;
     if (produck == 1) {
@@ -602,5 +600,83 @@ int main() {
     sort(arr, N);
     output(arr, N);
     return 0;
+}
+*/
+/*
+//B3612 【深进1.例1】求区间和
+#include <bits/stdc++.h>
+using namespace std;
+const int numLength = 100005;
+int sumArr[numLength];
+int findArr[numLength][2];
+int n,m;
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin>>n;
+    for(int i=1;i<=n;i++) {
+        cin >> sumArr[i];
+        sumArr[i] += sumArr[i-1];
+    }
+    cin >> m;
+    for(int i=1;i<=m;i++) {
+        cin>>findArr[i][0]>>findArr[i][1];
+    }
+    for(int i=1;i<=m;i++) {
+        cout << sumArr[findArr[i][1]] - sumArr[findArr[i][0] - 1] << endl;
+    }
+    return 0;
+}
+*/
+/*
+//P5638 【CSGRound2】光骓者的荣耀
+#include <bits/stdc++.h>
+using namespace std;
+const long long arrLength = 1000005;
+int n,k;
+long long arr[arrLength];
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin >> n >> k;
+    for (int i = 2; i <= n; i++) {
+        cin >> arr[i];
+        arr[i] += arr[i - 1];
+    }
+    long long max = 0;
+    for (int i = k; i <= n; i++) {
+        if (arr[i] - arr[i - k] > max) {
+            max = arr[i] - arr[i - k];
+        }
+    }
+    cout << arr[n] - max << endl;
+    return 0;
+}
+*/
+/*
+//P1000 超级玛丽游戏  //一直在我的尝试界面挂着，太难看了
+#include<bits/stdc++.h>
+int main()
+{
+    std::cout<<R"(                ********
+               ************
+               ####....#.
+             #..###.....##....
+             ###.......######              ###            ###
+                ...........               #...#          #...#
+               ##*#######                 #.#.#          #.#.#
+            ####*******######             #.#.#          #.#.#
+           ...#***.****.*###....          #...#          #...#
+           ....**********##.....           ###            ###
+           ....****    *****....
+             ####        ####
+           ######        ######
+##############################################################
+#...#......#.##...#......#.##...#......#.##------------------#
+###########################################------------------#
+#..#....#....##..#....#....##..#....#....#####################
+##########################################    #----------#
+#.....#......##.....#......##.....#......#    #----------#
+##########################################    #----------#
+#.#..#....#..##.#..#....#..##.#..#....#..#    #----------#
+##########################################    ############ )";
 }
 */

@@ -680,3 +680,117 @@ int main()
 ##########################################    ############ )";
 }
 */
+/*
+//P1013 [NOIP1998 提高组] 进制位
+#include <bits/stdc++.h>
+using namespace std;
+int n;
+char arr[15][15];
+int main() {
+    cin >> n;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            cin >> arr[i][j];
+        }
+    }
+
+    return 0;
+}
+*/
+/*
+//P11273 「Diligent-OI R1 C」DlgtRank
+#include <bits/stdc++.h>
+using namespace std;
+int n,k;
+struct arr {
+    int num;
+    int ranking;
+    int ciShu;
+}arr[200005];
+int sum[200005];
+bool sortCmp(struct arr a,struct arr b) {
+    return a.num<b.num;
+}
+bool sortCmp2(struct arr a,struct arr b) {
+    return a.ranking<b.ranking;
+}
+int main() {
+    cin>>n>>k;
+    for(int i=1;i<=n;i++) {
+        cin>>arr[i].num;
+        arr[i].ranking = i;
+        arr[i].ciShu = 0;
+    }
+
+    sort(arr,arr+n,sortCmp);
+    bool a = true;
+    while(a) {
+        a = false;
+        for(int i=1;i<=n;i++) {
+            int j = i+1;
+            while (arr[i].num == arr[j].num) {
+                j++;
+            }
+            if (arr[j].num - arr[i].num >= k) {
+                for(int m = i;m<j;m++) {
+                    arr[k].num+=k;
+                }
+                i=j;
+            }
+            else {
+                arr[i].ciShu++;
+                a = true;
+            }
+        }
+    }
+    sort(arr,arr+n,sortCmp2);
+    for(int i=1;i<=n;i++) {
+        cout<<arr[i].ciShu<<" ";
+    }
+    return 0;
+}
+*/
+/*
+//P3799 小 Y 拼木棒 //缺少一个特判，当j == i-j && arr[j]<2时，应是C2_1结果应为0
+#include <bits/stdc++.h>
+using namespace std;
+const int modNum = 1e9+7;
+int arr[100005];
+int n;
+long long num=0;
+int maxNum = 0;
+long long C2x(int x) {
+    if(x == 1) return 0;
+    return x*(x-1)/2;
+}
+int main() {
+    cin >> n;
+    for (int i = 1; i <= n; i++) {
+        int a;
+        cin >> a;
+        if (a > maxNum) {
+            maxNum = a;
+        }
+        arr[a]++;
+    }
+    for (int i = 2; i <= maxNum+5; i++) {
+        if (arr[i] >= 2) {
+            for (int j = 1; j <=i/2;j++) {
+                if (arr[j] != 0 && arr[i-j] != 0) {
+                    if (j == i-j && arr[j] < 2) {
+                        continue;
+                    }
+                    else if (j == i-j) {
+                        num+=C2x(arr[i])%modNum*C2x(arr[j])%modNum;
+                    }
+                    else {
+                        num+=(C2x(arr[i])%modNum)*arr[j]*arr[i-j]%modNum;
+                    }
+                }
+            }
+        }
+    }
+    cout << num%modNum << endl;
+    return 0;
+}
+

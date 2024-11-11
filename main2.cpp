@@ -553,3 +553,54 @@ void dpFunction() {
 
 }
 */
+/*
+//无用代码
+#include <stdio.h>
+int main() {
+    int numbers[8];
+    int sum = 0;
+    double average;
+    for (int i = 0; i < 8; i++) {
+        scanf("%d", &numbers[i]);
+        sum += numbers[i];
+    }
+    average = sum / 8.0;
+    printf("sum=%d,aver=%.2f\n", sum, average);
+    return 0;
+}
+*/
+/*
+//无用代码
+#include <stdio.h>
+#define N 12
+void input(float a[], int n) {
+    for (int i = 0; i < n; i++) {
+        scanf("%f", &a[i]);
+    }
+}
+void output(float a[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%8.1f", a[i]);
+    }
+    printf("\n");
+}
+void sort(float a[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (a[i] < a[j]) {
+                // 交换 a[i] 和 a[j]
+                float temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+        }
+    }
+}
+int main() {
+    float arr[N];
+    input(arr, N);
+    sort(arr, N);
+    output(arr, N);
+    return 0;
+}
+*/

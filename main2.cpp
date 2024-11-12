@@ -793,4 +793,71 @@ int main() {
     cout << num%modNum << endl;
     return 0;
 }
+*/
 
+//P1706 全排列问题
+#include <bits/stdc++.h>
+using namespace std;
+stack <int> st;
+int n;
+int arr[15];
+void dfs();
+int main() {
+    cin>>n;
+
+    return 0;
+}
+void dfs() {
+
+}
+/*
+//P8665 [蓝桥杯 2018 省 A] 航班时间 //peek查看下一个输入字符，setw控制输出宽度，setfill控制补齐字符
+#include <bits/stdc++.h>
+using namespace std;
+int T;
+int timeS[20000];
+int inputToSecond();
+void outputToTime(int seconds);
+int main() {
+    cin >> T;
+    for (int i = 1; i <= T*2; i++) {
+        timeS[i] = inputToSecond();
+    }
+    for(int i = 1; i <= T*2; i+=2) {
+        outputToTime((timeS[i]+timeS[i+1])/2);
+    }
+    return 0;
+}
+
+int inputToSecond() {
+    string time,time2,day;
+    day = "(+0)";
+    cin >> time >> time2;
+    if (cin.peek() == ' ') {
+        cin >> day;
+    }
+    int seconds1 = 0,seconds2 = 0;
+    seconds1+=(time[0]-'0')*10*3600;
+    seconds1+=(time[1]-'0')*3600;
+    seconds1+=(time[3]-'0')*10*60;
+    seconds1+=(time[4]-'0')*60;
+    seconds1+=(time[6]-'0')*10;
+    seconds1+=(time[7]-'0');
+    seconds2+=(time2[0]-'0')*10*3600;
+    seconds2+=(time2[1]-'0')*3600;
+    seconds2+=(time2[3]-'0')*10*60;
+    seconds2+=(time2[4]-'0')*60;
+    seconds2+=(time2[6]-'0')*10;
+    seconds2+=(time2[7]-'0');
+    seconds2+=(day[2]-'0')*24*60*60;
+    return seconds2 - seconds1;
+}
+
+void outputToTime(int seconds) {
+    int hours = seconds/3600;
+    seconds = seconds%3600;
+    int minutes = seconds/60;
+    seconds = seconds%60;
+    cout << setw(2) << setfill('0')<< hours << ":" << setw(2) << minutes << ":" << setw(2) << seconds << endl;
+}
+*/

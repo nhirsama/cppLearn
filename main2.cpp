@@ -794,7 +794,7 @@ int main() {
     return 0;
 }
 */
-
+/*
 //P1706 全排列问题
 #include <bits/stdc++.h>
 using namespace std;
@@ -859,5 +859,182 @@ void outputToTime(int seconds) {
     int minutes = seconds/60;
     seconds = seconds%60;
     cout << setw(2) << setfill('0')<< hours << ":" << setw(2) << minutes << ":" << setw(2) << seconds << endl;
+}
+*/
+/*
+//P1009 [NOIP1998 普及组] 阶乘之和
+#include <bits/stdc++.h>
+using namespace std;
+int n;
+vector<int> mul(const vector<int>&A, const vector<int>&B);
+vector<int> add(vector<int>&A, vector<int>&B);
+vector<int> jieCheng(int m);
+int main() {
+    cin >> n;
+    vector<int> Print = {0};
+    for (int i = 1; i <= n; i++) {
+        vector<int> A = jieCheng(i);
+        vector<int> B = add(A, Print);
+        Print = B;
+    }
+    for (int i = Print.size()-1; i >= 0; i--) {
+        cout << Print[i];
+    }
+    return 0;
+}
+
+vector<int> mul(const vector<int> &A, const vector<int> &B) {
+    vector<int> C(A.size()+B.size()+1,0);
+    for (int i = 0; i < A.size(); i++) {
+        for (int j = 0; j < B.size(); j++) {
+            C[i+j] += A[i]*B[j];
+            C[i+j+1] += C[i+j]/10;
+            C[i+j] %=10;
+        }
+    }
+    while (C.size()>1 && C.back() == 0) C.pop_back();
+    return C;
+}
+vector<int> add(vector<int> &A, vector<int> &B) {
+    vector<int> C(max(A.size(),B.size())+1,0);
+    if (A.size()<B.size()) add(B,A);
+    int t = 0;
+    for (int i = 0; i < A.size(); i++) {
+        t += A[i];
+        if (i < B.size()) {
+            t += B[i];
+        }
+        C[i] = t%10;
+        t = t / 10;
+    }
+    while (C.size()>1 && C.back() == 0) C.pop_back();
+    return C;
+}
+
+vector<int> jieCheng(int m) {
+    vector<int> print;
+    print.push_back(1);
+    for (int i = 2; i <= m; i++) {
+        vector<int> N;
+        N.push_back(i%10);
+        N.push_back(i/10);
+        print = mul(print,N);
+    }
+    return print;
+}
+*/
+/*
+//A - Flag
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n,m;
+    cin>>n>>m;
+    int a[n][m];
+    for(int i=0;i<n;i++) {
+        for(int j=0;j<m;j++) {
+            int temp;
+            do temp = cin.get();
+            while( '0' > temp || temp > '9' );
+            a[i][j] = temp;
+        }
+    }
+    bool b = true,c = true;
+    for(int i=0;i<n;i++) {
+
+        for(int j=0;j<m-1;j++) {
+            b = a[i][j] == a[i][j+1] && b;
+        }
+    }
+    for(int i=0;i<n-2;i++) {
+        for(int j=0;j<m;j++) {
+            c = (a[i][j] != a[i+1][j]) && (a[i+1][j] != a[i+2][j]) && c;
+        }
+    }
+    if (b && c) cout << "YES";
+    else cout << "NO";
+    return 0;
+}
+*/
+/*
+//B - Football
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n;
+    cin >> n;
+    string name[110];
+    for (int i = 0; i < n; i++) {
+        cin >> name[i];
+    }
+    int win1[2] = {0, 0};
+    sort(name,name+n);
+    for (int i = 0; i < n; i++) {
+        if (name[i] == name[0]) {
+            win1[0]+=1;
+        }
+        else {
+            win1[1] += 1;
+        }
+    }
+    if (win1[0] > win1[1]) cout << name[0];
+    else cout << name[n-1];
+    return 0;
+}
+*/
+/*
+//D - Sale
+#include <bits/stdc++.h>
+using namespace std;
+int n,m;
+int arr[105];
+int main() {
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) {
+        cin>>arr[i];
+    }
+    sort(arr, arr+n);
+    int ans = 0;
+    for (int i = 0; i < m; i++) {
+        if (arr[i]>0) break;
+        ans += arr[i];
+    }
+    cout << -ans;
+    return 0;
+}
+*/
+/*
+//C - MEX Repetition    //没思路
+#include <bits/stdc++.h>
+using namespace std;
+int t;
+void func();
+int main() {
+    cin>>t;
+    while(t--) {
+        func();
+    }
+    return 0;
+}
+void func() {
+    int n,k;
+    bool ifIn[1e5+10] = {false};
+    cin>>n>>k;
+    int arr[1e5+10];
+    for (int i = 0; i < n;i++) {
+        cin >> arr[i];
+        ifIn[arr[i]] = true;
+    }
+    for (int i = 0; i < k; i++) {
+        for (int j = 0; j < n; j++) {
+            int m = 0;
+            for (; m < 1e5+10; m++) {
+                if (ifIn[m]) break;
+            }
+            ifIn[arr[j]] = false;
+            ifIn[m] = ;
+            arr[j] = m;
+        }
+    }
 }
 */

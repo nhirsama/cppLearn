@@ -1038,3 +1038,53 @@ void func() {
     }
 }
 */
+/*
+//P2670 [NOIP2015 普及组] 扫雷游戏
+#include <bits/stdc++.h>
+using namespace std;
+string arr[110];
+int main() {
+    int n,m;
+    cin>>n>>m;
+    for(int i=0;i<n;i++) {
+        cin>>arr[i];
+    }
+    for(int i=0;i<n;i++) {
+        for(int j=0;j<m;j++) {
+            if(arr[i][j]=='*') {
+                cout<<"*";
+            }
+            else {
+                int num = 0;
+                if(i >= 1 && arr[i-1][j]=='*') {
+                    num++;
+                }
+                if(i >= 1 && j>=1 && arr[i-1][j-1]=='*') {
+                    num++;
+                }
+                if(i >= 1 && arr[i-1][j+1]=='*') {
+                    num++;
+                }
+                if(j >= 1 && arr[i][j-1]=='*') {
+                    num++;
+                }
+                if(arr[i][j+1]=='*') {
+                    num++;
+                }
+                if(j >= 1 && arr[i+1][j-1]=='*') {
+                    num++;
+                }
+                if(arr[i+1][j]=='*') {
+                    num++;
+                }
+                if(arr[i+1][j+1]=='*') {
+                    num++;
+                }
+                cout<<num;
+            }
+        }
+        cout << '\n';
+    }
+    return 0;
+}
+*/

@@ -798,18 +798,34 @@ int main() {
 //P1706 全排列问题
 #include <bits/stdc++.h>
 using namespace std;
-stack <int> st;
 int n;
-int arr[15];
-void dfs();
+bool arr[15];
+vector <int> pr;
+void dfs(int a);
 int main() {
     cin>>n;
-
+    dfs(0);
     return 0;
 }
-void dfs() {
-
+void dfs(int a) {
+    if (a == n) {
+        for (int j : pr) {
+            cout<< setw(5)<<j;
+        }
+        cout<<"\n";
+        return;
+    }
+    for (int i = 1; i <= n; i++) {
+        if (arr[i] == 0) {
+            arr[i] = true;
+            pr.push_back(i);
+            dfs(a+1);
+            arr[i] = false;
+            pr.pop_back();
+        }
+    }
 }
+*/
 /*
 //P8665 [蓝桥杯 2018 省 A] 航班时间 //peek查看下一个输入字符，setw控制输出宽度，setfill控制补齐字符
 #include <bits/stdc++.h>
@@ -1086,5 +1102,75 @@ int main() {
         cout << '\n';
     }
     return 0;
+}
+*/
+/*
+//P1138 第 k 小整数
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n,k;
+    cin>>n>>k;
+    int max = 0;
+    bool arr[30005] = {false};
+    int a;
+    for(int i=0;i<n;i++) {
+        cin>>a;
+        if(a>max) {
+            max = a;
+        }
+        arr[a] = true;
+    }
+    for(int i=1;i<=max;i++) {
+        if(arr[i]==true) {
+            k--;
+        }
+        if(k == 0) {
+            cout<<i<<endl;
+            return 0;
+        }
+    }
+    cout<<"NO RESULT"<<endl;
+    return 0;
+}
+*/
+/*
+//P1004 [NOIP2000 提高组] 方格取数
+#include <bits/stdc++.h>
+using namespace std;
+int arr[12][12];
+int N;
+int dp[12][12][12][12];
+void dpFunc();
+int main() {
+    cin >> N;
+    int i, j, k;
+    do {
+        cin >> i >> j >> k;
+        arr[i][j] = k;
+    }
+    while(i && j && k);
+    dpFunc();
+    cout << dp[N][N][N][N] << endl;
+    return 0;
+}
+void dpFunc() {
+    for(int i = 1; i <= N; i++) {
+        for(int j = 1; j <= N; j++) {
+            for(int k = 1; k <= N; k++) {
+                for(int l = 1; l <= N; l++) {
+                    if (j == N && k == N && l == N && i == N) {
+                        dp[i][j][k][l] = max(
+                        max(dp[i-1][j][k][l],dp[i][j-1][k][l]),
+                        max(dp[i][j][k-1][l],dp[i][j][k][l-1]));
+                    }
+                    if (i == k|| j ==l ) continue;
+                    dp[i][j][k][l] = max(
+                        max(dp[i-1][j][k][l],dp[i][j-1][k][l])+arr[i][j],
+                        max(dp[i][j][k-1][l],dp[i][j][k][l-1])+arr[k][l]);
+                }
+            }
+        }
+    }
 }
 */

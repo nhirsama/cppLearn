@@ -6,7 +6,7 @@
 ## 联系方式
 GitHub用户名为 *[nhirsama](https://github.com/nhirsama)*.  
 Gitee用户名为 *[nhirsama](https://gitee.com/nhirsama)*.  
-邮箱: *[nhirsama@outlook.com]()*  
+邮箱: *[nhirsama@outlook.com]()*.  
 ## 所用环境
 CLion 2024.2.3  
 语言标准 C20

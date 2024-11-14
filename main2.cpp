@@ -1140,7 +1140,7 @@ int main() {
 using namespace std;
 int arr[12][12];
 int N;
-int dp[12][12][12][12];
+int dp[25][15][15]; //第一个表示两人一共走了几步，第二个和第三个表示两个人分别向右走的次数。即i-j表示第一个人向下走的次数
 void dpFunc();
 int main() {
     cin >> N;
@@ -1151,23 +1151,20 @@ int main() {
     }
     while(i && j && k);
     dpFunc();
-    cout << dp[N][N][N][N] << endl;
+    cout << dp[N*2][N][N] << endl;
     return 0;
 }
 void dpFunc() {
-    for(int i = 1; i <= N; i++) {
-        for(int j = 1; j <= N; j++) {
-            for(int k = 1; k <= N; k++) {
-                for(int l = 1; l <= N; l++) {
-                    if (j == N && k == N && l == N && i == N) {
-                        dp[i][j][k][l] = max(
-                        max(dp[i-1][j][k][l],dp[i][j-1][k][l]),
-                        max(dp[i][j][k-1][l],dp[i][j][k][l-1]));
-                    }
-                    if (i == k|| j ==l ) continue;
-                    dp[i][j][k][l] = max(
-                        max(dp[i-1][j][k][l],dp[i][j-1][k][l])+arr[i][j],
-                        max(dp[i][j][k-1][l],dp[i][j][k][l-1])+arr[k][l]);
+    for (int i = 1; i <= N*2; i++) {
+        for (int j = 1; j <= i; j++) {
+            if (j > N) break;
+            for (int k = 1; k <= i; k++) {
+                if (k > N) break;
+                dp[i][j][k] = max(max(dp[i-1][j][k], dp[i-1][j-1][k-1]),
+                    max(dp[i-1][j][k-1], dp[i-1][j-1][k]))
+                +arr[j][i-j] + arr[k][i-k];
+                if(j == k) {
+                    dp[i][j][k] -= arr[j][i-j];
                 }
             }
         }

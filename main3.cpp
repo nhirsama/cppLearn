@@ -1,6 +1,5 @@
 /*
 //模板
-#include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
 int main() {
@@ -546,6 +545,312 @@ int main() {
                 break;
             }
         }
+    }
+    return 0;
+}
+*/
+/*
+//环境测试
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    printf("Hello World\n");
+}
+*/
+/*
+////T539820 202411A Giants
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int type ,A,B,C,D;
+    cin>>type>>A>>B>>C>>D;
+    if(type==0) cout <<A+B;
+    else if(type==1) cout <<max(A-C,0)+max(B-D,0);
+    return 0;
+}
+*/
+/*
+//T539821 202411B Legends Never Die
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int A,B,C,K;
+    cin>>A>>B>>C>>K;
+    if(A+B>=K) cout << "Yes\n";
+    else cout<<"No\n";
+    if(A+C>=K) cout << "Yes\n";
+    else cout<<"No\n";
+    if(C+B>=K) cout << "Yes\n";
+    else cout<<"No\n";
+    return 0;
+}
+*/
+/*
+//T539822 202411C K/D/A
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n;
+    int ans = 0;
+    int Num = 0;
+    cin >> n;
+    for (int i = 1; i <=n; i++) {
+        int K,D,A;
+        scanf("%d/%d/%d",&K,&D,&A);
+        int S = 0;
+        if (K-D >= 10) S = K*(K-D)+A;
+        else if (K >=D) S = (K-D+1)*3 +A;
+        else S = A*2;
+        if (S > ans) {
+            ans = S;
+            Num = i;
+        }
+    }
+    cout<<Num<<endl;
+    return 0;
+}
+*/
+/*
+//T539823 202411D Phoenix
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n;
+    cin >> n;
+    int ans = 0;
+    int arr[n+5];
+    for (int i = 1; i <= n; i++) {
+        cin >> arr[i];
+    }
+    for (int i = n-1; i >= 1; i--) {
+        bool A = true;
+        for(int j = n;j > i; j--) {
+            if(arr[i]<=arr[j]) {
+                A = false;
+            }
+        }
+            if(A == true) {
+                ans++;
+            }
+    }
+    cout << ans+1 << endl;
+    return 0;
+}
+*/
+/*
+//T539824 202411E 卡牌
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int x,n;
+    cin>>x>>n;
+    int num=0;
+    int arr[6] = {0};
+    for(int i=0;i<n;i++) {
+        int a = 0;
+        for(int j=0;j<5;j++) {
+            int b;
+            cin>>b;
+            if (x>=b) a = max(a,b);
+        }
+        //cin>>arr[i][0]>>arr[i][1]>>arr[i][2]>>arr[i][3]>>arr[i][4];
+        if (x>=a) {
+            x =x - a;
+            num++;
+            arr[a]++;
+        }
+    }
+    cout<<arr[1]<<" "<<arr[2]<<" "<<arr[3]<<" "<<arr[4]<<' '<<arr[5]<<endl;
+    cout<<x<<endl;
+    return 0;
+}
+*/
+/*
+//T539825 202411F Rise
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n,m;
+    cin >> n>>m;
+    int arr[1005] = {0};
+    vector<int> v;
+    for (int i = 0; i < m; i++) {
+        int a,b;
+        string st;
+        cin >> st >> a >> b;
+        if (st == "water") {
+            for (int j = a; j <= b; j++) {
+                arr[j] ++;
+            }
+        }
+        else if (st == "rise") {
+            int c;
+            cin >> c;
+            int ans = 0;
+            for (int j = a; j <= b; j++) {
+                if (arr[j] >= c) {
+                    arr[j] = 0;
+                    ans++;
+                }
+            }
+            v.push_back(ans);
+        }
+    }
+    for (const int i : v) {
+        cout << i << '\n';
+    }
+    return 0;
+}
+*/
+/*
+//T539826 202411G 三角含数
+//暴力肯定TLE，得用搜索
+#include <bits/stdc++.h>
+using namespace std;
+bool Func(int i);
+int ans;
+int main() {
+    int l,r;
+    cin>>l>>r;
+    for (int i = l; i <= r; i++) {
+        Func(i);
+    }
+    cout<<ans<<endl;
+    return 0;
+}
+bool Func(int i) {
+    int l[6];
+    l[0] = i%10;
+    i/=10;
+    l[1] = i%10;
+    i/=10;
+    l[2] = i%10;
+    i/=10;
+    l[3] = i%10;
+    i/=10;
+    l[4] = i%10;
+    i/=10;
+    l[5] = i;
+    for (int u = 0; u < 6; u++) {
+        for (int j = 0; j < 6; j++) {
+            for (int k = 0; k < 6; k++) {
+                if (j == k || k == u || u == j) {continue;}
+                if (l[u]+l[j]>l[k] && l[u]+l[k]>l[j]) {
+                    ans++;
+                }
+            }
+        }
+    }
+}
+*/
+/*
+//T539827 202411H Enemy
+#include <bits/stdc++.h>
+using namespace std;
+char arr[1005][1005];
+bool arrbool[1005][1005];
+int n,m;
+int main() {
+    cin>>n>>m;
+    //ios_base::sync_with_stdio(false);
+    for(int i=1;i<=n;i++) {
+        int H = 0;
+        int A = 0,B = 0;
+        for(int j=1;j<=m;j++) {
+            char inp;
+            cin>>inp;
+            if(inp=='H') H = j;
+            if(inp=='A') A++;
+            if(inp=='B') B++;
+        }
+        if(H) {
+            for(int j=1;j<H;j++) {
+                if(A>0) {
+                    arr[i][j] = 'A';
+                    A--;
+                }
+                else {
+                    arr[i][j] = '#';
+                }
+            }
+            for(int j=m;j>H;j--) {
+                if(B>0) {
+                    arr[i][j] = 'B';
+                    B--;
+                }
+                else {
+                    arr[i][j] = '#';
+                }
+            }
+            arr[i][H] = 'H';
+        }
+        else {
+            if (A==B) {
+                for(int j = 1;j<=m;j++) {
+                    arr[i][j] = '#';
+                }
+                continue;
+            }
+            int C = '0';
+            if (A>B) C = 1;
+            if (B>A) C = 2;
+            if(C == 1 && A>0) {
+                for(int j=m;j>=1;j--) {
+                    if(A) {
+                        arr[i][j] = 'A';
+                        A--;
+                    }
+                    else{
+                        arr[i][j]= '#';
+                    }
+                }
+            }
+            if(C == 2 && B>0) {
+                for(int j=1;j<=m ;j++) {
+                    if(B) {
+                        arr[i][j] = 'B';
+                        B--;
+                    }
+                    else {
+                        arr[i][j] = '#';
+                    }
+                }
+            }
+        }
+    }
+    //第二问
+    //输出
+    // for(int i=1;i<=n;i++) {
+    //     for(int j=1;j<=m;j++) {
+    //         cout<<arr[i][j];
+    //     }
+    //     cout<<endl;
+    // }
+    for(int i=1;i<=n;i++) {
+        for(int j=1;j<=m;j++) {
+            if(arr[i][j] == arr[i+1][j] && arr[i][j] != '#' && arr[i][j] != 'H') {
+                arrbool[i][j] = true;
+                arrbool[i+1][j] = true;
+            }
+            //if(arr[i][j] == arr[i][j+1] && arr[i][j] != '#' && arr[i][j] != 'H') {
+            //    arr[i][j] = '#';
+            //}
+            //if(arr[i][j] == arr[i][j-1] && arr[i][j] != '#' && arr[i][j] != 'H') {
+            //    arr[i][j] = '#';
+            //}
+            if(arr[i][j] == arr[i-1][j] && arr[i][j] != '#' && arr[i][j] != 'H') {
+                arrbool[i][j] = true;
+                arrbool[i-1][j] = true;
+            }
+        }
+    }
+    //输出
+    for(int i=1;i<=n;i++) {
+        for(int j=1;j<=m;j++) {
+            if(arrbool[i][j] == true) arr[i][j] = '#';
+            cout<<arr[i][j];
+        }
+        cout<<endl;
     }
     return 0;
 }

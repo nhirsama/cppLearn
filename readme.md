@@ -6,7 +6,8 @@
 
 ## 累了就看看可爱的折纸吧
 
-![Origami_1](G:\OneDrive\Desktop\learn_file\computer_file\Cpp\Learn\image\Origami_1.webp)
+<img src="G:\OneDrive\Desktop\learn_file\computer_file\Cpp\Learn\image\Origami_1.webp" alt="Origami_1" style="zoom:50%;" /> 
+
 ## 联系方式
 GitHub用户名为 *[nhirsama](https://github.com/nhirsama)*.  
 Gitee用户名为 *[nhirsama](https://gitee.com/nhirsama)*.  

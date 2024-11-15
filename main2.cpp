@@ -1198,3 +1198,32 @@ int main() {
     return 0;
 }
 */
+//B3637 最长上升子序列
+#include <bits/stdc++.h>
+using namespace std;
+int arr[5010];
+int n;
+int dpArr[5010];
+void dpFunc();
+int main() {
+    cin>>n;
+    for (int i = 0; i < n; i++) {
+        cin>>arr[i];
+    }
+    dpFunc();
+    int max = 0;
+    for (int j = n ; j > 0;j--) {
+        if (dpArr[j] > max) max = dpArr[j];
+    }
+    cout<<max;
+    return 0;
+}
+void dpFunc(){
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == 1) dpArr[1] = 1;
+        int max = 0;
+        for (int j = arr[i] ; j > 0;j--) {
+            if (dpArr[j] > max) max = dpArr[j];
+        }
+    }
+}

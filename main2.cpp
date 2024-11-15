@@ -1198,21 +1198,24 @@ int main() {
     return 0;
 }
 */
+/*
 //B3637 最长上升子序列
 #include <bits/stdc++.h>
 using namespace std;
 int arr[5010];
 int n;
-int dpArr[5010];
+int dpArr[1000010]; //下标记录的是以i结尾的最大的子序列长度，另一种更好的做法是以ai结尾的最长子链长度。
 void dpFunc();
 int main() {
     cin>>n;
+    int maxa = 0;
     for (int i = 0; i < n; i++) {
         cin>>arr[i];
+        if (arr[i] > maxa) maxa = arr[i];
     }
     dpFunc();
     int max = 0;
-    for (int j = n ; j > 0;j--) {
+    for (int j = maxa ; j > 0;j--) {
         if (dpArr[j] > max) max = dpArr[j];
     }
     cout<<max;
@@ -1221,9 +1224,92 @@ int main() {
 void dpFunc(){
     for (int i = 0; i < n; i++) {
         if (arr[i] == 1) dpArr[1] = 1;
-        int max = 0;
-        for (int j = arr[i] ; j > 0;j--) {
-            if (dpArr[j] > max) max = dpArr[j];
+        int maxNum = 0;
+        for (int j = 1 ; j < arr[i];j++) {
+            if (dpArr[j] > maxNum) maxNum = dpArr[j];
+        }
+        dpArr[arr[i]] = max(maxNum+1,dpArr[arr[i]]);
+    }
+}
+*/
+/*
+//B3637 最长上升子序列
+#include <bits/stdc++.h>
+using namespace std;
+int arr[5010];
+int n;
+int dpArr[5010]; //以ai结尾的最长子链长度。
+void dpFunc();
+int main() {
+    cin>>n;
+    for (int i = 1; i <= n; i++) {
+        cin>>arr[i];
+    }
+    dpFunc();
+    int maxNum = 0;
+    for (int i = 1; i <= n; i++) {
+        if (dpArr[i] > maxNum) maxNum = dpArr[i];
+    }
+    cout<<maxNum;
+    return 0;
+}
+void dpFunc(){
+    for (int i = 1; i <= n; i++) {
+        dpArr[i] = 1;
+        for (int j = 1; j < i; j++) {
+            if (arr[j] < arr[i]) {
+                dpArr[i] = max(dpArr[i], dpArr[j] + 1);
+            }
         }
     }
 }
+*/
+/*
+//P1020 [NOIP1999 提高组] 导弹拦截
+#include <bits/stdc++.h>
+using namespace std;
+int arr[100005];
+int dpArr[100005];
+int n = 0;
+int main() {
+    //输入部分
+    //in 90 103 99 83 102 70 86 70 99 71
+    //out 5 3
+    ios_base::sync_with_stdio(false);
+    do {
+        n++;
+        cin >> arr[n];
+    }
+    while (cin.peek() == ' ');
+    //第一问
+    for (int i = 1; i <= n; i++) {
+        dpArr[i] = 1;
+        for (int j = 1; j < i; j++) {
+            if (arr[i] <= arr[j]) dpArr[i] = max(dpArr[i], dpArr[j] + 1);
+        }
+    }
+    int maxNum = 0;
+    for (int i = 1; i <= n; i++) {
+        if (dpArr[i] > maxNum) maxNum = dpArr[i];
+    }
+    cout << maxNum << endl;
+    //第二问
+    int num = 0;
+    int Tow[100005]; //应为单调增序列，从最小值开始遍历，若发现ai大于某值则用其进行拦截。
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j < 100005; j++) {
+            if (Tow[j] == 0) {
+                Tow[j] = arr[i];
+                num++;
+                break;
+            }
+            if (arr[i] <= Tow[j]) {
+                Tow[j] = arr[i];
+                break;
+            }
+        }
+    }
+    cout << num << endl;
+    return 0;
+}
+*/

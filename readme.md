@@ -10,3 +10,4 @@ Gitee用户名为 *[nhirsama](https://gitee.com/nhirsama)*.
 ## 所用环境
 CLion 2024.2.3  
 语言标准 C20
+## Git 神！

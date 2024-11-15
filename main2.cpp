@@ -1171,9 +1171,30 @@ void dpFunc() {
     }
 }
 */
+/*
 #include <bits/stdc++.h>
 using namespace std;
 int main() {
     cout << "Hello World!" << endl;
     return 0;
 }
+*/
+/*
+//emmm
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    char a,b,c;
+    cin>>a>>b>>c;
+    char *aPtr = &a;
+    char *bPtr = &b;
+    char *cPtr = &c;
+    char *temp = nullptr;
+    if (*aPtr>*bPtr) swap(aPtr,bPtr);
+    if (*bPtr>*cPtr) swap(cPtr,bPtr);
+    if (*aPtr>*bPtr) swap(aPtr,bPtr);
+    //if (*bPtr>*cPtr) swap(cPtr,bPtr);
+    cout << *aPtr<<" "<<*bPtr<<" "<<*cPtr;
+    return 0;
+}
+*/

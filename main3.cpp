@@ -1016,3 +1016,45 @@ int main() {
     return 0;
 }
 */
+/*
+//【LGR-205-Div.2】核桃编程 11 月月赛 II & GFOI Round 2
+#include <bits/stdc++.h>
+using namespace std;
+int min1 = 0;
+long long num[27];
+char Func(char m) {
+    int max3 = 0;
+    bool aaa = true;
+    num[m-'a']--;
+    for (int i = 0; i < 26; i++) {
+        if (i>1)if (num[i] != num[i-1]) aaa = false;
+        if (num[i] < num[max3]) {
+            max3 = i;
+        }
+    }
+    // if (aaa) {
+    //     //num[m-'a']++;
+    //     return m;
+    // }
+    //num[max3]++;
+    num[m-'a']++;
+    return max3+'a';
+}
+int main() {
+    int n;
+    char arr[1000005];
+    char pri[1000005];
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+        num[arr[i]-'a']++;
+    }
+    for (int i = 0; i < n; i++) {
+        pri[i] = Func(arr[i]);
+    }
+    for (int i = 0; i < n; i++) {
+        cout << pri[i];
+    }
+    return 0;
+}
+*/

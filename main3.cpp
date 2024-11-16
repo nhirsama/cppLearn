@@ -707,8 +707,8 @@ int main() {
 //暴力肯定TLE，得用搜索
 #include <bits/stdc++.h>
 using namespace std;
-bool Func(int i);
-int ans;
+int ans = 0;
+void Func(int i);
 int main() {
     int l,r;
     cin>>l>>r;
@@ -718,8 +718,9 @@ int main() {
     cout<<ans<<endl;
     return 0;
 }
-bool Func(int i) {
+void Func(int i) {
     int l[6];
+    int ls[6] = {0,1,0,0,0,0};
     l[0] = i%10;
     i/=10;
     l[1] = i%10;
@@ -731,16 +732,33 @@ bool Func(int i) {
     l[4] = i%10;
     i/=10;
     l[5] = i;
-    for (int u = 0; u < 6; u++) {
-        for (int j = 0; j < 6; j++) {
-            for (int k = 0; k < 6; k++) {
-                if (j == k || k == u || u == j) {continue;}
-                if (l[u]+l[j]>l[k] && l[u]+l[k]>l[j]) {
-                    ans++;
-                }
-            }
-        }
-    }
+    sort(l,l+6);
+     for (int j = 1; j < 5; j++) {
+         if (l[j]-l[j-1] == 0) break;
+         if (l[j]-l[j-1] > l[j+1]-l[j]) {
+             ls[0] = j;
+             ls[1] = j+1;
+         }
+     }
+     for (int j = 0; j < 5; j++) {
+         if (l[j] > l[1] - l[0] && j != ls[1] && j != ls[0]) {
+             ls[2] = j;
+             break;
+         }
+     }
+     int m = 3;
+     for (int j = 0; j <= 5; j++) {
+         if (j  != ls[0] && j != ls[1] && j != ls[2]) {
+             ls[m] = j;
+             m++;
+         }
+     }
+     if (l[ls[0]]+l[ls[1]] > l[ls[2]] && l[ls[3]]+l[ls[4]] > l[ls[5]]) {
+         ans+=1;
+     }
+}
+void AA(int li[]) {
+
 }
 */
 /*
@@ -852,6 +870,149 @@ int main() {
         }
         cout<<endl;
     }
+    return 0;
+}
+*/
+/*
+//P5707 【深基2.例12】上学迟到
+#include <bits/stdc++.h>
+using namespace std;
+int s,v;
+int main() {
+    cin>>s>>v;
+    int minTime = s/v;
+    if (s%v != 0) minTime++;
+    minTime += 10;
+    if (minTime <= 8*60) {
+        int h = minTime / 60;
+        if (minTime % 60 != 0) h++;
+         minTime %= 60;
+        if (minTime == 0) minTime = 60;
+        cout<<setw(2)<<setfill('0')<<8-h<<':'<<setw(2)<<60-minTime<<endl;
+    }
+    else {
+        int h = minTime / 60;
+        if (minTime % 60 != 0) h++;
+        minTime %= 60;
+        if (minTime == 0) minTime = 60;
+        cout<<setw(2)<<setfill('0')<<8-h+24<<':'<<setw(2)<<60-minTime<<endl;
+    }
+    return 0;
+}
+*/
+/*
+//P2141 [NOIP2014 普及组] 珠心算测验
+#include <bits/stdc++.h>
+using namespace std;
+int arr[105];
+int ans[105][105];
+int main() {
+    int n;
+    int num=0;
+    cin >> n;
+    for (int i = 1; i <= n; i++) {
+        cin >> arr[i];
+    }
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            if(i != j) ans[i][j] = arr[i]+arr[j];
+        }
+    }
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            for (int k = 1; k <= n; k++) {
+                if(j != k && ans[j][k] == arr[i]) {
+                    num++;
+                    goto aa;
+                }
+            }
+        }
+        aa:
+    }
+    cout << num << endl;
+    return 0;
+}
+*/
+/*
+//P5587 打字练习
+#include <bits/stdc++.h>
+using namespace std;
+vector<string> input,example;
+int main() {
+    string line;
+    getline(cin, line);
+    while(line != "EOF"){
+        example.push_back({});
+        for(char c : line) {
+            if(c != '<') example.back().push_back(c);
+            else if(example.back().back() != 0 )example.back().pop_back();
+        }
+        getline(cin, line);
+    }
+    getline(cin, line);
+    while(line != "EOF"){
+        input.push_back({});
+        for(char c : line) {
+            if(c != '<') input.back().push_back(c);
+            else if(input.back().back() != 0 )input.back().pop_back();
+        }
+        getline(cin, line);
+    }
+    int correct = 0;
+    int Time;
+    cin >> Time;
+    for (int i = 0; i < input.size(); i++) {
+        for (int j = 0; j < input[i].size(); j++) {
+            if (input[i][j] == example[i][j]) correct++;
+        }
+    }
+    printf("%.0f\n", static_cast<float>(correct)*60 / static_cast<float>(Time));
+    return 0;
+}
+*/
+/*
+//P5587 打字练习    //需要注意的是，可能输入的字符串大于范文的字符串，可能会导致数组越界。
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    vector<string> input,example;
+    string line;
+    getline(cin, line);
+    while (line!="EOF") {
+        example.emplace_back();
+        for (int i = 0; i < line.size(); i++) {
+            if (line[i] == '<') {
+                if (!example.back().empty()) example.back().pop_back();
+            }
+            else example.back().push_back(line[i]);
+            //else if ('a' <= c && c <= 'z' || c == ' ' || c == '.') example.back().push_back(c);
+        }
+        getline(cin, line);
+    }
+    getline(cin, line);
+    while (line!="EOF") {
+        input.emplace_back();
+        for (int i = 0; i < line.size(); i++) {
+            if (line[i] == '<') {
+                if (!input.back().empty()) input.back().pop_back();
+            }
+            else input.back().push_back(line[i]);
+            //else if ('a' <= c && c <= 'z' || c == ' ' || c == '.') input.back().push_back(c);
+        }
+        getline(cin, line);
+    }
+    long long correct = 0;
+    for (int i = 0; i < input.size(); i++) {    //把这里改成min(input.size(),example.size())也可
+        for (int j = 0; j < input[i].size(); j++) {
+            if (input[i][j] == 0) break;
+            if (j >= example[i].size()) break;
+            if (input[i][j] == example[i][j]) correct++;
+        }
+        if (i >= example.size()) break;
+    }
+    int Time;
+    cin >> Time;
+    cout<<(long long)(correct*60.0/Time+0.5);
     return 0;
 }
 */

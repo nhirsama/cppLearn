@@ -1058,3 +1058,9 @@ int main() {
     return 0;
 }
 */
+//模板
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    return 0;
+}

@@ -1268,48 +1268,93 @@ void dpFunc(){
 //P1020 [NOIP1999 提高组] 导弹拦截
 #include <bits/stdc++.h>
 using namespace std;
-int arr[100005];
-int dpArr[100005];
-int n = 0;
+int arr[100010];
+//int dpArr[100005];
+int Tow1[100010];
+int Tow[100010];
+long long n = 0;
+long long num = 0;
+void Func(int i);
+void Func2(int i);
 int main() {
     //输入部分
     //in 90 103 99 83 102 70 86 70 99 71
     //out 5 3
-    ios_base::sync_with_stdio(false);
+    //ios_base::sync_with_stdio(false);
     do {
+        if (!('0' <=cin.peek() && cin.peek() <= '9')) {break;}
         n++;
         cin >> arr[n];
     }
-    while (cin.peek() == ' ');
-    //第一问
+    while (getchar() == ' ');
+    // 第一问
+     //应为单调增序列，从最小值开始遍历，若发现ai大于某值则用其进行拦截。
     for (int i = 1; i <= n; i++) {
-        dpArr[i] = 1;
-        for (int j = 1; j < i; j++) {
-            if (arr[i] <= arr[j]) dpArr[i] = max(dpArr[i], dpArr[j] + 1);
-        }
+        Func(i);
     }
-    int maxNum = 0;
-    for (int i = 1; i <= n; i++) {
-        if (dpArr[i] > maxNum) maxNum = dpArr[i];
-    }
-    cout << maxNum << endl;
+        // for (int j = 1; j < 100005; j++) {
+        //     if (Tow1[j] == 0) {
+        //         Tow1[j] = arr[i];
+        //         num++;
+        //         break;
+        //     }
+        //     if (arr[i] > Tow1[j]) {
+        //         Tow1[j] = arr[i];
+        //         break;
+        //     }
+        // }
+    // for (int i = 1; i <= n; i++) {
+    //     dpArr[i] = 1;
+    //     for (int j = 1; j < i; j++) {
+    //         if (arr[i] <= arr[j]) dpArr[i] = max(dpArr[i], dpArr[j] + 1);
+    //     }
+    // }
+    // int maxNum = 0;
+    // for (int i = 1; i <= n; i++) {
+    //     if (dpArr[i] > maxNum) maxNum = dpArr[i];
+    // }
+    cout << num << endl;
     //第二问
-    int num = 0;
-    int Tow[100005]; //应为单调增序列，从最小值开始遍历，若发现ai大于某值则用其进行拦截。
+    num = 0;
+     //应为单调增序列，从最小值开始遍历，若发现ai大于某值则用其进行拦截。
     for (int i = 1; i <= n; i++) {
-        for (int j = 1; j < 100005; j++) {
-            if (Tow[j] == 0) {
-                Tow[j] = arr[i];
-                num++;
-                break;
-            }
-            if (arr[i] <= Tow[j]) {
-                Tow[j] = arr[i];
-                break;
-            }
-        }
+        Func2(i);
     }
+    //     for (int j = 1; j < 100005; j++) {
+    //         if (Tow[j] == 0) {
+    //             Tow[j] = arr[i];
+    //             num++;
+    //             break;
+    //         }
+    //         if (arr[i] <= Tow[j]) {
+    //             Tow[j] = arr[i];
+    //             break;
+    //         }
+    //     }
+    // }
     cout << num << endl;
     return 0;
+}
+bool upperCmp(const int val, const int a) {
+    return val > a;
+}
+void Func(int i) {  //严格上升子序列数量
+    if (Tow1[num] >= arr[i] || num == 0) {
+        Tow1[num+1] = arr[i];
+        num++;
+        return;
+    }
+    *upper_bound(Tow1+1, Tow1+num+1, arr[i],upperCmp) = arr[i];
+}
+bool upperCmp2(const int val, const int a) {
+    return val <= a;
+}
+void Func2(int i) {  //严格上升子序列数量
+    if (Tow[num] < arr[i] || num == 0) {
+        Tow[num+1] = arr[i];
+        num++;
+        return;
+    }
+    *upper_bound(Tow+1, Tow+num+1, arr[i],upperCmp2) = arr[i];
 }
 */

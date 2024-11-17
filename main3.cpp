@@ -733,32 +733,10 @@ void Func(int i) {
     i/=10;
     l[5] = i;
     sort(l,l+6);
-     for (int j = 1; j < 5; j++) {
-         if (l[j]-l[j-1] == 0) break;
-         if (l[j]-l[j-1] > l[j+1]-l[j]) {
-             ls[0] = j;
-             ls[1] = j+1;
-         }
-     }
-     for (int j = 0; j < 5; j++) {
-         if (l[j] > l[1] - l[0] && j != ls[1] && j != ls[0]) {
-             ls[2] = j;
-             break;
-         }
-     }
-     int m = 3;
-     for (int j = 0; j <= 5; j++) {
-         if (j  != ls[0] && j != ls[1] && j != ls[2]) {
-             ls[m] = j;
-             m++;
-         }
-     }
+
      if (l[ls[0]]+l[ls[1]] > l[ls[2]] && l[ls[3]]+l[ls[4]] > l[ls[5]]) {
          ans+=1;
      }
-}
-void AA(int li[]) {
-
 }
 */
 /*
@@ -1058,9 +1036,142 @@ int main() {
     return 0;
 }
 */
-//模板
+/*
+//1097. 池塘计数        //答案错误，重写一遍再
 #include <bits/stdc++.h>
 using namespace std;
+char arr[1005][1005];
+int N,M;
+bool st[1005][1005];
+void Func(int i,int j);
 int main() {
+    int ans =0 ;
+    cin>>N>>M;
+    for(int i=1;i<=N;i++) {
+        for(int j=1;j<=M;j++) {
+            cin>>arr[i][j];
+        }
+    }
+    for(int i=0;i<=M+1;i++) {
+        arr[0][i] = '.';
+        arr[N+1][i] = '.';
+    }
+    for(int i=0;i<=N+1;i++) {
+        arr[i][0] = '.';
+        arr[i][M+1] = '.';
+    }
+    for(int i=1;i<=N;i++) {
+        for(int j=1;j<=M;j++) {
+            if (arr[i][j] == 'W') {
+                Func(i,j);
+                ans++;
+            }
+        }
+    }
+    cout<<ans<<endl;
     return 0;
 }
+struct sta {
+    int x;
+    int y;
+};
+void Func(int i,int j) {
+    st[i][j]=true;
+    stack <struct sta> s;
+    if (arr[i-1][j-1] == 'W') {
+        s.push({i-1,j-1});
+        arr[i-1][j-1] = '.';
+    }
+    st[i-1][j-1]=true;
+    if (arr[i-1][j] == 'W') {
+        s.push({i-1,j});
+        arr[i-1][j] = '.';
+    }
+    st[i-1][j] =true;
+    if (arr[i-1][j+1] == 'W') {
+        s.push({i-1,j+1});
+        arr[i-1][j+1] = '.';
+    }
+    st[i-1][j+1]=true;
+    if (arr[i][j-1] == 'W') {
+        s.push({i,j-1});
+        arr[i][j-1] = '.';
+    }
+    st[i][j-1]=true;
+    if (arr[i][j+1] == 'W') {
+        s.push({i,j+1});
+        arr[i][j+1] = '.';
+    }
+    st[i][j+1]=true;
+    if (arr[i+1][j-1] == 'W') {
+        s.push({i+1,j-1});
+        arr[i+1][j-1] = '.';
+    }
+    st[i+1][j-1]=true;
+    if (arr[i+1][j] == 'W') {
+        s.push({i+1,j});
+        arr[i+1][j] = '.';
+    }
+    st[i+1][j]=true;
+    if (arr[i+1][j+1] == 'W') {
+        s.push({i+1,j+1});
+        arr[i+1][j+1] = '.';
+    }
+    st[i+1][j+1]=true;
+    arr[i][j] = '.';
+    while(s.empty() == 0) {
+        Func(s.top().x,s.top().y);
+        s.pop();
+    }
+}
+*/
+/*
+//1097. 池塘计数
+#include <bits/stdc++.h>
+using namespace std;
+int M,N;
+char arr[1005][1005];
+bool st[1005][1005] = {false};
+struct a {
+    int x;
+    int y;
+};
+void bfs(int i,int j) {
+    ios_base::sync_with_stdio(false);
+    queue<struct a> q;
+    st[i][j] = true;
+    q.push({i,j});
+    while(!q.empty()) {
+        for (int i1 = q.front().x-1; i1 <= q.front().x+1; i1++) {
+            for (int j1 = q.front().y-1; j1 <= q.front().y+1; j1++) {
+                if (i1 < 0 || i1 > N || j1 < 0 || j1 > M) continue;
+                if (i1 == q.front().x && j1 == q.front().y) continue;
+                if (arr[i1][j1] == 'W' && st[i1][j1] == false) {
+                    q.push({i1, j1});
+                }
+                st[i1][j1] = true;
+            }
+        }
+        q.pop();
+    }
+}
+int main() {
+    int ans =0 ;
+    cin>>N>>M;
+    for(int i=1;i<=N;i++) {
+        for(int j=1;j<=M;j++) {
+            cin>>arr[i][j];
+        }
+    }
+    for(int i=1;i<=N;i++) {
+        for(int j=1;j<=M;j++) {
+            if(arr[i][j]=='W' && st[i][j]==false) {
+                bfs(i,j);
+                ans++;
+            }
+        }
+    }
+    cout<<ans<<endl;
+    return 0;
+}
+*/

@@ -1175,3 +1175,145 @@ int main() {
     return 0;
 }
 */
+/*
+//P1006 [NOIP2008 提高组] 传纸条
+//in 8 6
+// 0 94 11 25 24 51
+// 15 13 39 67 97 19
+// 76 12 33 99 18 92
+// 35 74 0 95 71 39
+// 33 39 32 37 45 57
+// 71 95 5 71 24 86
+// 8 51 54 74 24 75
+// 70 33 63 29 99 0
+//out 1382
+#include <bits/stdc++.h>
+using namespace std;
+int arr[100][100];
+int dpArr[120][100][100];
+int m,n;
+void dpFunc() {
+    for (int i = 2; i <= m+n; i++) {    //所在格子的横纵坐标之和
+        for (int j = 1; j < i; j++) {    //所在格子的横坐标
+            for (int k = 1; k < i; k++) {
+                dpArr[i][j][k] = max(max(dpArr[i-1][j][k],dpArr[i-1][j-1][k]),max(dpArr[i-1][j][k-1],dpArr[i-1][j-1][k-1]));
+                dpArr[i][j][k] += arr[j][i-j]+arr[k][i-k];
+                if (j == k) dpArr[i][j][k] -= arr[j][i-j];
+            }
+        }
+    }
+}
+int main() {
+    cin >> m>>n;
+    for (int i = 1; i <= m; i++) {
+        for (int j = 1; j <=n;j++) {
+            cin >> arr[i][j];
+        }
+    }
+    dpFunc();
+    int max1= 0;
+    for (int i = 1; i <= n+m; i++) {
+        for (int j = 1; j <= n+m;j++) {
+            if(dpArr[m+n][i][j] > max1) max1 = dpArr[m+n][i][j];
+        }
+    }
+    cout << max1 << endl;
+    return 0;
+}
+*/
+/*
+//P1162 填涂颜色
+#include <bits/stdc++.h>
+using namespace std;
+int n;
+int arr[100][100];
+bool st[100][100];
+struct a {
+    int x;
+    int y;
+};
+void Func(int i ,int j) {
+    queue<struct a> q;
+    bool to2[100][100];
+    q.push({i,j});
+    bool  flag = false;
+    while(!q.empty()) {
+        if (arr[q.front().x-1][q.front().y] == -1) {
+            flag = true;
+            break;
+        }
+        if (arr[q.front().x+1][q.front().y] == -1) {
+            flag = true;
+            break;
+        }
+        if (arr[q.front().x][q.front().y+1] == -1) {
+            flag = true;
+            break;
+        }
+        if (arr[q.front().x][q.front().y-1] == -1) {
+            flag = true;
+            break;
+        }
+        if (arr[q.front().x][q.front().y-1] == 0 && st[q.front().x][q.front().y-1] == 0) {
+            st[q.front().x][q.front().y-1] = true;
+            to2[q.front().x][q.front().y-1] = true;
+            q.push({q.front().x,q.front().y-1});
+        }
+        if (arr[q.front().x+1][q.front().y] == 0 && st[q.front().x+1][q.front().y] == 0) {
+            st[q.front().x+1][q.front().y] = true;
+            to2[q.front().x+1][q.front().y] = true;
+            q.push({q.front().x+1,q.front().y});
+        }
+        if (arr[q.front().x][q.front().y+1] == 0 && st[q.front().x][q.front().y+1] == 0) {
+            st[q.front().x][q.front().y+1] = true;
+            to2[q.front().x][q.front().y+1] = true;
+            q.push({q.front().x,q.front().y+1});
+        }
+        if (arr[q.front().x-1][q.front().y] == 0 && st[q.front().x-1][q.front().y] == 0) {
+            st[q.front().x-1][q.front().y] = true;
+            to2[q.front().x-1][q.front().y] = true;
+            q.push({q.front().x-1,q.front().y});
+        }
+        q.pop();
+    }
+    if (!flag) {
+        for (int w = 0; w < n; w++) {
+            for (int e = 0; e < n; e++) {
+                if (to2[w][e]) {
+                    arr[w][e] = 2;
+                }
+            }
+        }
+    }
+    st[i][j] = true;
+}
+int main() {
+    cin>>n;
+    for (int i = 0; i<=n+1; i++) {
+        arr[0][i] = -1;
+        arr[i][0] = -1;
+        arr[n+1][i] = -1;
+        arr[i][n+1] = -1;
+
+    }
+    for(int i=1;i<=n;i++) {
+        for(int j=1;j<=n;j++) {
+            cin>>arr[i][j];
+        }
+    }
+    for(int i =1 ;i<=n;i++) {
+        for(int j=1;j<=n;j++) {
+            if (arr[i][j]==0 && (!st[i][j])) {
+                Func(i,j);
+            }
+        }
+    }
+    for(int i=1;i<=n;i++) {
+        for(int j=1;j<=n;j++) {
+            cout<<arr[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    return 0;
+}
+*/

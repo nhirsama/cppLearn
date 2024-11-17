@@ -90,3 +90,50 @@ int main() {
     return 0;
 }
 */
+//P5734 【深基6.例6】文字处理软件
+#include <bits/stdc++.h>
+using namespace std;
+string input;
+int main() {
+    int q;
+    cin >> q;
+    cin >> input;
+    for (int i = 0; i < q; i++) {
+        int m;
+        cin >> m;
+        switch (m) {
+            case 1: {
+                string s;
+                cin >> s;
+                input +=s;
+                cout << input <<endl;
+                continue;
+            }
+            case 2: {
+                int a,b;
+                cin >> a >> b;
+                input = input.substr(a,a+b);
+                cout << input << endl;
+                continue;
+            }
+            case 3: {
+                int a;
+                string s;
+                cin >> a>>s;
+                input.insert(a,s);
+                cout << input <<endl;
+                continue;
+            }
+            case 4: {
+                string s;
+                cin >> s;
+                int a = input.find(s);
+                if (0<=  a <= input.size()) cout << a << endl;
+                else cout << -1 << endl;
+                continue;
+            }
+            default: ;
+        }
+    }
+    return 0;
+}

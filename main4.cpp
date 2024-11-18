@@ -543,3 +543,51 @@ int main() {
     return 0;
 }
 */
+/*
+//P1451 求细胞数量 我tm直接爆搜
+#include <bits/stdc++.h>
+#define x first
+#define y second
+using namespace std;
+int n,m;
+char arr[110][110];
+bool st[110][110] = {false};
+int dx[4]={-1,0,1,0};
+int dy[4]={0,1,0,-1};
+int ans = 0;
+void bfs(int i,int j) {
+    queue<pair<int,int> > q;
+    q.push(pair(i,j));
+    st[i][j] = true;
+    while(!q.empty()) {
+        pair<int,int> p = q.front();
+        for(int k=0;k<4;k++) {
+            int x = p.x + dx[k];
+            int y = p.y + dy[k];
+            if(st[x][y])continue;
+            if(x<1 || x > n || y < 1 || y > m) continue;
+            if(arr[x][y] != '0') {
+                q.push(pair(x,y));
+                st[x][y] = true;
+            }
+        }
+        q.pop();
+    }
+    ans++;
+}
+int main() {
+    cin>>n>>m;
+    for (int i =1 ; i<=n ; i++) {
+        for (int j =1 ; j<=m ; j++) {
+            cin>>arr[i][j];
+        }
+    }
+    for (int i =1 ; i<=n ; i++) {
+        for (int j =1 ; j<=m ; j++) {
+            if(!st[i][j] && arr[i][j] != '0')bfs(i,j);
+        }
+    }
+    cout << ans << '\n';
+    return 0;
+}
+*/

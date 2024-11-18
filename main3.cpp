@@ -1126,7 +1126,7 @@ void Func(int i,int j) {
 }
 */
 /*
-//1097. 池塘计数
+//1097. 池塘计数 & P1596 [USACO10OCT] Lake Counting S
 #include <bits/stdc++.h>
 using namespace std;
 int M,N;

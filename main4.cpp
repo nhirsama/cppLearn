@@ -307,3 +307,122 @@ int main() {
     return 0;
 }
 */
+/*
+//城堡问题
+#include <bits/stdc++.h>
+using namespace std;
+int m,n;
+int arr[ 100][100];
+bool st[100][100];
+struct m {
+    int x;
+    int y;
+};
+int dx[] = {0,-1,0,1};
+int dy[] = {-1,0,1,0};
+int bfs(int a,int b) {
+    st[a][b] = true;
+    queue<struct m> q;
+    q.push({a,b});
+    int area = 1;
+    while(!q.empty()) {
+        struct m temp = q.front();
+        for(int i = 0; i < 4 ;i++) {
+            int x = temp.x + dx[i];
+            int y = temp.y + dy[i];
+            if(st[x][y]) continue;
+            if(x < 1 || x > m || y < 1 || y > n) continue;
+            if(arr[temp.x][temp.y] >> i & 1) continue;
+            q.push({x,y});
+            st[x][y] = true;
+            area ++;
+        }
+        q.pop();
+    }
+    return area;
+}
+int main() {
+    cin>>m>>n;
+    for(int i =1 ; i<=m ; i++) {
+        for(int j =1 ; j<=n ; j++) {
+            cin>>arr[i][j];
+        }
+    }
+    int ans = 0,area = 0;
+    for(int i =1 ; i<=m ; i++) {
+        for(int j =1 ; j<=n ; j++) {
+            if(!st[i][j]) {
+                area = max(area,bfs(i,j));
+                ans++;
+            }
+        }
+    }
+    cout<<ans<<endl;
+    cout<<area<<endl;
+    return 0;
+}
+*/
+/*
+//P1141 01迷宫
+#include <bits/stdc++.h>
+using namespace std;
+int arr[1010][1010];
+bool st[1010][1010] = {false};
+int findArr[100020][2];
+int Num[100010];
+int n,m;
+struct a {
+    int x;
+    int y;
+};
+int ans = 2;
+int dx[] = {-1,0,1,0};int dy[] = {0, -1,0,1};
+void bfs(int a,int b) {
+    int mm = 1;
+    queue<struct a> q;
+    //q.push({a,b});
+    q.push({.x = a,.y = b});
+    st[a][b] = true;
+    while(!q.empty()) {
+        struct a p = q.front();
+        for(int i=0;i<4;i++) {
+            int x = p.x + dx[i];
+            int y = p.y + dy[i];
+            if(x<1 || x>n || y<1 || y>n) continue;
+            if(st[x][y]) continue;
+            if(arr[x][y] != arr[p.x][p.y]) {
+                st[x][y] = true;
+                mm++;
+                q.push({x,y});
+            }
+        }
+        arr[p.x][p.y] = ans;
+        q.pop();
+    }
+    Num[ans] = mm;
+    ans++;
+}
+int main() {
+    ios_base::sync_with_stdio(false);
+    scanf("%d %d",&n,&m);
+    //cin >> n >> m;
+    for (int i =1 ; i <= n ; i++) {
+        //getchar();
+        scanf("\n");
+        for (int j =1 ; j <= n ; j++) {
+            scanf("%c",&arr[i][j]);
+            //arr[i][j] = getchar();
+        }
+    }
+    for (int i = 0; i< m ;i++) {
+        scanf("%d %d",&findArr[i][0],&findArr[i][1]);
+        //cin >> findArr[i][0] >> findArr[i][1];
+    }
+    for (int i =0 ; i < m  ; i++) {
+        if(!st[findArr[i][0]][findArr[i][1]]) bfs(findArr[i][0],findArr[i][1]);
+        printf("%d\n",Num[arr[findArr[i][0]][findArr[i][1]]]);
+        //cout << Num[arr[findArr[i][0]][findArr[i][1]]] << '\n';
+    }
+    return 0;
+}
+*/

@@ -426,3 +426,120 @@ int main() {
     return 0;
 }
 */
+/*
+//P1051 [NOIP2005 提高组] 谁拿了最多奖学金 //C17和C20编译还不一样，用C20在洛谷上提交就稳定WA
+#include <bits/stdc++.h>
+using namespace std;
+struct student {
+    char name[20];
+    int ans;
+    int a;
+};
+bool sortCmp(struct student a, struct student b) {
+    if (a.ans == b.ans) {
+        return a.a < b.a;
+    }
+    return a.ans > b.ans;
+}
+int main() {
+    vector<struct student> students;
+    int N;
+    cin >> N;
+    int sum = 0;
+    int maxans = 0;
+    char maxName[20];
+    for (int i = 0; i < N; i++) {
+        struct student s;
+        int AverageScore;
+        char EStu;
+        int paper;
+        int grade;
+        char Ganbu;
+        int ans = 0;
+        cin >> s.name >> AverageScore>> grade >> Ganbu >> EStu >> paper;
+        if (AverageScore > 80 && paper >= 1) ans+=8000;
+        if (AverageScore > 85 && grade > 80) ans+=4000;
+        if (AverageScore > 90) ans+=2000;
+        if (AverageScore > 85 && EStu == 'Y') ans+=1000;
+        if (grade > 80 && Ganbu == 'Y') ans+=850;
+        s.a = i;
+        s.ans = ans;
+        sum+=ans;
+        if (ans > maxans) {
+            maxans = ans;
+            for (int j = 0; j< 20 ;j++) {
+                maxName[j] = s.name[j];
+            }
+        }
+        students.push_back(s);
+    }
+    //sort(students.begin(), students.end(),sortCmp);
+    cout << maxName << '\n' << maxans << endl;
+    cout << sum << '\n';
+    return 0;
+}
+*/
+/*
+//P1036 [NOIP2002 普及组] 选数
+#include <bits/stdc++.h>
+using namespace std;
+int arr[5000010];
+int k,n;
+int ans = 0;
+bool isPrime(long long q) {
+    for (int i = 2; i <= sqrt(q);i++) {
+        if (q % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+void dfs(int a,long long b ,int c) {   //a深度、b是目前的和，c是起始位置。
+    if(a == k) {
+        if(isPrime(b)) ans++;
+        return;
+    }
+    if(c>n) return;
+    for (int i = c; i <= n;i++) {
+        dfs(a+1,b+arr[i],i+1);
+    }
+}
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin>>n>>k;
+    for(int i =1; i<=n;i++) {
+        cin>>arr[i];
+    }
+    dfs(0,0,1);
+    cout<<ans;
+    return 0;
+}
+*/
+/*
+//P1008 [NOIP1998 普及组] 三连击
+#include <bits/stdc++.h>
+using namespace std;
+bool sr[10];
+int a = 0;
+void dfs(int a,int b) {
+    if (a == 9) {
+        int d = b / 1000000 ;
+        int c = b / 1000 % 1000;
+        int m = b % 1000;
+        if (d == c / 2 &&  c /2 == m / 3) {
+            cout << d << ' ' << c << ' ' << m << endl;
+            return;
+        }
+    }
+    for (int i = 1; i <= 9; i++) {
+        if (sr[i]) continue;
+        sr[i] = true;
+        dfs(a+1,b+i*static_cast<int>(pow(10, 8 - a)));
+        sr[i] = false;
+    }
+}
+int main() {
+    dfs(0,0);
+    return 0;
+}
+*/

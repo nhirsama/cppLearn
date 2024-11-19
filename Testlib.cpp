@@ -1,21 +1,42 @@
-#include<cstdio>
-
-int n,k,cnt;
-
-void dfs(int last,int sum,int cur)
-{
-    if(cur==k)
-    {
-        if(sum==n) cnt++;
-        return;
+#include<iostream>
+#include<cstring>
+#include<map>
+#include<queue>
+using namespace std;
+const int MAXN=2e3+5;
+char a[MAXN][MAXN];
+int n,m,r,c,x,y;
+struct node{
+    int x,y,r,s;//坐标,step->x-1
+}dp,dq;
+queue <node> us;
+int xx[MAXN][MAXN];
+int dx[4]={-1,0,0,1},dy[4]={0,1,-1,0},dr[4]={0,0,1,0},ds[4]={0,1,0,0};
+int ans=0;
+int main(){
+    cin>>n>>m>>r>>c>>x>>y;
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=m;j++){
+            cin>>a[i][j];
+            xx[i][j]=1e9;
+        }
+    dp.x=r,dp.y=c,dp.r=0,dp.s=0;
+    us.push(dp);
+    while(!us.empty()){
+        dp=us.front();
+        us.pop();
+        if(xx[dp.x][dp.y]<=dp.r||dp.r>x||dp.s>y||a[dp.x][dp.y]!='.')
+            continue;
+        if(xx[dp.x][dp.y]==1e9)
+            ans++;
+        xx[dp.x][dp.y]=dp.r;
+        for(int i=0;i<4;i++){
+            dq.x=dp.x+dx[i];
+            dq.y=dp.y+dy[i];
+            dq.r=dp.r+dr[i];
+            dq.s=dp.s+ds[i];
+            us.push(dq);
+        }
     }
-    for(int i=last;sum+i*(k-cur)<=n;i++)//剪枝，只用枚举到sum+i*(k-cur)<=n为止
-        dfs(i,sum+i,cur+1);
-}
-
-int main()
-{
-    scanf("%d%d",&n,&k);
-    dfs(1,0,0);
-    printf("%d",cnt);
+    cout<<ans;
 }

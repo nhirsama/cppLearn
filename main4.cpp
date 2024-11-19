@@ -591,3 +591,168 @@ int main() {
     return 0;
 }
 */
+/*
+//P1443 马的遍历
+#include <bits/stdc++.h>
+#define x first
+#define y second
+using namespace std;
+int n,m;
+int arr[459][459];
+int st[459][459];
+int dx[] = {-2,-2,-1,1,2,2,1,-1};
+int dy[] = {-1,1,2,2,1,-1,-2,-2};
+void bfs(int a, int b) {
+    queue<pair<int,int> > q;
+    q.push(make_pair(a,b));
+    st[a][b] = true;
+    while (!q.empty()) {
+        pair<int,int> p = q.front();
+        q.pop();
+        for (int i = 0; i < 8; i++) {
+            int x = p.x+dx[i];
+            int y = p.y+dy[i];
+            if (st[x][y])continue;
+            if (x<1 || x > n || y<1 || y > m) continue;
+            q.push(make_pair(x,y));
+            arr[x][y] = arr[p.x][p.y]+1;
+            st[x][y] = true;
+        }
+    }
+}
+int main() {
+    int cinX,cinY;
+    cin >> n >> m;
+    cin >> cinX >> cinY;
+    bfs(cinX, cinY);
+    // for (int i =1 ; i <= n ; i++) {
+    //     for (int j =1 ; j <= m ; j++) {
+    //         if(!st[i][j])bfs(i,j);
+    //     }
+    // }
+    for (int i =1 ; i <= n; i++) {
+        for (int j =1 ; j <= m ; j++) {
+            if(i == cinX && j == cinY) cout << 0 << ' ';
+            else if(arr[i][j] == 0) cout << -1 << ' ';
+            else cout << arr[i][j] << ' ';
+        }
+        cout << '\n';
+    }
+    return 0;
+}
+*/
+/*
+//P1747 好奇怪的游戏
+#include <bits/stdc++.h>
+#define x first
+#define y second
+using namespace std;
+int x1,y11;
+int x2,y2;
+int arr[45][45];
+bool st[45][45];
+int dx[] = {-2,-2,-1,1,2,2,1,-1,-2,-2,2,2};   //马的遍历坐标
+int dy[] = {-1,1,2,2,1,-1,-2,-2,-2,2,2,-2};
+void bfs(int a, int b) {
+    queue<pair<int,int> > q;
+    q.push(make_pair(a,b));
+    st[a][b] = true;
+    while (!q.empty()) {
+        pair<int,int> p = q.front();
+        q.pop();
+        for (int i = 0; i < 12; i++) {
+            int x = p.x+dx[i];
+            int y = p.y+dy[i];
+            if (st[x][y])continue;
+            if (x<1 || x > a+3 || y<1 || y > b+3) continue;
+            q.push(make_pair(x,y));
+            arr[x][y] = arr[p.x][p.y]+1;
+            st[x][y] = true;
+        }
+    }
+}
+int main() {
+    cin >> x1 >> y11;
+    cin >> x2 >> y2;
+    bfs(x1, y11);
+    int ansM1 = arr[1][1];
+    for (int i = 1 ; i < x1+4 ; i++) {
+        for (int j = 1 ; j < y11+4 ; j++) {
+            arr[i][j] = 0;
+            st[i][j] = false;
+        }
+    }
+    bfs(x2, y2);
+    int ansM2 = arr[1][1];
+    cout << ansM1 << '\n' << ansM2 << '\n';
+    return 0;
+}
+*/
+/*
+//T539826 202411G 三角含数
+#include <bits/stdc++.h>
+using namespace std;
+int ans = 0;
+int arr[7];
+int s1[] = {1,1,1,1,1,1,1,1,1,1};
+int s2[] = {2,2,2,2,3,3,3,4,4,5};
+int s3[] = {3,4,5,6,4,5,6,5,6,6};
+int s4[] = {4,3,3,3,2,2,2,2,2,2};
+int s5[] = {5,5,4,4,5,4,4,3,3,3};
+int s6[] = {6,6,6,5,6,6,5,6,5,4};
+void dfs(int j) {
+    for(int i=1;i<=6;i++) {
+        arr[i] = j%10;
+        j /=10;
+    }
+    for(int i=0;i<10;i++) {
+        if(
+            arr[s1[i]] + arr[s2[i]] > arr[s3[i]] && arr[s4[i]] + arr[s5[i]] > arr[s6[i]] &&
+            arr[s2[i]] + arr[s3[i]] > arr[s1[i]] && arr[s4[i]] + arr[s6[i]] > arr[s5[i]] &&
+            arr[s1[i]] + arr[s3[i]] > arr[s2[i]] && arr[s5[i]] + arr[s6[i]] > arr[s4[i]]
+            ) {
+            ans++;
+            return;
+        }
+    }
+}
+int main() {
+    int a,b;
+    cin>>a>>b;
+    for(int i=a;i<=b;i++) {
+        dfs(i);
+    }
+    cout<<ans<<endl;
+    return 0;
+}
+*/
+/*
+//P1025 [NOIP2001 提高组] 数的划分
+#include <bits/stdc++.h>
+using namespace std;
+int n,k;
+int ans = 0;
+void dfs(int a,int b,int c) {   //a是深度，b是前几次迭代的和，k是开始的值
+    if(b > n) return;
+    if (a == k-1) {
+        if(c<=n-b) {
+            ans++;
+        }
+        return;
+    }
+    // if(a == k && b == n) {
+    //     ans++;
+    //     return;
+    // }
+    // if(a == k)return;
+    for (int i = c; i <= n - b; i++) {
+        dfs(a+1,b+i,i);
+    }
+}
+int main() {
+    cin>>n>>k;
+    dfs(0,0,1);
+    cout<<ans;
+    return 0;
+}
+*/

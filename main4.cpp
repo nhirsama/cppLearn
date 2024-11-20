@@ -921,17 +921,51 @@ int main() {
 using namespace std;
 const int N=2e5+10;
 void Func() {
-    int n;
-    int arr[N];
-    cin>>n;
-    for(int i =1 ; i <=n;i++) {
-        int x;
-        cin>>arr[i];
+    int v;
+    int arr2[N];
+    cin>>v;
+    for(int i =1 ; i <=v;i++) {
+        cin>>arr2[i];
     }
-    sort(arr,arr+n);
-    for(int i = 1; i<n;i++) {
-        for (int j = 0 ; j< n;j++) {
-
+    sort(arr2+1,arr2+v+1);
+    int m = 0x7FFFFFFF;
+    int n = 0;
+    for(int i =1;i<=v;i++) {
+        if(arr2[i] == m) {
+            arr2[n++] = arr2[i];
+            m = 0x7FFFFFFF;
+            continue;
+        }
+        m = arr2[i];
+    }
+    if(n < 4) {
+        cout<<"NO\n";
+        return;
+    }
+    for(int i = 0 ; i < n/2;i++) {
+        for(int k = 0 ; k < 2;k++) {
+            int j = n-1-i+k;
+            cout<<"YES\n";
+            cout<< arr2[i] << ' '<< arr2[i+1] << ' '
+                << arr2[i] << ' ' << arr2[j] << ' '
+                << arr2[j-1] << ' ' << arr2[i+1] << ' '
+                << arr2[j-1] << ' ' << arr2[j] << '\n';
+            return;
+            // if(arr2[i] + arr2[j] == arr2[i+1] + arr2[j-1]) {   //x1 + y3 == x3 + y1
+            //     cout<<"YES\n";
+            //     cout<< arr2[i] << ' '<< arr2[i+1] << ' '
+            //         << arr2[i] << ' ' << arr2[j-1] << ' '
+            //         << arr2[j] << ' ' << arr2[j-1] << ' '
+            //         << arr2[j] << ' ' << arr2[i+1] << '\n';
+            //     return;
+            // }
+            // if(arr2[i] + arr2[i+1] == arr2[j] + arr2[j-1]) {
+            //     cout<<"YES\n";
+            //     cout<< arr2[i] << ' ' << arr2[j] << ' '
+            //         << arr2[i] << ' ' << arr2[j-1] << ' '
+            //         << arr2[i+1] << ' ' << arr2[j-1] << ' '
+            //         << arr2[i+1] << ' ' << arr2[j] << '\n';
+            //     return;
         }
     }
 }

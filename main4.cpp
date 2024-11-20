@@ -756,3 +756,191 @@ int main() {
     return 0;
 }
 */
+/*
+//A - 深さ優先探索
+#include <bits/stdc++.h>
+using namespace std;
+int m,n;
+char arr[505][505];
+int dx[] = {-1,0,1,0};
+int dy[] = {0,-1,0,1};
+bool flag = false;
+void dfs(int a,int b) {
+    if(flag == true) return;
+    if(arr[a][b] == 'g') {
+        flag = true;
+        return;
+    }
+    arr[a][b]='#';
+    for(int i=0;i<4;i++) {
+        int x = a+dx[i];
+        int y = b+dy[i];
+        if(x<1 || x > n || y<1 || y > m) continue;
+        if(arr[x][y] == '#') continue;
+        dfs(x,y);
+    }
+}
+int main() {
+    cin>>n>>m;
+    int a,b;
+    for(int i= 1; i<=n; i++) {
+        for(int j = 1; j<=m; j++) {
+            cin>>arr[i][j];
+            if(arr[i][j] == 's') {
+                a = i;b = j;
+            }
+        }
+    }
+    dfs(a,b);
+    if(flag) {
+        cout<<"Yes"<<endl;
+        return 0;
+    }
+    cout<<"No"<<endl;
+    return 0;
+}
+*/
+/*
+//骑士的移动 Knight Moves
+#include <bits/stdc++.h>
+#define x first
+#define y second
+using namespace std;
+int n,m;
+int arr1[15][15];
+int st[15][15];
+int dx[] = {-2,-2,-1,1,2,2,1,-1};
+int dy[] = {-1,1,2,2,1,-1,-2,-2};
+void bfs(int a, int b) {
+    queue<pair<int,int> > q;
+    q.push(make_pair(a,b));
+    st[a][b] = true;
+    while (!q.empty()) {
+        pair<int,int> p = q.front();
+        q.pop();
+        for (int i = 0; i < 8; i++) {
+            int x = p.x+dx[i];
+            int y = p.y+dy[i];
+            if (st[x][y])continue;
+            if (x<1 || x > 8 || y<1 || y > 8) continue;
+            q.push(make_pair(x,y));
+            arr1[x][y] = arr1[p.x][p.y]+1;
+            st[x][y] = true;
+        }
+    }
+}
+int main() {
+    char arr[1000][2][2];
+    int n = 1;
+    while ('a' <= cin.peek() && cin.peek() <= 'z') {
+        cin >> arr[n][0][0] >> arr[n][0][1];
+        cin >> arr[n][1][0] >> arr[n][1][1];
+        n++;
+        getchar();
+    }
+    for (int i = 1; i < n; i++) {
+        bfs(arr[i][0][1]-'0',arr[i][0][0]-'a'+1);
+        cout << arr1[arr[i][1][1]-'0'][arr[i][1][0]-'a'+1] << endl;
+        for (int j = 0;j <=14 ;j++) {
+            for(int k =0 ;k <=14 ;k++) {
+                arr1[i][j] = 0;
+                st[i][j] = false;
+            }
+        }
+    }
+    return 0;
+}
+*/
+/*
+//P3741 小果的键盘
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    string s;
+    int n;
+    int ans = 0;
+    bool flag = false;
+    cin >> n >> s;
+    for (int i = 0; i < n-1; i++) {
+        if(s[i] == 'V' && s[i+1] == 'K') {
+            s[i] = '#';
+            s[i+1] = '#';
+            i++;
+            ans++;
+        }
+    }
+    for (int i = 0; i < n-1; i++) {
+        if(s[i] == 'K' && s[i+1] == 'K') {
+            flag = true;
+            break;
+        }
+        if(s[i] == 'V' && s[i+1] == 'V') {
+            flag = true;
+            break;
+        }
+    }
+    if(flag)cout << ans+1 << endl;
+    else cout << ans << endl;
+    return 0;
+}
+*/
+/*
+//B - Waiting for...
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n;
+    cin >> n;
+    int peoNum = 0;
+    for (int i = 0; i < n; i++) {
+        char A;
+        int b;
+        cin >> A >> b;
+        switch (A) {
+            case 'B': {
+                if (b > peoNum) {
+                    peoNum = 0;
+                    cout << "YES" << endl;
+                }
+                else {
+                    peoNum -= b;
+                    cout << "NO" << endl;
+                }
+                continue;
+            }
+            case 'P': {
+                peoNum += b;
+            }
+        }
+    }
+    return 0;
+}
+*/
+//A - DIY
+#include <bits/stdc++.h>
+using namespace std;
+const int N=2e5+10;
+void Func() {
+    int n;
+    int arr[N];
+    cin>>n;
+    for(int i =1 ; i <=n;i++) {
+        int x;
+        cin>>arr[i];
+    }
+    sort(arr,arr+n);
+    for(int i = 1; i<n;i++) {
+        for (int j = 0 ; j< n;j++) {
+
+        }
+    }
+}
+int main() {
+    ios_base::sync_with_stdio(0);
+    int n;
+    cin >> n;
+    for (int i =0 ; i < n ; i++) {
+        Func();
+    }
+    return 0;
+}

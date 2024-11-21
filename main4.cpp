@@ -916,6 +916,7 @@ int main() {
     return 0;
 }
 */
+/*
 //A - DIY
 #include <bits/stdc++.h>
 using namespace std;
@@ -976,5 +977,152 @@ int main() {
     for (int i =0 ; i < n ; i++) {
         Func();
     }
+    return 0;
+}
+*/
+/*
+//P1331 海战
+#include <bits/stdc++.h>
+int R,C;
+char arr[1005][1005];
+bool st[1005][1005];
+int dx[] = {-1,0,1,0};
+int dy[] = {0,-1,0,1};
+int ans = 0;
+using namespace std;
+bool bfs(int a,int b) {
+    queue<pair<int,int> > q;
+    int ls[2] = {a,b};
+    int rs[2] = {a,b};
+    st[a][b] = true;
+    ans++;
+    int num = 1;
+    q.push(make_pair(a,b));
+    while(!q.empty()) {
+        pair<int,int> p = q.front();
+        q.pop();
+        for(int i =0;i<4;i++) {
+            int qx = p.first + dx[i];
+            int qy = p.second + dy[i];
+            if( qx < 1 || qx > R || qy < 1 || qy > C ) continue;
+            if(st[qx][qy])continue;
+            if(arr[qx][qy] == '.')continue;
+            st[qx][qy] = true;
+            num++;
+            q.push(make_pair(qx,qy));
+            if(qx < ls[0] || qy < ls[1]) {
+                ls[0] = qx;
+                ls[1] = qy;
+            }
+            if(rs[0] < qx || rs[1] < qy) {
+                rs[0] = qx;
+                rs[1] = qy;
+            }
+        }
+    }
+    if((rs[0] - ls[0] +1 ) * (rs[1] - ls[1] +1 ) == num) {
+        return true;
+    }
+    else {
+        cout<<"Bad placement.\n";
+        return false;
+    }
+}
+int main() {
+    cin>>R>>C;
+    for ( int i= 1 ;i<=R;i++) {
+        for(int j = 1 ;j <= C ;j++) {
+            cin>>arr[i][j];
+        }
+    }
+    for (int i = 1;i<=R;i++) {
+        for (int j = 1;j<=C;j++) {
+            if(!st[i][j] && arr[i][j] == '#') {
+                if(bfs(i,j)) {}
+                else return 0;
+            }
+        }
+    }
+    cout<< "There are " <<ans<< " ships." <<"\n";
+    return 0;
+}
+*/
+//P4961 小埋与扫雷
+#include <bits/stdc++.h>
+using namespace std;
+int n,m;
+int arr[1005][1005];
+int main() {
+    cin>>n>>m;
+    for(int i = 1;i <= n;i++) {
+        for(int j = 1;j <= m;j++) {
+            cin>>arr[i][j];
+            if(arr[i][j]==1) {
+                arr[i][j]=-1;
+            }
+        }
+    }
+    for(int i = 1;i <= n;i++) {
+        for(int j = 1;j <= m;j++) {
+            if(arr[i][j] == -1) {
+                for(int q = -1;q <= 1;q++) {
+                    for(int k = -1;k <= 1;k++) {
+                        int x = i + q;
+                        int y = j + k;
+                        if(i == x && j == y)continue;
+                        if(x < 1 || x > n || y < 1 || y > m) continue;
+                        if(arr[x][y] != -1) arr[x][y]++;
+                    }
+                }
+            }
+        }
+    }
+    int ans = 0;
+    for(int i = 1;i <= n;i++) {
+        for(int j = 1;j <= m;j++) {
+            if(arr[i][j] == 0) {
+                //判断周边是否是0
+                bool flag = true;
+                for(int q = -1;q <= 1;q++) {
+                    for(int k = -1;k <= 1;k++) {
+                        int x = i + q;
+                        int y = j + k;
+                        if(i == x && j == y)continue;
+                        // if(x == 1 || x == n || y == 1 || y == m) {
+                        //     flag = false;
+                        //     continue;
+                        // }
+                        if(x < 1 || x > n || y < 1 || y > m) continue;
+                        if(arr[x][y] == 0) {}
+                        else flag = false;
+                    }
+                }
+                if(flag == true) {
+                    ans++;
+                }
+            }
+            else if(arr[i][j] != -1) {
+                //判断周边是否是数
+                bool flag = true;
+                for(int q = -1;q <= 1;q++) {
+                    for(int k = -1;k <= 1;k++) {
+                        int x = i + q;
+                        int y = j + k;
+                        if(i == x && j == y)continue;
+                        // if(x == 1 || x == n || y == 1 || y == m) {
+                        //     flag = false;
+                        //     continue;
+                        // }
+                        if(x < 1 || x > n || y < 1 || y > m) continue;
+                        if(arr[x][y] == 0)flag = false;
+                    }
+                }
+                if(flag == true) {
+                    ans++;
+                }
+            }
+        }
+    }
+    cout<<ans<<endl;
     return 0;
 }

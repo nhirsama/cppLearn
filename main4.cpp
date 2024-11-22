@@ -1047,12 +1047,39 @@ int main() {
     return 0;
 }
 */
+/*
 //P4961 小埋与扫雷
 #include <bits/stdc++.h>
 using namespace std;
 int n,m;
 int arr[1005][1005];
 int ans = 0;
+bool st[1005][1005];
+void dfsSpace(int a,int b) {
+    queue<pair<int,int> > q;
+    q.emplace(a,b);
+    while(!q.empty()) {
+        pair<int,int> p = q.front();
+        q.pop();
+        if(arr[p.first][p.second] == 0) {
+            //判断周边是否是0
+            for(int j = -1;j <= 1;j++) {
+                for(int k = -1;k <= 1;k++) {
+                    int x = p.first + j;
+                    int y = p.second + k;
+                    if(p.first == x && p.second == y)continue;
+                    if(st[x][y] == true)continue;
+                    if(x < 1 || x > n || y < 1 || y > m) continue;
+                    if(arr[x][y] == 0) {
+                        st[x][y] = true;
+                        q.emplace(x,y);
+                    }
+                }
+            }
+        }
+    }
+    ans++;
+}
 int main() {
     cin>>n>>m;
     for(int i = 1;i <= n;i++) {
@@ -1080,7 +1107,71 @@ int main() {
     }
     //上述为判断雷及数字的
     //下列为判断3bv的
-
+    for(int i = 1;i <= n;i++) {
+        for(int j = 1;j <= m;j++) {
+            if(arr[i][j] != -1) {
+                if(arr[i][j] == 0 && !st[i][j]) {
+                    dfsSpace(i,j);
+                }
+                else if(arr[i][j] != -1) {
+                    bool flag = true;
+                    for(int q = -1;q <= 1;q++) {
+                        for(int k = -1;k <= 1;k++) {
+                            int x = i + q;
+                            int y = j + k;
+                            if(i == x && j == y)continue;
+                            if(x < 1 || x > n || y < 1 || y > m) continue;
+                            if(arr[x][y] == 0) flag = false;
+                        }
+                    }
+                    if(flag == true) {
+                        ans++;
+                    }
+                }
+            }
+        }
+    }
     cout<<ans<<endl;
     return 0;
 }
+*/
+/*
+//P1379 八数码难题
+#include <bits/stdc++.h>
+using namespace std;
+string endStr = "123804765";
+string start;
+int swap_x[] = {-3,-1,1,3};
+int main() {
+    cin>>start;
+    unordered_map<string,int> hash_map;
+    queue<string>q;
+    q.push(start);
+    hash_map.insert({start,0});
+    while(!q.empty()) {
+        auto const str = q.front();
+        int ans = hash_map[str]+1;
+        if (str == endStr) {
+            break;
+        }
+        q.pop();
+        int i = 0;
+        for (; i < 9; i++) {
+            if (str[i] == '0') break;
+        }
+        for (int j = 0; j < 4; j++) {
+            string str2 = str;
+            int a = i+swap_x[j];
+            if (a < 0 || a > 8) continue;
+            if ((i == 3 && a == 2)||(i == 5 && a == 6) || (i == 2 && a == 3) ||(i == 6 && a == 5))continue;
+            swap(str2[i], str2[a]);
+            if (hash_map.count(str2) == 0) {
+                hash_map.insert({str2, ans});
+                q.push(str2);
+            }
+        }
+    }
+    cout << hash_map[endStr] << endl;
+    return 0;
+}
+*/

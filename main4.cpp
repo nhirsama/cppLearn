@@ -1175,3 +1175,75 @@ int main() {
     return 0;
 }
 */
+/*
+//P4667 [BalticOI 2011 Day1] Switch the Lamp On 电路维修
+#include <bits/stdc++.h>
+using namespace std;
+typedef pair<int, int> pii;
+const int MN = 505;
+char arr[MN][MN];
+bool st[MN][MN];//线的坐标
+int dx[] = {-1,-1,0,0};
+int dy[] = {-1,0,-1,0};
+int di[] = {'\\','/','/','\\'};
+int ix[] = {-1,-1,1,1};
+int iy[] = {-1,1,-1,1};
+int arrM[MN][MN] = {2147483647};
+int n,m;
+int bfs() {
+    deque<pii> q;
+    q.emplace_back(0, 0);
+    arrM[0][0] = 0;
+    //点的坐标和线的坐标有1的偏移
+    while (!q.empty()) {
+        pii p;
+        p = q.front();
+        q.pop_front();
+        if (p.first == n && p.second == m) {
+            return arrM[n][m];
+        }
+        for (int i = 0; i < 4; i++) {
+            int fX = p.first + dx[i];//对p点观察周围的格子是否能走
+            int fY = p.second + dy[i];
+            int gX = p.first+ix[i];
+            int gY = p.second+iy[i];
+            if (gX < 0 || gX >n || gY < 0 || gY > m)continue;
+            int w = arr[fX][fY] != di[i];
+            if (arrM[p.first][p.second] +w < arrM[gX][gY]) {
+                arrM[gX][gY] = arrM[p.first][p.second] + w;
+                if (w) {
+                    q.emplace_back(gX, gY);
+                }
+                else{
+                    q.emplace_front(gX, gY);
+                }
+            }
+        }
+    }
+    return -1;
+}
+int main() {
+    int T;
+    cin >> T;
+    while (T--) {
+        cin>>n>>m;
+        for (int i =0; i<n; i++) {
+            for (int j=0; j<m; j++) {
+                cin>>arr[i][j];
+            }
+        }
+        for (int i =0; i<=n; i++) {
+            for (int j=0; j<=m; j++) {
+                arrM[i][j] = 0xFFFFFFF;
+            }
+        }
+
+        if (n+m & 1) {
+            cout<< "NO SOLUTION\n";
+            return 0;
+        }
+        cout<<bfs();
+    }
+    return 0;
+}
+*/

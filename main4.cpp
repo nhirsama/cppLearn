@@ -1052,6 +1052,7 @@ int main() {
 using namespace std;
 int n,m;
 int arr[1005][1005];
+int ans = 0;
 int main() {
     cin>>n>>m;
     for(int i = 1;i <= n;i++) {
@@ -1077,52 +1078,9 @@ int main() {
             }
         }
     }
-    int ans = 0;
-    for(int i = 1;i <= n;i++) {
-        for(int j = 1;j <= m;j++) {
-            if(arr[i][j] == 0) {
-                //判断周边是否是0
-                bool flag = true;
-                for(int q = -1;q <= 1;q++) {
-                    for(int k = -1;k <= 1;k++) {
-                        int x = i + q;
-                        int y = j + k;
-                        if(i == x && j == y)continue;
-                        // if(x == 1 || x == n || y == 1 || y == m) {
-                        //     flag = false;
-                        //     continue;
-                        // }
-                        if(x < 1 || x > n || y < 1 || y > m) continue;
-                        if(arr[x][y] == 0) {}
-                        else flag = false;
-                    }
-                }
-                if(flag == true) {
-                    ans++;
-                }
-            }
-            else if(arr[i][j] != -1) {
-                //判断周边是否是数
-                bool flag = true;
-                for(int q = -1;q <= 1;q++) {
-                    for(int k = -1;k <= 1;k++) {
-                        int x = i + q;
-                        int y = j + k;
-                        if(i == x && j == y)continue;
-                        // if(x == 1 || x == n || y == 1 || y == m) {
-                        //     flag = false;
-                        //     continue;
-                        // }
-                        if(x < 1 || x > n || y < 1 || y > m) continue;
-                        if(arr[x][y] == 0)flag = false;
-                    }
-                }
-                if(flag == true) {
-                    ans++;
-                }
-            }
-        }
-    }
+    //上述为判断雷及数字的
+    //下列为判断3bv的
+
     cout<<ans<<endl;
     return 0;
 }

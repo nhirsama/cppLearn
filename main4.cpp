@@ -1247,3 +1247,265 @@ int main() {
     return 0;
 }
 */
+/*
+//P1022 [NOIP2000 普及组] 计算器的改良
+#include <bits/stdc++.h>
+using namespace std;
+bool now = false;
+int main() {
+    double zheng = 0;
+    double xi = 0;
+    char x;
+    string s;
+    cin >> s;
+    for (int i = s.length(); i >= 0; --i) {
+        char a = s[i];
+        float temp = 0;
+        int m = 0;
+        if ('a' <= a && a <= 'z') {
+            x = a;
+            i--;
+            while ('0' <= s[i] && s[i] <= '9' && i>=0) {
+                a = s[i--];
+                temp+=(a-'0')*pow(10,m++);
+            }
+            if (m == 0) {
+                temp = 1;
+            }
+            if (i == -1) {
+                xi-=temp;
+            }
+            else if (s[i] == '=' ) {
+                now = true;
+                xi+=temp;
+            }
+            else if ((s[i] == '-' && now == false) || (s[i] == '+' && now == true)) {
+                xi-=temp;
+            }
+            else if ((s[i] == '+' && now == false) || (s[i] == '-' && now == true)) {
+                xi+=temp;
+            }
+        }
+        else if (s[i] == '=') {
+            now = true;
+        }
+        else {
+            while ('0' <= s[i] && s[i] <= '9' && i>=0) {
+                a = s[i--];
+                temp+=(a-'0')*pow(10,m++);
+            }
+            if (i == -1) {
+                zheng+=temp;
+            }
+            else if (s[i] == '=' ) {
+                now = true;
+                zheng-=temp;
+            }
+            else if ((s[i] == '-' && now == false) || (s[i] == '+' && now == true)) {
+                zheng+=temp;
+            }
+            else if ((s[i] == '+' && now == false) || (s[i] == '-' && now == true)) {
+                zheng-=temp;
+            }
+        }
+    }
+
+    double endN = zheng/xi;
+    if (endN == (double)-1/0) {
+        endN = -endN;
+    }
+    printf("%c=%.3f",x ,endN);
+    return 0;
+}
+*/
+/*
+//T472655 茫茫的不归路
+#include <bits/stdc++.h>
+using namespace std;
+void Func() {
+    int n,m,k,p;
+    cin>>n>>m>>k>>p;
+    if (m-p/n>=k)cout << "Together\n";
+    else if (m*n-p>=k && m>=k)cout << "Chance\n";
+    else cout << "Divide\n";
+    return;
+}
+int main() {
+    int T;
+    cin >> T;
+    while (T--) {
+        Func();
+    }
+    return 0;
+}
+*/
+/*
+//T470314 纷飞的樱花雨
+#include <bits/stdc++.h>
+using namespace std;
+int arr[100010];
+void Func() {
+    int n,k;
+    cin>>n>>k;
+    long long max = 0;
+    for(int i=0;i<n;i++) {
+        scanf("%d",&arr[i]);
+        if(arr[i]>max)
+            max = arr[i];
+    }
+    if (k<1) {
+        long long ans = 0;
+        max = 0;
+        for(int i=0;i<n;i++) {
+            if (arr[i]>max) {
+                max = arr[i];
+            }
+            ans+=max;
+        }
+        cout<<ans<<endl;
+    }
+    else if (n == 2) {
+        if ((k & 1))swap(arr[0],arr[1]);
+        long long ans = 0;
+        max = 0;
+        for(int i=0;i<n;i++) {
+            if (arr[i]>max) {
+                max = arr[i];
+            }
+            ans+=max;
+        }
+        cout<<ans<<endl;
+    }
+    else {
+        long long ans=0;
+
+        cout<<max*n<<endl;
+    }
+}
+int main() {
+    int T;
+    cin>>T;
+    while(T--) {
+        Func();
+    }
+    return 0;
+}
+*/
+/*
+//T366125 无穷的迭代器
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int T;
+    cin >> T;
+    while (T--) {
+        long long n;
+        cin >> n;
+        if (n == 0) cout << "NO!\n" << endl;
+        else {
+            n=n*2+1;
+            int ans = 0;
+            while (n & 1) {
+                long long m = (n+1) >> 1;
+                n = n*m;
+                ans++;
+            }
+            cout << ans << endl;
+        }
+    }
+    return 0;
+}
+*/
+/*
+//T532927 漫长的小纸带
+#include <bits/stdc++.h>
+using namespace std;
+void Func() {
+    int n,ans = 0;
+    cin >> n;
+    int arr[n+1];
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+    int l = 0, r = 0;
+    while (l<=r && r<n) {
+        map<int, int> mp;
+        int m = r;
+        for (int i = l; i<=r && r<n; i++) {
+            if (mp.count(arr[i]) != 0) {
+                r++;
+            }
+            else {
+                mp[arr[i]] = arr[i];
+                m++;
+            }
+            if (mp.size()*mp.size() <= m-l+1) {
+                r = m;
+            }
+            else {
+                while (mp.size()*mp.size() <= m-l+1) {
+
+                }
+            }
+        }
+        int a = mp.size()*mp.size();
+        ans+=min(a,r-l+1);
+        l = r+1;
+        r = l;
+    }
+    cout << ans << endl;
+}
+int main() {
+    Func();
+    return 0;
+}
+*/
+/*
+//T472989 神奇的小江鸟
+#include <bits/stdc++.h>
+using namespace std;
+void Func() {
+    int n,k;
+    cin>>n>>k;
+    int arr[n][2];
+    int minNum = 2147483647;
+    for(int i=0;i<n;i++) {
+        scanf("%d%d",&arr[i][1],&arr[i][0]);
+        if (arr[i][0]<minNum) {
+            minNum = arr[i][0];
+        }
+        arr[i][1] = arr[i][0] - arr[i][1];
+    }
+    minNum = min(minNum,k*2-1);
+    for(int i=k;i<=minNum;i++) {
+        bool flag = false;
+        for (int j=0;j<n;j++) {
+            if (arr[j][0]>=i && arr[j][0]%i<=arr[j][1]) {
+                flag = true;
+            }
+            else {
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            cout<<"Yes\n";
+            for (int r=0;r<n;r++) {
+                int ans = arr[r][0]-arr[r][1];
+                cout << ans+(i-ans%i) << ' ';
+            }
+            cout<<"\n";
+            return;
+        }
+    }
+    cout<<"No\n";
+}
+int main() {
+    int T;
+    cin >> T;
+    while (T--) {
+        Func();
+    }
+    return 0;
+}
+*/

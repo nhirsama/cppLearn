@@ -132,3 +132,72 @@ int main() {
 	return 0;
 }
 */
+/*
+//P1032 [NOIP2002 提高组] 字串变换
+//AcWing 190. 字串变换
+#include <bits/stdc++.h>
+using namespace std;
+string A[6],B[6];
+string begin1,end1;
+int n =0;
+
+int extend(queue<string> &q,unordered_map<string,int> &mpA,unordered_map<string,int> &mpB,string a[6],string b[6]) {
+	int d = mpA[q.front()];
+	while (q.size() && mpA[q.front()]==d) {
+		auto fr = q.front();
+		q.pop();
+
+		for (int i = 0;i<n;i++) {
+			for (int j = 0;j<fr.size();j++) {
+				if (fr.substr(j,a[i].size()) == a[i]) {
+					string temp = fr.substr(0,j) + b[i] + fr.substr(j+a[i].size());
+					if (mpB.count(temp)) return mpB[temp]+d+1;
+					if (mpA.count(temp)) continue;
+					mpA[temp] = d+1;
+					q.push(temp);
+				}
+			}
+		}
+	}
+	return 11;
+}
+int bfs() {
+	if (begin1 == end1) return 0;
+	int stop = 0;
+	queue<string> be,en;
+	unordered_map<string,int> mapBe,mapEn;
+	be.push(begin1);en.push(end1);
+	mapBe[begin1] = 0;
+	mapEn[end1] = 0;
+	while (!be.empty() && !en.empty()) {
+		int t;
+		if (be.size() < en.size()) {
+			t = extend(be,mapBe,mapEn,A,B);
+		}
+		else t = extend(en,mapEn,mapBe,B,A);
+		if (t <= 10) return t;
+		if (++ stop == 10) return -1;
+	}
+	return -1;
+}
+int main() {
+	cin>>begin1>>end1;
+	getchar();
+	// for (int i = 0;i<6;i++)
+	// {
+	// 	string s;
+	// 	getline(cin, s);
+	// 	istringstream is(s); //将s放入is流中
+	// 	if(s.size() == 0) //如果读入的数据个数是0个，就说明输入结束了
+	// 		break;
+	// 	is >> A[n] >> B[n];
+	// 	n++;
+	// }
+	while (cin>>A[n]>>B[n]) n++;//只有在读入文件时cin的返回值才为0
+	//建议以后在洛谷等OJ上使用该方式提交
+	int t =bfs();
+	if (t == -1) cout<<"NO ANSWER!";
+	else cout<<t;
+	return 0;
+}
+*/

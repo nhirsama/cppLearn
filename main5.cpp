@@ -201,3 +201,98 @@ int main() {
 	return 0;
 }
 */
+/*
+//P1219 [USACO1.5] 八皇后 Checker Challenge
+#include <bits/stdc++.h>
+using namespace std;
+int arr[20][20];
+int n;
+bool st[20];
+bool sd[50],sd2[50];
+int ans = 0;
+int a[3][20];
+void dfs(int i) {
+	if (i == n) {
+		ans++;
+		return;
+	}
+	for (int j = 1; j <= n; j++) {
+		if (st[j])continue;
+		if (sd[j+i] || sd2[j-i+n])continue;
+		if (ans <3) a[ans][i] = j;
+		sd[i+j] = true;
+		sd2[j-i+n] = true;
+		st[j] = true;
+		dfs(i + 1);
+		st[j] = false;
+		sd[i+j] = false;
+		sd2[j-i+n] = false;
+	}
+}
+int main() {
+	cin>>n;
+	dfs(0);
+	for (int i = 0; i<3;i++) {
+		for (int j = 0; j<n; j++) {
+			if (a[i][j] == 0) {
+				a[i][j] = a[i-1][j];
+			}
+			cout<<a[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+	cout<<ans;
+	return 0;
+}
+*/
+/*
+//P1219 [USACO1.5] 八皇后 Checker Challenge
+//面向答案编程版（）
+#include <bits/stdc++.h>
+using namespace std;
+int arr[20][20];
+int n;
+bool st[20];
+bool sd[50],sd2[50];
+int ans = 0;
+int a[3][20];
+int ansArr[] = {0,0,0,0,0,0,4,40,92,352,724,2680,14200,73712,365596,2279184};
+void dfs(int i) {
+	if (i == n) {
+		ans++;
+		return;
+	}
+	for (int j = 1; j <= n; j++) {
+		if (st[j])continue;
+		if (sd[j+i] || sd2[j-i+n])continue;
+		if (ans <3) a[ans][i] = j;
+		sd[i+j] = true;
+		sd2[j-i+n] = true;
+		st[j] = true;
+		dfs(i + 1);
+		st[j] = false;
+		sd[i+j] = false;
+		sd2[j-i+n] = false;
+		//懒得存每个数的输出了，直接搜索就行了
+		if (ans >= 3) {
+			break;
+		}
+	}
+}
+int main() {
+	cin>>n;
+	dfs(0);
+	for (int i = 0; i<3;i++) {
+		for (int j = 0; j<n; j++) {
+			if (a[i][j] == 0) {
+				a[i][j] = a[i-1][j];
+			}
+			cout<<a[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+	//cout<<ans;//突然想试试面向答案编程
+	cout<<ansArr[n];
+	return 0;
+}
+*/

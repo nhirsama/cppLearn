@@ -1,76 +1,35 @@
-#include <iostream>
-#include <cstring>
-#include <algorithm>
-#include <queue>
-#include <unordered_map>
-
+#include<cstdio>
+#include<iostream>
 using namespace std;
-
-const int N = 6;
-
-int n;
-string A, B;
-string a[N], b[N];
-
-int extend(queue<string>& q, unordered_map<string, int>&da, unordered_map<string, int>& db,
-	string a[N], string b[N])
+int ans[14],check[3][28]={0},sum=0,n;
+void eq(int line)
 {
-	int d = da[q.front()];
-	while (q.size() && da[q.front()] == d)
+	if(line>n)
 	{
-		auto t = q.front();
-		q.pop();
-
-		for (int i = 0; i < n; i ++ )
-			for (int j = 0; j < t.size(); j ++ )
-				if (t.substr(j, a[i].size()) == a[i])
-				{
-					string r = t.substr(0, j) + b[i] + t.substr(j + a[i].size());
-					if (db.count(r)) return da[t] + db[r] + 1;
-					if (da.count(r)) continue;
-					da[r] = da[t] + 1;
-					q.push(r);
-				}
+		sum++;
+		if(sum>3) return;
+		else
+		{
+			for(int i=1;i<=n;i++) printf("%d ",ans[i]);
+			printf("\n");
+			return;
+		}
 	}
-
-	return 11;
-}
-
-int bfs()
-{
-	if (A == B) return 0;
-	queue<string> qa, qb;
-	unordered_map<string, int> da, db;
-
-	qa.push(A), qb.push(B);
-	da[A] = db[B] = 0;
-
-	int step = 0;
-	while (qa.size() && qb.size())
+	for(int i=1;i<=n;i++)
 	{
-		int t;
-		if (qa.size() < qb.size()) t = extend(qa, da, db, a, b);
-		else t = extend(qb, db, da, b, a);
-
-		if (t <= 10) return t;
-		if ( ++ step == 10) return -1;
+		if((!check[0][i])&&(!check[1][line+i])&&(!check[2][line-i+n]))
+		{
+			ans[line]=i;
+			check[0][i]=1; check[1][line+i]=1; check[2][line-i+n]=1;
+			eq(line+1);
+			check[0][i]=0; check[1][line+i]=0; check[2][line-i+n]=0;
+		}
 	}
-
-	return -1;
 }
-
 int main()
 {
-	cin >> A >> B;
-	do{
-		cin>>a[n]>>b[n];
-		n ++ ;
-		getchar();
-	}
-	while (cin.peek() != '\n' && cin.peek() != EOF);
-	int t = bfs();
-	if (t == -1) puts("NO ANSWER!");
-	else cout << t << endl;
-
+		scanf("%d",&n);
+		eq(1);
+		printf("%d",sum);
 	return 0;
 }

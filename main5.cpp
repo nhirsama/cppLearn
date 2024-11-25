@@ -439,3 +439,123 @@ int main() {
 	return 0;
 }
 */
+/*
+//城堡问题
+//P1457 [USACO2.1] 城堡 The Castle
+//第一个AC的蓝题，值得纪念
+#include <bits/stdc++.h>
+using namespace std;
+int m,n;
+int arr[100][100];
+bool st[100][100];
+int room[100][100][2];
+struct m {
+	int x;
+	int y;
+};
+int ans = 0,area = 0;
+int dx[] = {0,-1,0,1};
+int dy[] = {-1,0,1,0};
+int bfs(int a,int b) {
+	bool stroom[100][100];
+	for(int i=0;i<=m;i++) {
+		for(int j=0;j<=n;j++) {
+			stroom[i][j]=false;
+		}
+	}
+	st[a][b] = true;
+	stroom[a][b] = true;
+	queue<struct m> q;
+	q.push({a,b});
+	int area = 1;
+	while(!q.empty()) {
+		struct m temp = q.front();
+		for(int i = 0; i < 4 ;i++) {
+			int x = temp.x + dx[i];
+			int y = temp.y + dy[i];
+			if(st[x][y]) continue;
+			if(x < 1 || x > m || y < 1 || y > n) continue;
+			if(arr[temp.x][temp.y] >> i & 1) continue;
+			q.push({x,y});
+			st[x][y] = true;
+			stroom[x][y] = true;
+			area ++;
+		}
+		q.pop();
+	}
+	for(int i=1;i<=m;i++) {
+		for(int j=1;j<=n;j++) {
+			if (stroom[i][j]) {
+				room[i][j][0] = area;
+				room[i][j][1] = ans;
+			}
+		}
+	}
+	return area;
+}
+int main() {
+	cin>>n>>m;
+	for(int i =1 ; i<=m ; i++) {
+		for(int j =1 ; j<=n ; j++) {
+			cin>>arr[i][j];
+		}
+	}
+
+	for(int i =1 ; i<=m ; i++) {
+		for(int j =1 ; j<=n ; j++) {
+			if(!st[i][j]) {
+				area = max(area,bfs(i,j));
+				ans++;
+			}
+		}
+	}
+	int xx = 0,yy = 0;
+	int maxRoom = 0;
+	char NE;
+	for(int i =1 ; i<=m ; i++) {
+		for(int j =1 ; j<=n ; j++) {
+			if (room[i][j][1] != room[i-1][j][1]) {
+				if (room[i-1][j][0] + room[i][j][0]>maxRoom) {
+					xx = i;
+					yy = j;
+					maxRoom = room[i-1][j][0] + room[i][j][0];
+					NE = 'N';
+					continue;
+				}
+				else if (room[i-1][j][0] + room[i][j][0]==maxRoom) {
+					if (j<yy || (j==yy && i>xx)) {
+						xx = i;
+						yy = j;
+						maxRoom = room[i-1][j][0] + room[i][j][0];
+						NE = 'N';
+						continue;
+					}
+				}
+			}
+			if (room[i][j][1] != room[i][j+1][1]) {
+				if (room[i][j+1][0] + room[i][j][0]>maxRoom) {
+					xx = i;
+					yy = j;
+					maxRoom = room[i][j+1][0] + room[i][j][0];
+					NE = 'E';
+					continue;
+				}
+				else if (room[i][j+1][0] + room[i][j][0]==maxRoom) {
+					if (j<yy || (j==yy && i>xx)) {
+						xx = i;
+						yy = j;
+						maxRoom = room[i][j+1][0] + room[i][j][0];
+						NE = 'E';
+						continue;
+					}
+				}
+			}
+		}
+	}
+	cout<<ans<<endl;
+	cout<<area<<endl;
+	cout<<maxRoom<<endl;
+	cout<<xx<<' '<<yy<<' '<<NE<<endl;
+	return 0;
+}
+*/

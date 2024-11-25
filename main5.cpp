@@ -296,3 +296,146 @@ int main() {
 	return 0;
 }
 */
+/*
+//P2730 [USACO3.2] 魔板 Magic Squares
+#include <bits/stdc++.h>
+using namespace std;
+string start = "12345678",endStr;
+unordered_map<string,pair<string,char>> mp1;
+string FunA(string str) {
+	string temp = "";
+	for(int i=str.length()-1;i>=0;i--) {
+		temp += str[i];
+	}
+	return temp;
+}
+string FunB(string str) {
+	string temp = "";
+	temp += str[3] + str.substr(0,3);
+	temp += str.substr(5) + str[4];
+	return temp;
+}
+string FunC(string str) {
+	char a = str[6];
+	str[6] = str[5];
+	str[5] = str[2];
+	str[2] = str[1];
+	str[1] = a;
+	return str;
+}
+int bfs() {
+	queue<string> q;
+	unordered_map<string,int> mp;
+	q.push(start);
+	mp1[start] = pair<string,char>(start,-1);
+	while (!q.empty()) {
+		string s = q.front();
+		q.pop();
+		if (s == endStr) {
+			return mp[s];
+		}
+		string a = FunA(s);
+		if (mp.count(a) == 0) {
+			mp[a] = mp[s]+1;
+			q.push(a);
+			mp1[a] = pair<string,char>(s,'A');
+		}
+		a = FunB(s);
+		if (mp.count(a) == 0) {
+			mp[a] = mp[s]+1;
+			q.push(a);
+			mp1[a] = pair<string,char>(s,'B');
+		}
+		a = FunC(s);
+		if (mp.count(a) == 0) {
+			mp[a] = mp[s]+1;
+			q.push(a);
+			mp1[a] = pair<string,char>(s,'C');
+		}
+	}
+	return -1;
+}
+int main() {
+	for (int i = 0;i <8;i++) {
+		char a;
+		cin>>a;
+		endStr += a;
+	}
+	cout<<bfs()<<'\n';
+	stack<char> StS;
+	string aaa = endStr;
+	while (mp1[aaa].second != -1) {
+		StS.push(mp1[aaa].second);
+		aaa = mp1[aaa].first;
+	}
+	int num = 0;
+	while (!StS.empty()) {
+		cout<<StS.top();
+		StS.pop();
+		if (++num == 60) {
+			cout<<"\n";
+			num = 0;
+		}
+	}
+	return 0;
+}
+*/
+/*
+//蓝桥杯B好数，超时
+#include <bits/stdc++.h>
+using namespace std;
+int N;
+bool Func(string &str){
+	for (int i = 0;i< str.length();i++){
+		if (i & 1){
+			if(!(str[str.length()-1-i]-'0' & 1)){}
+			else return false;
+		}
+		else{
+			if(str[str.length()-1-i]-'0' & 1){}
+			else return false;
+		}
+	}
+	return true;
+}
+int main(){
+	int ans = 0;
+	cin>>N;
+	N++;
+	while(N--){
+		if (!(N & 1)) continue;
+		string str = to_string(N);
+		if(Func(str)) ans++;
+	}
+	cout<<ans;
+	return 0;
+}
+*/
+/*
+//P10424 [蓝桥杯 2024 省 B] 好数
+#include <bits/stdc++.h>
+using namespace std;
+bool ifGood(int n) {
+	int a = 1;
+	while (n > 0) {
+		if (n % 2 != a %2) {
+			return false;
+		}
+		a++;
+		n = n / 10;
+	}
+	return true;
+}
+int main() {
+	int n;
+	cin >> n;
+	int ans = 0;
+	for (int i = 1; i < n; i++) {
+		if (ifGood(i)) {
+			ans++;
+		}
+	}
+	cout << ans << endl;
+	return 0;
+}
+*/

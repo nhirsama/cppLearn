@@ -662,3 +662,136 @@ int main() {
 	return 0;
 }
 */
+/*
+//P6363 [传智杯 #2 初赛] 软件工程实习
+//记得把文件读写流和define注释掉
+#include <bits/stdc++.h>
+using namespace std;
+int arr[30];
+vector <pair<int ,char>> arrm;
+bool sortCmp(pair<int ,char> a,pair<int ,char> b) {
+	if(a.first == b.first) {
+		return a.second < b.second;
+	}
+	return a.first > b.first;
+}
+int main() {
+#define cin fin
+#define cout fout
+	ifstream fin("Testlib.in");
+	ofstream fout("main.out");
+	int n,k;
+	arrm.emplace_back(0,0);
+	cin >> n >> k;
+	for (int i =1; i<=n; i++) {
+		int m;
+		char c;
+		cin >> m >>c;
+		arrm.emplace_back(m,c);
+	}
+	int team[30][30];
+	float teamx[30] = {0};
+	for (int i =1; i<=k; i++) {
+		for (int j =1; j<=k; j++) {
+			cin >> team[j][i];
+			teamx[j] += team[j][i];
+		}
+	}
+	for (int i =1; i<=k; i++) {
+		float sum2 = 0;
+		float num = 0;
+		teamx[i] = teamx[i]/k;
+		for (int j =1; j<=k; j++) {
+			if (abs(team[i][j]-teamx[i]) <= 15) {
+				sum2 += team[i][j];
+				num++;
+			}
+		}
+		arr[i] = (int)round(sum2/num);
+	}
+	for (int i =1; i<=n; i++) {
+		arrm[i].first = (int)round(arr[arrm[i].second-'A'+1]*0.4+arrm[i].first*0.6);
+	}
+	sort(arrm.begin()+1,arrm.end(),sortCmp);
+	for (int i =1;i <= n;i++) {
+		cout << arrm[i].first << " " << arrm[i].second << '\n';
+	}
+
+	return 0;
+}
+*/
+/*
+//P6364 [传智杯 #2 初赛] 1024 程序员节发橙子
+//记得把文件读写流和define注释掉
+#include <bits/stdc++.h>
+using namespace std;
+int arr[1000010];
+int main() {
+#define cin fin
+#define cout fout
+	ifstream fin("Testlib.in");
+	ofstream fout("main.out");
+	ios_base::sync_with_stdio(false);
+	int n;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i];
+	}
+	sort(arr, arr + n);
+	int ans = 1;
+	int nn = 1;
+	for (int i = 0; i < n-1; i++) {
+		if (arr[i] != arr[i + 1]) {
+			nn++;
+			ans+=nn;
+		}
+		else {
+			ans+=nn;
+		}
+	}
+	cout << ans << endl;
+	return 0;
+}
+*/
+/*
+//P6365 [传智杯 #2 初赛] 众数出现的次数
+//记得把文件读写流和define注释掉
+#include <bits/stdc++.h>
+using namespace std;
+int arr[1000050][2];
+int main() {
+#define cin fin
+#define cout fout
+	ifstream fin("Testlib.in");
+	ofstream fout("main.out");
+	map<int,int> mp;
+	int n;
+	cin >> n;
+	for (int i =1 ; i <= n ; i++) {
+		cin >> arr[i][0] >> arr[i][1];
+		arr[i][1] = arr[i][0] ^ arr[i][1];
+	}
+	for (int i = 1 ; i <= n ; i++) {
+		if (arr[i][0] == arr[i][1]) {
+			mp[arr[i][0]]++;
+		}
+		else {
+			mp[arr[i][0]]++;
+			mp[arr[i][1]]++;
+		}
+	}
+	int maxNum = -5;
+	int maxCnt = -5;
+	for (auto a : mp) {
+		if (a.second > maxNum) {
+			maxNum = a.second;
+			maxCnt = a.first;
+		}
+		else if (a.second == maxNum && a.first < maxCnt) {
+			maxCnt = a.first;
+		}
+	}
+	cout << maxCnt << endl;
+	return 0;
+}
+*/

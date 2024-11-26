@@ -1,8 +1,13 @@
 /*
 //模板
+//记得把文件读写流和define注释掉
 #include <bits/stdc++.h>
 using namespace std;
 int main() {
+	#define cin fin
+	#define cout fout
+	ifstream fin("Testlib.in");
+	ofstream fout("main.out");
 
 	return 0;
 }
@@ -556,6 +561,104 @@ int main() {
 	cout<<area<<endl;
 	cout<<maxRoom<<endl;
 	cout<<xx<<' '<<yy<<' '<<NE<<endl;
+	return 0;
+}
+*/
+/*
+//P1135 奇怪的电梯
+#include <bits/stdc++.h>
+using namespace std;
+int N,A,B;
+int arr[10010];
+bool st[10010];
+int ans = 0;
+int dfs() {
+	queue<pair<int,int>> q;
+	q.emplace(A,0);
+	st[A] = true;
+	if (A == B)return 0;
+	while (!q.empty()){
+		pair<int,int> n = q.front();
+		q.pop();
+		int dx[] = {arr[n.first] + n.first,n.first - arr[n.first]};
+		for (int i : dx) {
+			if (st[i])continue;
+			if (i<1 || i>N) continue;
+			q.emplace(i,n.second+1);
+			st[i] = true;
+			if (i == B)return n.second+1;
+		}
+	}
+	return -1;
+}
+int main() {
+	#define cin fin
+	#define cout fout
+	ifstream fin("Testlib.in");
+	ofstream fout("main.out");
+	cin >> N >> A >> B;
+	for (int i = 1; i <= N; i++) {
+		cin >> arr[i];
+	}
+	int m = dfs();
+	cout << m;
+    return 0;
+}
+*/
+/*
+//P1019 [NOIP2000 提高组] 单词接龙
+//记得把文件读写流和define注释掉
+#include <bits/stdc++.h>
+using namespace std;
+string strArr[23];
+int st[23];
+int n;
+int dfs(int aa,int len) {
+	int max1 = 0;
+	for (int i = 1;i<=n;i++) {
+		if (st[i] >= 2)continue;
+		int Len = strArr[aa].length()-strArr[i].length();
+
+		for (int j = strArr[aa].length()-1;j>max(0,Len);j--) {
+			// string aaa = strArr[aa].substr(j);
+			// string bbb = strArr[i].substr(0,strArr[aa].length()-j);
+			if (strArr[aa].substr(j) == strArr[i].substr(0,strArr[aa].length()-j)) {
+				st[i] ++;
+				int maxA = dfs(i,len+j-Len);
+				st[i] --;
+				if (maxA > max1) {
+					max1 = maxA;
+				}
+				break;
+			}
+		}
+	}
+	return max(len,max1);
+}
+int main() {
+	#define cin fin
+	#define cout fout
+	ifstream fin("Testlib.in");
+	ofstream fout("main.out");
+
+	cin >> n;
+	for (int i =1; i <= n; i++) {
+		cin >> strArr[i];
+	}
+	char startChar;
+	cin >> startChar;
+	int max1 = 0;
+	for (int i =1; i <= n; i++) {
+		if (strArr[i][0] == startChar) {
+			st[i]++;
+			int a = dfs(i,strArr[i].length());
+			st[i]--;
+			if (a > max1) {
+				max1 = a;
+			}
+		}
+	}
+	cout << max1;
 	return 0;
 }
 */

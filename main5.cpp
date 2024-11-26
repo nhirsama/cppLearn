@@ -795,3 +795,67 @@ int main() {
 	return 0;
 }
 */
+/*
+//P1042 [NOIP2003 普及组] 乒乓球
+//记得把文件读写流和define注释掉
+#include <bits/stdc++.h>
+using namespace std;
+char arr[100100];
+int main() {
+#define cin fin
+#define cout fout
+	ifstream fin("Testlib.in");
+	ofstream fout("main.out");
+	int n = 0;
+	while (true) {
+		char c;
+		cin >> c;
+		if (c == 'E') break;
+		arr[n++] = c;
+	}
+	arr[n] = 'E';
+	int m = 0;
+	int Wwin = 0,Lwin = 0;
+	for (int i = 0; i <= n; i++) {
+		if ((Wwin >= 11 || Lwin >= 11) && abs(Wwin-Lwin) >= 2) {
+			cout << Wwin << ':' << Lwin << '\n';
+			Wwin = 0;
+			Lwin = 0;
+			m = 0;
+		}
+		if (arr[i] == 'W') {
+			Wwin++;
+		}
+		else if (arr[i] == 'L') {
+			Lwin++;
+		}
+		else if (arr[i] == 'E') {
+			cout << Wwin << ':' << Lwin << '\n';
+		}
+		m++;
+	}
+	Wwin = 0;
+	Lwin = 0;
+	m = 0;
+	cout << endl;
+	for (int i = 0; i <= n; i++) {
+		if ((Wwin >= 21 || Lwin >= 21) && abs(Wwin-Lwin) >= 2) {
+			cout << Wwin << ':' << Lwin << '\n';
+			Wwin = 0;
+			Lwin = 0;
+			m = 0;
+		}
+		if (arr[i] == 'W') {
+			Wwin++;
+		}
+		else if (arr[i] == 'L') {
+			Lwin++;
+		}
+		else if (arr[i] == 'E') {
+			cout << Wwin << ':' << Lwin << '\n';
+		}
+		m++;
+	}
+	return 0;
+}
+*/

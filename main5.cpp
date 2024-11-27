@@ -859,3 +859,60 @@ int main() {
 	return 0;
 }
 */
+/*
+//P2895 [USACO08FEB] Meteor Shower S
+#include <bits/stdc++.h>
+using namespace std;
+typedef pair<int,int> PII;
+#define x first
+#define y second
+int arr[500][500] = {0};
+int dx[] = {0,-1,0,1,0};
+int dy[] = {-1,0,1,0,0};
+bool st[500][500] = {0};
+int arrm[500][500] = {0};
+int bfs(){
+	int ans = 0;
+	queue <PII> q;
+	q.push(make_pair(0,0));
+	st[0][0] = true;
+	while(!q.empty()){
+		PII p = q.front();
+		q.pop();
+		if(arr[p.x][p.y] == 0){
+			return arrm[p.x][p.y];
+		}
+		for(int i = 0;i<=3;i++){
+			int bx = p.x+dx[i];
+			int by = p.y+dy[i];
+			if(bx<0 || bx>=500 || by<0 || by >= 500) continue;
+			if(st[bx][by])continue;
+			if(arr[bx][by] <= arrm[p.x][p.y]+1 && arr[bx][by] != 0)continue;
+			st[bx][by] = true;
+			q.push(make_pair(bx,by));
+			arrm[bx][by] = arrm[p.x][p.y]+1;
+		}
+	}
+	return -1;
+}
+int main(){
+	int m;
+	scanf("%d",&m);
+	for (int i =1;i<=m;i++){
+		int a,b,c;
+		scanf("%d %d %d",&a,&b,&c);
+		//if(c == 0)c = -1;
+		for(int j = 0;j <= 4;j++){
+			int mx = a+dx[j];
+			int my = b+dy[j];
+			if(mx<0 || my <0)continue;
+			if(arr[mx][my] > c || arr[mx][my] == 0){
+				if(c == 0)st[mx][my] = true;
+				arr[mx][my] = c;
+			}
+		}
+	}
+	cout<< bfs();
+	return 0;
+}
+*/

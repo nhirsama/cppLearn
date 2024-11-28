@@ -916,6 +916,7 @@ int main(){
 	return 0;
 }
 */
+/*
 //P1825 [USACO11OPEN] Corn Maze S
 #include <bits/stdc++.h>
 using namespace std;
@@ -999,3 +1000,30 @@ int main(){
 	}
 	return 0;
 }
+*/
+/*
+//P1047 [NOIP2005 普及组] 校门外的树
+#include <bits/stdc++.h>
+using namespace std;
+bool arr[10005];
+int main() {
+	int l,m;
+	cin>>l>>m;
+	for (int i = 0;i<=l;i++) {
+		arr[i] = true;
+	}
+	for (int i = 1;i<=m;i++) {
+		int x,y;
+		cin>>x>>y;
+		for (int j=x;j<=y;j++) {
+			arr[j] = false;
+		}
+	}
+	int ans = 0;
+	for (int i = 0;i<=l;i++) {
+		if (arr[i]) {ans++;}
+	}
+	cout<<ans<<endl;
+	return 0;
+}
+*/

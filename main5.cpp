@@ -1167,3 +1167,21 @@ int main() {
 	return 0;
 }
 */
+/*
+//P1032 [NOIP2002 提高组] 字串变换
+//AcWing 190. 字串变换
+#include <bits/stdc++.h>
+using namespace std;
+string A[6],B[6];
+string begin1,end1;
+void bfs() {
+
+}
+int main() {
+	cin>>begin1>>end1;
+	int n =0;
+	while (cin>>A[n]>>B[n])n++;
+	bfs();
+	return 0;
+}
+*/

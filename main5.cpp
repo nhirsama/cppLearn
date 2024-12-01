@@ -916,6 +916,7 @@ int main(){
 	return 0;
 }
 */
+/*
 //P1825 [USACO11OPEN] Corn Maze S
 #include <bits/stdc++.h>
 using namespace std;
@@ -999,3 +1000,188 @@ int main(){
 	}
 	return 0;
 }
+*/
+/*
+//P1047 [NOIP2005 普及组] 校门外的树
+#include <bits/stdc++.h>
+using namespace std;
+bool arr[10005];
+int main() {
+	int l,m;
+	cin>>l>>m;
+	for (int i = 0;i<=l;i++) {
+		arr[i] = true;
+	}
+	for (int i = 1;i<=m;i++) {
+		int x,y;
+		cin>>x>>y;
+		for (int j=x;j<=y;j++) {
+			arr[j] = false;
+		}
+	}
+	int ans = 0;
+	for (int i = 0;i<=l;i++) {
+		if (arr[i]) {ans++;}
+	}
+	cout<<ans<<endl;
+	return 0;
+}
+*/
+/*
+//P10898 [蓝桥杯 2024 省 C] 拼正方形
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+	long long a = 7385137888721;
+	long long b = 10470245;
+	a = (long long)sqrt(a)*2;
+	while(a*4+4<=b){
+		a+=2;
+		b-=a*4+4;
+	}
+	cout << a;
+	return 0;
+}
+*/
+/*
+//P10423 [蓝桥杯 2024 省 B] 填空问题
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+	double ans[2];
+	ans[0] = 43*42/2+7*43;
+	long long chang = 343720*2;
+	long long kuan = 233333*2;
+	int m = 1059;
+	int n = 1768;
+	ans[1] = sqrt(chang*m*chang*m+kuan*n*kuan*n);
+	//cout<<ans[1];
+	//	for(int i = 1;i<=10000;i++){
+	//		for(int j = 1;j<=10000;j++){
+	//			if(i*chang*17 == j*kuan*15)cout<<i<< ' ' <<j<<'\n';
+	//		}
+	//	}
+		char T;
+		cin >> T;
+		if(T == 'A')cout<<ans[0]<<endl;
+		if(T == 'B')printf("%.2lf",ans[1]);
+	return 0;
+}
+*/
+/*
+//P1601 A+B Problem（高精）
+#include <bits/stdc++.h>
+using namespace std;
+vector <char> a;
+vector <char> b;
+vector <char> add(vector <char> &aa,vector <char> &bb){
+	if(aa.size()<bb.size())return add(bb,aa);
+	for(int i=  0;i<aa.size();i++){
+		if(i<bb.size())aa[i] += bb[i];
+		if(aa[i]>=10){
+			if (i == aa.size()-1)aa.push_back(1);
+			else aa[i+1]++;
+			aa[i] %=10;
+		}
+	}
+	return aa;
+}
+int main(){
+	string mm;
+	string bb;
+	cin>>mm>>bb;
+	for(int i = mm.size()-1;i>=0;i--){
+		a.push_back(mm[i]-'0');
+	}
+	for(int i = bb.size()-1;i>=0;i--){
+		b.push_back(bb[i]-'0');
+	}
+	a = add(a,b);
+	for (int i = a.size()-1 ; i >= 0; i--) {
+		cout<<(char)(a[i]+'0');
+	}
+	return 0;
+}
+*/
+/*
+//P1303 A*B Problem
+//P1601 A+B Problem（高精）
+#include <bits/stdc++.h>
+using namespace std;
+vector <char> a;
+vector <char> b;
+vector <char> add(vector <char> &aa,vector <char> &bb){
+	if(aa.size()<bb.size())return add(bb,aa);
+	for(int i=  0;i<aa.size();i++){
+		if(i<bb.size())aa[i] += bb[i];
+		if(aa[i]>=10){
+			if (i == aa.size()-1)aa.push_back(1);
+			else aa[i+1]++;
+			aa[i] %=10;
+		}
+	}
+	return aa;
+}
+vector <char> mul(vector <char> &aa,vector <char> &bb){
+	if(aa.size()<bb.size())return mul(bb,aa);
+	vector<char> c(aa.size()+bb.size()+1,0);
+	for(int i = 0;i<aa.size();i++){
+		for(int j = 0;j<bb.size();j++){
+			c[i+j] += a[i]*b[j];
+			c[i+j+1] += c[i+j]/10;
+			c[i+j] %= 10;
+		}
+	}
+	while(c.size()>1 && c.back() == 0)c.pop_back();
+	return c;
+}
+int main(){
+	string mm;
+	string bb;
+	cin>>mm>>bb;
+	for(int i = mm.size()-1;i>=0;i--){
+		a.push_back(mm[i]-'0');
+	}
+	for(int i = bb.size()-1;i>=0;i--){
+		b.push_back(bb[i]-'0');
+	}
+	a = mul(a,b);
+	for (int i = a.size()-1 ; i >= 0; i--) {
+		cout<<(char)(a[i]+'0');
+	}
+	return 0;
+}
+*/
+/*
+//模板
+//记得把文件读写流和define注释掉
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+// #define cin fin
+// #define cout fout
+// 	ifstream fin("Testlib.in");
+// 	ofstream fout("main.out");
+	int i  = 1;
+	cout << (++i)+(++i);
+	return 0;
+}
+*/
+/*
+//P1032 [NOIP2002 提高组] 字串变换
+//AcWing 190. 字串变换
+#include <bits/stdc++.h>
+using namespace std;
+string A[6],B[6];
+string begin1,end1;
+void bfs() {
+
+}
+int main() {
+	cin>>begin1>>end1;
+	int n =0;
+	while (cin>>A[n]>>B[n])n++;
+	bfs();
+	return 0;
+}
+*/

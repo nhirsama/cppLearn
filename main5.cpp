@@ -1185,3 +1185,54 @@ int main() {
 	return 0;
 }
 */
+//P1083 [NOIP2012 提高组] 借教室
+//记得把文件读写流和define注释掉
+#include <bits/stdc++.h>
+using namespace std;
+int arr[1000050];
+int N,M;
+int arrM[1000050][3];
+int arra[1000050]{0};
+bool Func(int m) {
+
+	memset(arra,0,sizeof(arra));
+	for (int i = 1; i <= m; i++) {
+		arra[arrM[i][1]] += arrM[i][0];
+		arra[arrM[i][2]+1] -= arrM[i][0];
+	}
+	int sum = 0;
+	for (int i = 1; i <= M; i++) {
+		sum += arra[i];
+		if (sum > arr[i]) {
+			return false;
+		}
+	}
+	return true;
+}
+int main() {
+#define cin fin
+#define cout fout
+	ifstream fin("Testlib.in");
+	ofstream fout("main.out");
+	cin>>N>>M;
+	for (int i = 1;i<=N;i++) {
+		cin>>arr[i];
+	}
+	for (int i = 1;i<=M;i++) {
+		cin>>arrM[i][0]>>arrM[i][1]>>arrM[i][2];
+	}
+	if (Func(M)) {
+		cout<<0<<endl;
+		return 0;
+	}
+	int l = 1;
+	int r = M;
+	while (l<r) {
+		int m = (l+r)/2;
+		if (Func(m)) l = m+1;
+		else r = m;
+	}
+	cout<<-1<<endl;
+	cout<<l<<endl;
+	return 0;
+}

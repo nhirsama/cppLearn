@@ -1187,12 +1187,13 @@ int main() {
 */
 //P1083 [NOIP2012 提高组] 借教室
 //记得把文件读写流和define注释掉
+//错误为爆ing以及遍历范围过小。
 #include <bits/stdc++.h>
 using namespace std;
 int arr[1000050];
 int N,M;
 int arrM[1000050][3];
-int arra[1000050]{0};
+long long arra[1000050]{0};
 bool Func(int m) {
 
 	memset(arra,0,sizeof(arra));
@@ -1200,8 +1201,8 @@ bool Func(int m) {
 		arra[arrM[i][1]] += arrM[i][0];
 		arra[arrM[i][2]+1] -= arrM[i][0];
 	}
-	int sum = 0;
-	for (int i = 1; i <= M; i++) {
+	long long sum = 0;
+	for (int i = 1; i <= N; i++) {
 		sum += arra[i];
 		if (sum > arr[i]) {
 			return false;
@@ -1212,8 +1213,9 @@ bool Func(int m) {
 int main() {
 #define cin fin
 #define cout fout
-	ifstream fin("Testlib.in");
+	ifstream fin("inAndoutFile/P1083_21.in");
 	ofstream fout("main.out");
+	ios::sync_with_stdio(false);
 	cin>>N>>M;
 	for (int i = 1;i<=N;i++) {
 		cin>>arr[i];

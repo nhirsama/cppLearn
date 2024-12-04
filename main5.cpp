@@ -1185,6 +1185,7 @@ int main() {
 	return 0;
 }
 */
+/*
 //P1083 [NOIP2012 提高组] 借教室
 //记得把文件读写流和define注释掉
 //错误为爆ing以及遍历范围过小。
@@ -1238,3 +1239,36 @@ int main() {
 	cout<<l<<endl;
 	return 0;
 }
+*/
+/*
+//P1044 [NOIP2003 普及组] 栈
+//记得把文件读写流和define注释掉
+#include <bits/stdc++.h>
+using namespace std;
+const int MAX = 100;
+long long dp[MAX][MAX];//下标1是pop的次数，下标2是push的次数；
+int n;
+void dpFunc() {
+	for (int i = 0; i <= n; i++) {
+		dp[0][i] = 1;
+	}
+	for (int i = 1; i <= n;i++) {
+		for (int j = i; j <= n; j++) {
+			if (i==j) dp[i][j] = dp[i-1][j];
+			else {
+				dp[i][j] = dp[i-1][j] + dp[i][j-1];
+			}
+		}
+	}
+}
+int main() {
+// #define cin fin
+// #define cout fout
+// 	ifstream fin("Testlib.in");
+// 	ofstream fout("main.out");
+	cin>>n;
+	dpFunc();
+	cout<<dp[n][n]<<endl;
+	return 0;
+}
+*/

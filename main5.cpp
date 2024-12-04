@@ -1272,3 +1272,43 @@ int main() {
 	return 0;
 }
 */
+/*
+//P1719 最大加权矩形
+//记得把文件读写流和define注释掉
+#include <bits/stdc++.h>
+using namespace std;
+int arr[130][130];
+int main() {
+#define cin fin
+#define cout fout
+	ifstream fin("Testlib.in");
+	ofstream fout("main.out");
+	int n;
+	cin>>n;
+	for(int i = 1;i<=n;i++) {
+		for(int j = 1;j<=n;j++) {
+			cin>>arr[i][j];
+		}
+	}
+	for(int i = 1;i<=n;i++) {
+		for(int j = 1;j<=n;j++) {
+			arr[i][j] += arr[i-1][j] + arr[i][j-1] - arr[i-1][j-1];
+		}
+	}
+	int ans = 0;
+	for(int i =1;i<=n;i++) {
+		for(int j = 1;j<=n;j++) {
+			for(int i1 = i;i1<=n;i1++) {
+				for(int j1 = j;j1<=n;j1++) {
+					int cont = arr[i1][j1] - arr[i1][j-1] - arr[i-1][j1] + arr[i-1][j-1];
+					if(ans < cont) {
+						ans = cont;
+					}
+				}
+			}
+		}
+	}
+	cout<<ans<<endl;
+	return 0;
+}
+*/

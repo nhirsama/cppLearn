@@ -1312,3 +1312,41 @@ int main() {
 	return 0;
 }
 */
+//P8783 [蓝桥杯 2022 省 B] 统计子矩阵
+//记得把文件读写流和define注释掉
+#include <bits/stdc++.h>
+using namespace std;
+long long arr[530][530];
+long long sum[530];
+int main() {
+#define cin fin
+#define cout fout
+	ifstream fin("Testlib.in");
+	ofstream fout("main.out");
+	int n,m,k;
+	cin>>n>>m>>k;
+	for(int i = 1;i<=n;i++) {
+		for(int j = 1;j<=m;j++) {
+			cin>>arr[i][j];
+		}
+	}
+	for(int i = 1;i<=n;i++) {
+		for(int j = 1;j<=n;j++) {
+			arr[i][j] += arr[i-1][j];
+		}
+	}
+	int ans = 0;
+	for(int i = 1;i<=n;i++) {
+		for (int j = i+1;j<=n;j++) {
+			for (int kn = 1;kn<=m;kn++) sum[kn] = arr[j][kn] - arr[i-1][kn];
+			int k1 = 1,k2 = 1;
+			long long sum = 0;
+			while (sum >k){
+				k2++;
+				sum -= sum
+
+		}
+	}
+	cout<<ans<<endl;
+	return 0;
+}

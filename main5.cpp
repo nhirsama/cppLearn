@@ -1312,6 +1312,7 @@ int main() {
 	return 0;
 }
 */
+/*
 //P8783 [蓝桥杯 2022 省 B] 统计子矩阵
 //记得把文件读写流和define注释掉
 #include <bits/stdc++.h>
@@ -1331,22 +1332,26 @@ int main() {
 		}
 	}
 	for(int i = 1;i<=n;i++) {
-		for(int j = 1;j<=n;j++) {
+		for(int j = 1;j<=m;j++) {
 			arr[i][j] += arr[i-1][j];
 		}
 	}
-	int ans = 0;
+	long long ans = 0;
 	for(int i = 1;i<=n;i++) {
-		for (int j = i+1;j<=n;j++) {
+		for (int j = i;j<=n;j++) {
 			for (int kn = 1;kn<=m;kn++) sum[kn] = arr[j][kn] - arr[i-1][kn];
-			int k1 = 1,k2 = 1;
-			long long sum = 0;
-			while (sum >k){
-				k2++;
-				sum -= sum
-
+			long long sum1 = 0;
+			for (int k1 = 1,k2 = 1;k1<=m;k1++) {
+				sum1 += sum[k1];
+				while (k2<=k1 && sum1 >k) {
+					sum1 -= sum[k2];
+					k2++;
+				}
+				ans += k1-k2+1;
+			}
 		}
 	}
 	cout<<ans<<endl;
 	return 0;
 }
+*/

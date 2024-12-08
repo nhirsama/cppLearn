@@ -1355,3 +1355,49 @@ int main() {
 	return 0;
 }
 */
+/*
+//802. 区间和
+#include <bits/stdc++.h>
+using namespace std;
+vector <pair<int,int>> nVec,mVec;
+vector <int>alls;
+int arr[300010];
+int find(int n) {
+	int l = 0, r = alls.size()-1;
+	while (l < r) {
+		int mid = l+r>>1;
+		if (alls[mid] < n) {
+			l = mid+1;
+		}
+		else {r = mid;}
+	}
+	return l;
+}
+int main(){
+	int n,m;
+	cin>>n>>m;
+	for(int i = 0;i<n;i++){
+		int x,y;
+		cin>>x>>y;
+		nVec.push_back({x,y});
+		alls.push_back(x);
+	}
+	for(int i =0;i<m;i++){
+		int x,y;
+		cin>>x>>y;
+		mVec.push_back({x,y});
+		alls.push_back(x);
+		alls.push_back(y);
+	}
+	sort(alls.begin(),alls.end());
+	alls.erase(unique(alls.begin(),alls.end()),alls.end());
+	for(auto aa:nVec){
+		int a = find(aa.first);
+		arr[a]+=aa.second;
+	}
+	for(int i = 1;i<=alls.size();i++) arr[i]+=arr[i-1];
+	for(auto bb:mVec){
+		cout<<arr[find(bb.second)]-arr[find(bb.first)-1]<<endl;
+	}
+}
+*/

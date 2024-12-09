@@ -15,10 +15,9 @@ int main() {
 
 */
 
-
+#define LOCAL
 //模板
 //记得把文件重定向注释掉
-#define LOCAL
 #include <bits/stdc++.h>
 using namespace std;
 int main() {

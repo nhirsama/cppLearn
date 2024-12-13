@@ -33,16 +33,17 @@ long long dfs(string &s) {
         }
     }
     //添加
-    for(int i = 0;i<s.size();i++) {
+    for(int i = 0;i<=s.size();i++) {
         for(char j = 'a';j<='z';j++) {
             string temp = s.substr(0,i)+j+s.substr(i);
             long long a = FindTrie(temp);
-            cout<<temp<<endl;
+            //cout<<temp<<endl;
             if(a && !visit[a]) {
                 ans+=1;
                 visit[a] = true;
             }
             if(j == s[i])continue;
+            if(i == s.size()) continue;
             temp = s.substr(0,i)+j+s.substr(i+1);
             a = FindTrie(temp);
             if(a && !visit[a]) {

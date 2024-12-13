@@ -1,6 +1,8 @@
-5 10139698
-AND 5
-OR 6
-XOR 713
-AND 512
-AND 512
+4 3
+abcd
+abcde
+aabc
+abced
+abcd
+abc
+abcdd

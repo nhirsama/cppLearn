@@ -3,8 +3,8 @@ project(Learn)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(Learn main.cpp
-        main2.cpp
-        main3.cpp
-        main4.cpp
-        main5.cpp)
+add_executable(Learn problem/mainCode/main.cpp
+        problem/mainCode/main2.cpp
+        problem/mainCode/main3.cpp
+        problem/mainCode/main4.cpp
+        problem/mainCode/main5.cpp)

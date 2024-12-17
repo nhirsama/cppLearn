@@ -1,6 +1,7 @@
 #define LOCAL
 //P4403 [BJWC2008] 秦腾与教学评估
 //记得把文件重定向注释掉
+//TLE,为非正确时间复杂度算法
 #include <bits/stdc++.h>
 using namespace std;
 struct node {
@@ -32,24 +33,21 @@ int main() {
         //以下为暴力遍历，会TLE
         else {
             int num = 0;
-            sort(arr, arr + n, sortCmp);
             int l = 0 ,r = n;
             while(l<r) {
                 int mid = l+r>>1;
                 if(arr[mid].e<ans) l = mid+1;
                 else r = mid;
             }
-            for (int i = l; i<n || ans<arr[i].e;i++) {
-                for (int j = arr[i].s; j<=arr[i].e; j+=arr[i].d) {
-                    if(ans == j) {
-                        num++;
-                        break;
-                    }
+            for (int i = l; i<n && ans<=arr[i].e;i++) {
+                if(arr[i].s>ans) continue;
+                if(arr[i].d == 0) {
+                    if(arr[i].s == ans) num++;
                 }
+                else if((ans-arr[i].s)%arr[i].d == 0) num++;
             }
             cout << ans << ' ' << num << endl;
         }
-        end1:
     }
 #ifdef LOCAL
     fclose(stdin);

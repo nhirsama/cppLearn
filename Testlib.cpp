@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <cstring>
+#include <bits/stdc++.h>
 const int S=303;//一次加法顶多多一位，所以顶多多30位，也就是130位左右。我开大一点，开到300.
 int n,a[S],l;
 char c[S],d[S];
@@ -23,20 +24,6 @@ inline bool pd()
 }
 int main()
 {
-    scanf("%d%s",&n,c);l=strlen(c);
-    for (int i=0;i<l;++i)
-    {
-        if (c[i]>='0' && c[i]<='9') c[i]-='0';
-        else c[i]=c[i]-'A'+10;
-    }
-    int step=0;
-    while (!pd())
-    {
-        ++step;
-        if (step>30) break;
-        add();
-    }
-    if (step<=30) printf("STEP=%d\n",step);
-    else puts("Impossible!");
+    std::cout << ((int)0xFFFFFFFF>>32);
     return 0;
 }

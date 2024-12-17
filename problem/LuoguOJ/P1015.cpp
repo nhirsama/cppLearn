@@ -19,6 +19,7 @@ int main() {
     freopen("Testlib.in", "r", stdin);
     freopen("Code.out", "w", stdout);
 #endif
+    ios_base::sync_with_stdio(false);
     int N;
     string s;
     cin>>N>>s;

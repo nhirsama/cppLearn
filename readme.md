@@ -10,11 +10,12 @@
 <img src=".\image\Origami_1.webp" alt="折纸喵~" style="zoom:35%;" /> 
 
 ## 联系方式
-GitHub用户名为 *[nhirsama](https://github.com/nhirsama)*.  
-Gitee用户名为 *[nhirsama](https://gitee.com/nhirsama)*.  
-邮箱: *[nhirsama@outlook.com]()*.  
+|  Github   |  *[nhirsama](https://github.com/nhirsama)*   |
+|:---------:|:--------------------------------------------:|
+| **Gitee** | ***[nhirsama](https://gitee.com/nhirsama)*** |
+| **Email** |        ***[nhirsama@outlook.com]()***        |
 
 ## 所用环境
-CLion 2024.2.3  
-语言标准 C20  
+CLion [2024.2.3](https://www.jetbrains.com.cn/clion/whatsnew/)  
+语言标准 [C23](https://zh.cppreference.com/w/c/23)  
 ## Git 神！

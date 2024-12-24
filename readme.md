@@ -19,3 +19,23 @@
 CLion [2024.2.3](https://www.jetbrains.com.cn/clion/whatsnew/)  
 语言标准 [C23](https://zh.cppreference.com/w/c/23)  
 ## Git 神！
+
+## Test.cpp对拍程序
+对拍程序所在目录下至少应存在以下文件:
+- Testlib.out  
+- Code.out
+
+或目录:
+
+- inAndoutFile
+
+其中Testlib.out文件内是正确的数据或以`inAndoutFile\*.*`
+起始的一行放置正确文件的相对路径。
+而Code.out是程序输出的文件，程序将其与正确的文件逐行匹配，会输出以下几种内容 :
+
+|  类型  |       输出        |
+|:----:|:---------------:|
+|  AC  |   宝宝好棒，程序输出正确   |
+|  WA  |   在t行与正确答案不符    |
+| 输出过长 | 程序输出过长，再重新检查一下吧 |
+| 输出过短 | 程序输出过短，再重新检查一下吧 |

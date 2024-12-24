@@ -30,7 +30,7 @@ int main() {
     while(Tfout>>s) {
         string s1;
         if (!(Ffout >> s1)) {
-            cout << "程序输出过短，再检查一遍吧" <<endl;
+            cout << "程序输出过短，再重新检查一遍吧" <<endl;
             flag = false;
             break;
         };
@@ -40,7 +40,7 @@ int main() {
         }
         t++;
     }
-    if (Ffout>>s) cout<<"输出过长，再重新检测一下吧"<<endl;
+    if (Ffout>>s) cout<<"程序输出过长，再重新检查一下吧"<<endl;
     else if (flag) cout<<"宝宝好棒，程序输出正确"<<endl;
     Tfout.close();
     Ffout.close();

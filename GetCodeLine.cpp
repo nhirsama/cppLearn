@@ -72,5 +72,5 @@ void printAllFile(fs::path &inputPath) {
             break;
         }
     }
-    std::cout << inputPath << std::endl;
+    //std::cout << inputPath << std::endl;
 }

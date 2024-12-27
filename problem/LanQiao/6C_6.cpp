@@ -5,16 +5,19 @@ int main() {
     freopen("Testlib.in", "r", stdin);
     freopen("Code.out", "w", stdout);
 #endif
-    int n,Max = 0;
+    long long n,Max = 0;
     cin>>n;
     Max = n;
-    while(n > 1){
-        if(n & 1) {
-            //n = n*3 + 1;
-            n = (n << 1) + n +1;
-            if(n > Max) Max = n;
+    for (long long i = 1 ;i<=n;i++) {
+        long long t = i;
+        while(t > 1){
+            if(t & 1) {
+                t = (t << 1) + t +1;
+                if(t > Max) Max = t;
+            }
+            else t >>=1;
+            if (t < i)break;
         }
-        else n >>=1;
     }
     cout<<Max;
 #ifdef LOCAL

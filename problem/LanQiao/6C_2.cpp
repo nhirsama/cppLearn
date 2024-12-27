@@ -9,7 +9,7 @@ int main() {
     freopen("Code.out", "w", stdout);
 #endif
     int t = 0,n = 0;
-    for (int i = 1;i <= 4; i++) {
+    for (int i = 1;i <= 100; i++) {
         t+=i;
         n+=t;
     }

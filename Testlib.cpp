@@ -15,21 +15,5 @@ int fen(int x)//二分
 }
 int main()
 {
-	cin>>n;
-	for(int i=1;i<=n;i++) cin>>a[i],c[a[i]]=i;//如果直接二重循环枚举的话肯定会超时的，所以借助一个c[]暂时存储c[i]的标号（a[i]的编号就是i）
-	for(int i=1;i<=n;i++)
-	{
-		int x;
-		cin>>x;
-		b[i]=c[x];
-	}
-	for(int i=1;i<=n;i++)
-	{
-		int l=fen(b[i])+1;
-		ans=max(ans,l);
-		r[l]=(!r[l]?b[i]:min(r[l],b[i]));
-		ma=max(ma,l);
-	}//最长上升子序列
-	cout<<ans;
 	return 0;
 }

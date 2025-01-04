@@ -1,36 +1,53 @@
-#include<vector>
+#define LOCAL
+//改变思路：看k每一次自增能解决什么问题
+//所以要将提出的问题存到一个数组里
 #include<cstdio>
-#include<cmath>
-#include<iostream>
-#include<cstdlib>
-#include<string>
-#include<iomanip>
 #include<cstring>
-#include<ctime>
-#include<algorithm>
-#include<queue>
-#include<map>
-#include<set>
-//不想打万能头文件
 using namespace std;
-typedef long long ll;
-int n,b,tot,w,h[25],f[1000001];
+bool b[201];
+int n,m,x,y,z,q,t[201],f[201][201];
+int from[50001],to[50001],day[50001];//questions;
 int main()
 {
-	cin>>n>>b;
-	for(int i=1;i<=n;i++)
-	{
-		cin>>h[i];
-		tot+=h[i];//求牛的总高度
-	}
-	w=tot-b;//w即为所以牛的高度减去书架的高度，也就是背包的容量
-	for(int i=1;i<=n;i++)
-	{
-		for(int j=w;j>=h[i];j--)
-		{
-			f[j]=max(f[j],f[j-h[i]]+h[i]);//h[i]既相当于01背包里的容量又相当于价值
-		}
-	}
-	cout<<tot-f[w]-b;//牛的总高度减去放入背包中牛的高度再减去书架高度就是所求解
-	return 0;//结束
+#ifdef LOCAL
+    freopen("Testlib.in", "r", stdin);
+    freopen("Testlib.out", "w", stdout);
+#endif
+    memset(f,0x7f,sizeof(f));
+    scanf("%d%d",&n,&m);
+    for (int i=0; i<n; i++)
+        f[i][i]=0;//初始化
+    for (int i=0; i<n; i++)//注意从0开始
+        scanf("%d",&t[i]);
+    for (int i=1; i<=m; i++)
+    {
+        scanf("%d%d%d",&x,&y,&z);
+        f[x][y]=f[y][x]=z;
+    }
+    scanf("%d",&q);
+    int tot=0;
+    for (int i=1; i<=q; i++)
+    {
+        scanf("%d%d%d",&from[i],&to[i],&day[i]);
+    }
+    for (int l=1; l<=q; l++)
+    {
+        for (int k=0; k<n; k++)
+            if (t[k]<=day[l]&&!b[k])
+            {
+                b[k]=1;
+                for (int i=0; i<n; i++)
+                    for (int j=0; j<n; j++)
+                        if (f[i][j]>f[i][k]+f[k][j]&&i!=j&&i!=k&&k!=j&&f[i][k]<0x7f7f7f7f&&f[k][j]<0x7f7f7f7f)
+                            f[i][j]=f[i][k]+f[k][j];
+            }
+        if (t[from[l]]<=day[l]&&t[to[l]]<=day[l]&&f[from[l]][to[l]]!=0x7f7f7f7f)
+            printf("%d\n",f[from[l]][to[l]]);
+        else printf("-1\n");
+    }
+#ifdef LOCAL
+    fclose(stdin);
+    fclose(stdout);
+#endif
+    return 0;
 }

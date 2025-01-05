@@ -10,11 +10,11 @@ int dx[] = {-1, 1, 0, 0}, dy[] = {0, 0, -1, 1}, n, m, x1, x2, y11, y2;
 bool visited[N][N];
 
 int dfs(int i, int j) {
-    deque<pair<pair<int,int>,int> > q;
-    q.push_back(make_pair(make_pair(i, j),0));
+    deque<pair<pair<int, int>, int> > q;
+    q.push_back(make_pair(make_pair(i, j), 0));
     visited[i][j] = true;
     while (!q.empty()) {
-        pair<int,int> p = q.front().first;
+        pair<int, int> p = q.front().first;
         int mon = q.front().second;
         q.pop_front();
         if (p.first == x2 && p.second == y2) {
@@ -26,11 +26,11 @@ int dfs(int i, int j) {
             if (visited[ix][iy]) continue;
             if (ix < 0 || iy < 0 || ix >= n || iy >= m) continue;
             visited[ix][iy] = true;
-            if(g[ix][iy]==g[p.first][p.second]) {
+            if (g[ix][iy] == g[p.first][p.second]) {
                 q.push_front(make_pair(make_pair(ix, iy), mon));
             }
             else {
-                q.push_back(make_pair(make_pair(ix, iy), mon+1));
+                q.push_back(make_pair(make_pair(ix, iy), mon + 1));
             }
         }
     }
@@ -51,7 +51,7 @@ int main() {
         }
         scanf("%d%d%d%d", &x1, &y11, &x2, &y2);
         int t = dfs(x1, y11);
-        cout << t <<endl;
+        cout << t << endl;
         cin >> n >> m;
     }
 #ifdef LOCAL

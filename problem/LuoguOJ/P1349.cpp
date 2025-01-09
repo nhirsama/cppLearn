@@ -1,9 +1,9 @@
 #define LOCAL
-//P1962 斐波那契数列
+//P1349 广义斐波那契数列
 //记得把文件重定向注释掉
 #include <bits/stdc++.h>
 using namespace std;
-const int mod = 1000000007;
+long long  mod,p,q,a1,a2,n;
 
 struct matrix {
     long long A[3][3];
@@ -36,13 +36,15 @@ int main() {
     freopen("Testlib.in", "r", stdin);
     freopen("Code.out", "w", stdout);
 #endif
-
-    base.A[1][1] = base.A[1][2] = base.A[2][1] = 1;
-    ans.A[1][1] = ans.A[1][2] = 1;
-    long long int n;
+    cin>>p>>q>>a1>>a2>>n>>mod;
+    base.A[1][1] = p;
+    base.A[1][2] = 1;
+    base.A[2][1] = q;
+    ans.A[1][1] = a2;
+    ans.A[1][2] = a1;
     cin >> n;
     if (n <= 2) {
-        cout << 1 << endl;
+        cout << ans.A[1][3-n]<<endl;
         return 0;
     }
     quick_pow(n-2);

@@ -1,57 +1,35 @@
-#include<cstdio>
-#include<cstring>
+#include <iostream>
+
 using namespace std;
-long long n,a[3],mul[3][3],res[3][3],tmp[3][3],tp[3];
-void mul_1()
-{
-    memset(tmp,0,sizeof(tmp));
-    for(register int i=1;i<=2;i+=1)
-        for(register int j=1;j<=2;j+=1)
-            for(register int k=1;k<=2;k+=1)
-                tmp[i][j]=(tmp[i][j]+res[i][k]*mul[k][j])%1000000007;
-    for(register int i=1;i<=2;i+=1)
-        for(register int j=1;j<=2;j+=1)
-            res[i][j]=tmp[i][j];
-}
-void mul_2()
-{
-    memset(tmp,0,sizeof(tmp));
-    for(register int i=1;i<=2;i+=1)
-        for(register int j=1;j<=2;j+=1)
-            for(register int k=1;k<=2;k+=1)
-                tmp[i][j]=(tmp[i][j]+mul[i][k]*mul[k][j])%1000000007;
-    for(register int i=1;i<=2;i+=1)
-        for(register int j=1;j<=2;j+=1)
-            mul[i][j]=tmp[i][j];
-}
-void solve()
-{
-    for(register int i=1;i<=2;i+=1)
-        for(register int j=1;j<=2;j+=1)
-            tp[i]=(tp[i]+res[i][j]*a[j])%1000000007;
-    printf("%lld\n",tp[1]);
-}
-int main()
-{
-    scanf("%lld",&n);
-    if(n<=2)printf("1\n");
-    else
-    {
-        a[1]=a[2]=1;
-        for(register int i=1;i<=2;i+=1)
-            res[i][i]=1;
-        for(register int i=1;i<=2;i+=1)
-            for(register int j=1;j<=2;j+=1)
-                mul[i][j]=1;
-        mul[2][2]=0;
-        n-=2;
-        while(n)
-        {
-            if(n&1)mul_1();
-            n>>=1;
-            mul_2();
-        }
-        solve();
+
+long long i,j,k,n,m,p,q;
+unsigned long long c,d,nextc,nextd;
+unsigned long long a[30005];
+
+int main(void) {
+    cin>>p>>q>>a[1]>>a[2]>>n>>m;
+    p%=m;
+    q%=m;
+    a[1]%=m;
+    a[2]%=m;
+    a[3]=(p*a[2]+q*a[1])%m;
+    nextc=p;
+    nextd=q;
+    for(i=2; i<=29999; i++) {
+        c=(p*nextc+nextd)%m;
+        d=(q*nextc)%m;
+        nextc=c;
+        nextd=d;
     }
+    while(n>30000) {
+        n-=30000;
+        a[1]=(nextc*a[2]+nextd*a[1])%m;
+        a[2]=(nextc*a[3]+nextd*a[2])%m;
+        a[3]=(p*a[2]+q*a[1])%m;
+    }
+    for(i=4; i<=n; i++) {
+        a[i]=(p*a[i-1]+q*a[i-2])%m;
+    }
+    cout<<a[n]<<endl;
     return 0;
 }

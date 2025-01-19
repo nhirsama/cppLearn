@@ -22,7 +22,14 @@ int main() {
     freopen("Code.out", "w", stdout);
 #endif
     cin>>m;
-    cout<<phi(m);
+    for (int i = 1; i <= m; i++) {
+        if ((m-m/i) == m%i) {
+            cout<<i<<endl;
+        }
+        else {
+            puts("No");
+        }
+    }
 
 #ifdef LOCAL
     fclose(stdin);

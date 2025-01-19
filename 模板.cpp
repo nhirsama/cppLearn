@@ -14,6 +14,8 @@ int main() {
 }
 
 */
+/*
+
 
 #define LOCAL
 //模板
@@ -33,3 +35,24 @@ int main() {
     #endif
     return 0;
 }
+
+ */
+
+/*
+
+#include <bits/stdc++.h>
+using namespace std;
+void Func(){
+    return 0;
+}
+int main() {
+    int T;
+    cin>>T;
+
+    while(T--){
+        Func();
+    }
+    return 0;
+}
+
+*/

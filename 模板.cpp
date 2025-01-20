@@ -43,7 +43,7 @@ int main() {
 #include <bits/stdc++.h>
 using namespace std;
 void Func(){
-    return 0;
+    return;
 }
 int main() {
     int T;

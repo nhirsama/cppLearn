@@ -43,7 +43,7 @@ int main() {
     n = quick_read();
     m = quick_read();
     k = quick_read();
-    chunk = sqrt(k);
+    chunk = sqrt(n);
     for (int i = 1; i <= n; i++) {
         arr[i] = quick_read();
     }

@@ -3,16 +3,7 @@
 
 int main() {
     const char* OJ = std::getenv("ONLINE_JUDGE");
-
-    if (OJ) {
-        long long a,b;
-        std::cin >> a >> b;
-        std::cout << a+b << std::endl;
-    } else {
-        unsigned long long a = 4;
-        std::cout << a-5 << std::endl;
-        return 1;
-    }
+    std::cout << 123456789%13;
 
     return 0;
 }

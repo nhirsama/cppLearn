@@ -5,7 +5,7 @@
 - `cin.peek`用于读取下一个输出字符，但是不清除该读入字符。
 - `setw`用于控制输出字符宽度，不足的部分用`setfill`函数传入字符补齐。
 - `queue`用于定义一个队列，语法结构为`queue <Data Type> name`,`name.pop()`用于出队，`name.front()`用于查看第一个元素.
-
+- `priority_queue<ll, vector<ll>, greater<ll> >`用于定义一个小根堆，top的元素为队列中最小值，也可将负值插入大根堆实现小根堆效果。
 ### 累了就看看可爱的折纸吧
 
 <img src=".\image\Origami_1.webp" alt="折纸喵~" style="zoom:35%;" /> 

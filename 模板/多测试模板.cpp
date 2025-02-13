@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int N = 2e5+10;
+constexpr int N = 2e5+10;
 typedef long long ll;
 void Func(){
 

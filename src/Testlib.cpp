@@ -1,76 +1,29 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <algorithm>
+
 using namespace std;
 
-const int INF = 1e9;
-const int dx[] = {0, 0, 1, -1};
-const int dy[] = {1, -1, 0, 0};
-
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    int a1, a2, a3, b1, b2, b3;
+    int c1, c2, c3, d1, d2, d3;
 
-    int H, W;
-    cin >> H >> W;
-    vector<string> grid(H);
-    for (int i = 0; i < H; ++i) {
-        cin >> grid[i];
+    // 输入两个积木的区间
+    cin >> a1 >> a2 >> a3 >> b1 >> b2 >> b3;
+    cin >> c1 >> c2 >> c3 >> d1 >> d2 >> d3;
+
+    // 计算每个维度上的重叠部分
+    int overlap_x = max(0, min(b1, d1) - max(a1, c1) + 1);
+    int overlap_y = max(0, min(b2, d2) - max(a2, c2) + 1);
+    int overlap_z = max(0, min(b3, d3) - max(a3, c3) + 1);
+
+    // 如果任何一个维度没有重叠，则整体没有重叠
+    if (overlap_x > 0 && overlap_y > 0 && overlap_z > 0) {
+        // 计算重叠体积
+        cout << overlap_x * overlap_y * overlap_z << endl;
+    } else {
+        // 如果没有重叠
+        cout << 0 << endl;
     }
 
-    int sx = -1, sy = -1, gx = -1, gy = -1;
-    vector<vector<pair<int, int>>> tele(26);
-    for (int i = 0; i < H; ++i) {
-        for (int j = 0; j < W; ++j) {
-            char c = grid[i][j];
-            if (c == 'S') {
-                sx = i;
-                sy = j;
-            } else if (c == 'G') {
-                gx = i;
-                gy = j;
-            } else if (c >= 'a' && c <= 'z') {
-                tele[c - 'a'].emplace_back(i, j);
-            }
-        }
-    }
-
-    vector<vector<int>> dist(H, vector<int>(W, INF));
-    dist[sx][sy] = 0;
-    queue<pair<int, int>> q;
-    q.emplace(sx, sy);
-
-    while (!q.empty()) {
-        auto [x, y] = q.front();
-        q.pop();
-
-        if (x == gx && y == gy) {
-            cout << dist[x][y] << '\n';
-            return 0;
-        }
-
-        for (int d = 0; d < 4; ++d) {
-            int nx = x + dx[d], ny = y + dy[d];
-            if (nx < 0 || nx >= H || ny < 0 || ny >= W) continue;
-            if (grid[nx][ny] == '#') continue;
-            if (dist[nx][ny] > dist[x][y] + 1) {
-                dist[nx][ny] = dist[x][y] + 1;
-                q.emplace(nx, ny);
-            }
-        }
-
-        char c = grid[x][y];
-        if (c >= 'a' && c <= 'z') {
-            auto& points = tele[c - 'a'];
-            for (auto [nx, ny] : points) {
-                if (nx == x && ny == y) continue;
-                if (dist[nx][ny] > dist[x][y] + 1) {
-                    dist[nx][ny] = dist[x][y] + 1;
-                    q.emplace(nx, ny);
-                }
-            }
-            points.clear(); // 关键优化，防止重复处理
-        }
-    }
-
-    cout << -1 << '\n';
     return 0;
 }

@@ -11,6 +11,8 @@ int main() {
         freopen("Testlib.in", "r", stdin);
         freopen("Code.out", "w", stdout);
     }
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
 
     return 0;
 }

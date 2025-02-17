@@ -1,11 +1,26 @@
 //模板
 #include <bits/stdc++.h>
 using namespace std;
-constexpr int N = 1e5+10;
+constexpr int N = 1e5 + 10;
 typedef long long int ll;
 #define x first
 #define y second
+#define endl '\n'
 typedef pair<int, int> pii;
+
+ll read() {
+    ll ans = 0;
+    bool flag = false;
+    char c = cin.get();
+    while (c < '0' || c > '9') {
+        if (c == '-') flag = true;
+        c = cin.get();
+    }
+    while (c >= '0' && c <= '9') ans = (ans << 3) + (ans << 1) + (c ^ '0'), c = cin.get();
+    if (flag) return -ans;
+    return ans;
+}
+
 int main() {
     if (getenv("ONLINE_JUDGE") == nullptr) {
         freopen("Testlib.in", "r", stdin);

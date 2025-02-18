@@ -1,4 +1,4 @@
-//模板
+//P11452 [USACO24DEC] Cake Game S
 #include <bits/stdc++.h>
 using namespace std;
 constexpr int N = 1e5 + 10;
@@ -29,6 +29,21 @@ int main() {
     }
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-
+    int T;
+    cin >> T;
+    while (T--) {
+        int n;
+        n = read();
+        vector<ll> arr(n+1);
+        ll anse = 0;
+        for (int i = 1; i <= n; i++) {
+            arr[i] = read();
+            arr[i] += arr[i-1];
+        }
+        for(int i = 0; i<=n/2-1;i++){
+            anse = max(anse, arr[i] + arr[n]-arr[n/2+1+i]);
+        }
+        cout<<arr[n]-anse space anse endl;
+    }
     return 0;
 }

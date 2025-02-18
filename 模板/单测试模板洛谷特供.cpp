@@ -9,7 +9,7 @@ typedef long long int ll;
 #define space << ' ' <<
 typedef pair<int, int> pii;
 
-ll read() {
+inline ll read() {
     ll ans = 0;
     bool flag = false;
     char c = cin.get();

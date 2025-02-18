@@ -1,4 +1,5 @@
-//P3372 【模板】线段树 1
+//P10497 [USACO03Open] Lost Cows
+//244. 谜一样的牛
 #include <bits/stdc++.h>
 using namespace std;
 constexpr int N = 1e5 + 10;
@@ -9,7 +10,7 @@ typedef long long int ll;
 #define space << ' ' <<
 typedef pair<int, int> pii;
 
-inline ll read() {
+ll read() {
     ll ans = 0;
     bool flag = false;
     char c = cin.get();
@@ -59,36 +60,29 @@ int main() {
     }
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-    ll n, m;
-    cin >> n >> m;
-    TreeArray tr1(n), tr2(n);
-    vector<ll> arr(n + 1);
-    for (ll i = 1; i <= n; i++) {
-        arr[i] = read();
+    int n;
+    n = read();
+    TreeArray tree(n);
+    for (int i = 1; i <= n; i++) {
+        tree.tree[i] = tree.lowbit(i);
     }
-    for (ll i = 1; i <= n; i++) {
-        ll d = arr[i]-arr[i-1];
-        tr1.update(i, d);
-        tr2.update(i, i * d);
+    vector<int> ans(n + 1), h(n + 1);
+    for (int i = 2; i <= n; i++) {
+        h[i] = read();
     }
-    for (ll i = 1; i <= m; i++) {
-        ll l, r;
-        char c;
-        cin >> c;
-        if (c == '2') {
-            l = read();
-            r = read();
-            cout << (tr1.getsum(r) * (r + 1) - tr2.getsum(r)) - (tr1.getsum(l - 1) * (l) - tr2.getsum(l - 1)) endl;
-        } else {
-            ll x;
-            l = read();
-            r = read();
-            x = read();
-            tr1.update(l,x);
-            tr2.update(l, l * x);
-            tr1.update(r + 1, -x);
-            tr2.update(r + 1, -x * (r+1));
+    for (int i = n; i; i--) {
+        int a = h[i];
+        int l = 1, r = n;
+        while (l < r) {
+            int m = (l + r) / 2;
+            if (tree.getsum(m) > a) r = m;
+            else l = m + 1;
         }
+        ans[i] = l;
+        tree.update(l, -1);
+    }
+    for (int i = 1; i <= n; i++) {
+        cout << ans[i] endl;
     }
     return 0;
 }

@@ -1,4 +1,4 @@
-//P3372 【模板】线段树 1
+//模板
 #include <bits/stdc++.h>
 using namespace std;
 constexpr int N = 1e5 + 10;
@@ -75,7 +75,7 @@ int main() {
         ll l, r;
         char c;
         cin >> c;
-        if (c == '2') {
+        if (c == 'Q') {
             l = read();
             r = read();
             cout << (tr1.getsum(r) * (r + 1) - tr2.getsum(r)) - (tr1.getsum(l - 1) * (l) - tr2.getsum(l - 1)) endl;

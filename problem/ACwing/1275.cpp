@@ -1,4 +1,4 @@
-//P1198 [JSOI2008] 最大数
+//模板
 #include <bits/stdc++.h>
 using namespace std;
 constexpr int N = 1e5 + 10;

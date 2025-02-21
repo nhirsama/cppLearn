@@ -1,3 +1,4 @@
+//P11671 [USACO25JAN] Farmer John's Favorite Operation S
 #include <bits/stdc++.h>
 using namespace std;
 const int N = 4e5 + 10;

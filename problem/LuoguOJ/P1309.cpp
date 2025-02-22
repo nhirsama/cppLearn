@@ -31,13 +31,13 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    cin>>n>>r>>q;
+    cin >> n >> r >> q;
     for (int i = 1; i <= 2 * n; ++i) {
-        cin>>arr[i].s;
+        cin >> arr[i].s;
         arr[i].n = i;
     }
     for (int i = 1; i <= 2 * n; ++i) {
-        cin>>arr[i].w;
+        cin >> arr[i].w;
     }
     sort(arr + 1, arr + n * 2 + 1, sortcomp);
     for (int i = 1; i <= 2 * n; ++i) {

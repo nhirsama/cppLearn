@@ -1,29 +1,47 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int N = 4e5 + 10;
-long long arr[N], n, m, sum[N];
+
+using ll = int64_t;
+
+void solve() {
+    ll N, M;
+    cin >> N >> M;
+    string S;
+    cin >> S;
+
+    ll scoreA = 0;
+    ll scoreB = 0; {
+        ll cA = 0, cB = 0;
+        for (char c: S) if (c == 'A') cA++;
+        else cB++;
+        ll x = max(cA, cB);
+        ll full = max(ll(0), M / x - 1);
+        scoreA += full * cA;
+        scoreB += full * cB;
+    }
+    if (max(scoreA, scoreB) >= M && abs(scoreA - scoreB) >= 2) {
+        cout << "Yes" << '\n';
+        cout << (scoreA + scoreB) << '\n';
+        return;
+    }
+    for (int i = 0; i < 10 * N; i++) {
+        if (S[i % N] == 'A') {
+            scoreA++;
+        } else {
+            scoreB++;
+        }
+        if (max(scoreA, scoreB) >= M && abs(scoreA - scoreB) >= 2) {
+            cout << "Yes" << '\n';
+            cout << (scoreA + scoreB) << '\n';
+            return;
+        }
+    }
+    cout << "No" << '\n';
+}
 
 int main() {
-    int t;
-    cin >> t;
-    while (t--) {
-        cin >> n >> m;
-        for (int i = 1; i <= n; i++) {
-            scanf("%lld", arr + i);
-            arr[i] %= m;
-        }
-        sort(arr + 1, arr + n + 1);
-        for (int i = 1; i <= n; i++)arr[n + i] = arr[i] + m;
-        for (int i = 1; i <= 2 * n; i++)sum[i] = arr[i] + sum[i - 1];
-        long long ans = 0x3f3f3f3f3f3f3f3f;
-        int x = n / 2 + (n & 1);
-        for (int i = 0; i < n; i++) {
-            int mid = x + i;
-            long long f = arr[mid] * (mid - i - 1) - (sum[mid - 1] - sum[i]);
-            long long b = (sum[n + i] - sum[mid]) - arr[mid] * (n + i - mid);
-            ans = min(ans, f + b);
-        }
-        cout << ans << endl;
-    }
-    return 0;
+    ios_base::sync_with_stdio(false), cin.tie(nullptr);
+    int T;
+    cin >> T;
+    while (T--) solve();
 }

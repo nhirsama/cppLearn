@@ -14,19 +14,6 @@ struct node {
 
 typedef pair<int, int> pii;
 
-inline ll read() {
-    ll ans = 0;
-    bool flag = false;
-    char c = cin.get();
-    while (c < '0' || c > '9') {
-        if (c == '-') flag = true;
-        c = cin.get();
-    }
-    while (c >= '0' && c <= '9') ans = (ans << 3) + (ans << 1) + (c ^ '0'), c = cin.get();
-    if (flag) return -ans;
-    return ans;
-}
-
 int n, r, q;
 node arr[N];
 queue<node> qwin, qlose, qu;
@@ -43,15 +30,14 @@ int main() {
     }
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-    n = read();
-    r = read();
-    q = read();
+    cout.tie(nullptr);
+    cin>>n>>r>>q;
     for (int i = 1; i <= 2 * n; ++i) {
-        arr[i].s = read();
+        cin>>arr[i].s;
         arr[i].n = i;
     }
     for (int i = 1; i <= 2 * n; ++i) {
-        arr[i].w = read();
+        cin>>arr[i].w;
     }
     sort(arr + 1, arr + n * 2 + 1, sortcomp);
     for (int i = 1; i <= 2 * n; ++i) {

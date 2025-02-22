@@ -112,7 +112,7 @@ int main() {
             for (int i=tot,now=-(1e9);i>=1;i--) {
                 now=max(now,M[i]+i+1);
                 H[i]=now-i;
-                H[i]=max(H[i],max(base,M[i]+1));
+                H[i]=max(H[i],max(base,M[1]+1));
             }
             int fd=0;
             for (int i=1;i<=tot;i++) if (Q[i]==H[i]) {

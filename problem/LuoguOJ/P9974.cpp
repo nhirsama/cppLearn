@@ -6,6 +6,10 @@ const int N = 2e5 + 10;
 int n, m, arr[N];
 
 signed main() {
+    if (getenv("ONLINE_JUDGE") == nullptr) {
+        freopen("Testlib.in", "r", stdin);
+        freopen("Code.out", "w", stdout);
+    }
     ios::sync_with_stdio(false);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) {

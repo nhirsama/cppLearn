@@ -8,7 +8,6 @@ typedef long long int ll;
 #define endl '\n'
 #define space << ' ' <<
 typedef pair<int, int> pii;
-int dp[N][N];
 void Func() {
     int n;
     cin >> n;
@@ -18,19 +17,16 @@ void Func() {
     }
     int l = 1, r = 1, cnt = 0;
     int maxl = 1, maxr = 1, maxv = 0;
-    for (; l < n; l++) {
+    for (; l <= n; l++) {
         for (r = l; r <= n; r++) {
             if (v[r] < v[l]) {
                 cnt++;
-                if (cnt > maxv) {
-                    maxv = cnt;
-                    maxl = l;
-                    maxr = r;
-                }
-                // else if (cnt == maxv) {
-                //     maxl = min(maxl,l);
-                //     maxr = max(maxr,r);
-                // }
+            }
+            else if (v[r] > v[l]) cnt--;
+            if (cnt > maxv) {
+                maxv = cnt;
+                maxl = l;
+                maxr = r;
             }
         }
         cnt = 0;

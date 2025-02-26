@@ -44,13 +44,14 @@ git config --global http.https://github.com.proxy socks5://127.0.0.1:7890
 
 ## 联系方式
 |  Github   |  *[nhirsama](https://github.com/nhirsama)*   |
-|:---------:|:--------------------------------------------:|
+| :-------: | :------------------------------------------: |
 | **Gitee** | ***[nhirsama](https://gitee.com/nhirsama)*** |
 | **Email** |        ***[nhirsama@outlook.com]()***        |
 
 ## 所用环境
 CLion [2024.2.3](https://www.jetbrains.com.cn/clion/whatsnew/)  
 语言标准 [C20](https://zh.cppreference.com/w/c/23)  
+
 ## Git 神！
 
 ## 2024年度总结
@@ -58,3 +59,8 @@ CLion [2024.2.3](https://www.jetbrains.com.cn/clion/whatsnew/)
 在洛谷OJ中提交368次，Accepted 154题。
 其余还零零散散地在其他OJ中通过若干道题。  
 本年度拿到过一次校铜牌和传智杯初选一等奖。希望能在明年的蓝桥杯中取得金牌。
+
+-------------------------------------
+
+Copyright © 2024-2025 Nhirsama. All rights reserved. 
+

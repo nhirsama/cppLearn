@@ -16,10 +16,10 @@ void Solve() {
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);cout.tie(nullptr);
-#ifdef LOCAL
+    #ifdef LOCAL
     freopen("Testlib.in", "r", stdin);
     //freopen("Code.out", "w", stdout);
-#endif
+    #endif
     int T;
     cin >> T;
     while (T--) {

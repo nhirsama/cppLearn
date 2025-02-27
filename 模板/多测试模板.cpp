@@ -6,7 +6,7 @@ typedef long long int ll;
 #define x first
 #define y second
 #define endl '\n'
-#define space << ' ' <<
+#define space << ' '
 typedef pair<int, int> pii;
 
 void Solve() {

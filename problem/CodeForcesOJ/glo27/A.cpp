@@ -9,19 +9,11 @@ typedef long long int ll;
 #define space << ' ' <<
 typedef pair<int, int> pii;
 
-void Solve(){
-    int n;
-    cin>>n;
-    if(n == 1 || n == 3)cout<<-1<<endl;
-    else if(n == 2) cout<<66<<endl;
-    else if(n&1){
-        for(int i = 1;i<=n-5;i++) cout<<3;
-        cout<<36366<<endl;
-    }
-    else {
-        for(int i = 1;i<=n-4;i++) cout<<3;
-        cout<<3366<<endl;
-    }
+void Func(){
+    long long n,m,r,c;
+    cin>>n>>m>>r>>c;
+    long long i = (r-1)*m+c;
+    cout<<(n*m-i)+(m-1)*(n-r)<<endl;
 }
 int main() {
     #ifdef LOCAL
@@ -31,7 +23,7 @@ int main() {
     int T;
     cin >> T;
     while (T--) {
-        Solve();
+        Func();
     }
     return 0;
 }

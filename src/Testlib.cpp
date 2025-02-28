@@ -1,70 +1,61 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-bool check(const string &s, const vector<int>& a, int n, int k, int x) {
-    vector<int> forbidden;
-    for (int i = 0; i < n; ++i) {
-        if (s[i] == 'R' && a[i] > x) {
-            forbidden.push_back(i);
+int main(){
+    int n;
+    int arr[105];
+    cin>>n;
+    int sum = 0;
+    vector<int>v[105];
+    for(int i = 1;i<=n;i++){
+        cin>>arr[i];
+        arr[i]*=10;
+        sum+=arr[i];
+    }
+    int num = 1;
+    int d = n;
+    int st[105]{0};
+    while(sum){
+        if(d==1){
+            int aaa = 0;
+            for(int i = 1;i<=n;i++){
+                if(arr[i]){
+                    aaa = i;
+                    break;
+                }
+            }
+            while(arr[aaa]){
+                v[aaa].push_back(++num);
+                num++;
+                arr[aaa]--;
+                sum--;
+            }
+        }
+        for(int i = 1;i<=n;i++){
+            if (d == 1)continue;
+            if(arr[i]){
+                v[i].push_back(num++);
+                arr[i]--;
+                sum--;
+            }
+            else if(arr[i] == 0 && st[i] == 0) {
+                d--;
+                st[i] = 1;
+            }
         }
     }
-    vector<int> prefix(n + 1, 0);
-    for (int i = 0; i < n; ++i) {
-        prefix[i + 1] = prefix[i] + ((s[i] == 'B' && a[i] > x) ? 1 : 0);
-    }
-    vector<pair<int, int>> blocks;
-    int prev = -1;
-    for (int pos : forbidden) {
-        int l = prev + 1;
-        int r = pos - 1;
-        if (l <= r) {
-            blocks.emplace_back(l, r);
-        }
-        prev = pos;
-    }
-    int l = prev + 1;
-    int r = n - 1;
-    if (l <= r) {
-        blocks.emplace_back(l, r);
-    }
-    int cnt = 0;
-    for (auto& [bl, br] : blocks) {
-        if (prefix[br + 1] - prefix[bl] > 0) {
+    for(int i = 1;i<=n;i++){
+        cout<<'#'<<i<<'\n';
+        int cnt = 0;
+        for(int j = 0;j<v[i].size();j++){
+            cout<<v[i][j]-(n == 1);
             cnt++;
+            if (cnt == 10) {
+                cout<<'\n';
+                cnt = 0;
+            }
+            else if(j!=v[i].size()-1)cout<<' ';
+            else cout<<'\n';
         }
-    }
-    return cnt <= k;
-}
-
-void Solve() {
-    int n, k;
-    string s;
-    vector<int> a;
-    cin >> n >> k >> s;
-    a.resize(n);
-    int right =0 ;
-    for (int i = 0; i < n; ++i) {
-        cin >> a[i];
-        right = max(right,a[i]);
-    }
-    int left = 0;
-    while (left < right) {
-        int mid = left + (right - left) / 2;
-        if (check(s, a, n, k, mid)) {
-            right = mid;
-        } else {
-            left = mid+1;
-        }
-    }
-    cout << left << '\n';
-}
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    int t;
-    cin >> t;
-    while (t--) {
-        Solve();
     }
     return 0;
 }

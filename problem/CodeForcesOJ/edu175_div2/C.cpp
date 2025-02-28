@@ -9,38 +9,35 @@ typedef long long int ll;
 #define space << ' '
 typedef pair<int, char> pic;
 
+bool check(vector<int> &arr,string &s,int n,int k,int mid){
+  int cnt = 0;
+  int i = 0;
+  for(;i<n;i++){
+        if(s[i] == 'B')break;
+    }
+    bool flag = false;
+    for(;i<n;i++){
+        if(s[i] == 'B' && arr[i]>mid && flag == false) cnt++,flag = true;
+        if(s[i] == 'R' && arr[i]>mid && flag == true) flag = false;
+    }
+    return cnt<=k;
+}
 void Solve() {
-    int n, k;
-    cin >> n >> k;
+    int n,k;
     string s;
-    cin >> s;
-    string ts;
-    bool flag = (s[0] == 'R'); //t是红，f是蓝
-    int max1 = 0;
-    vector<int> v;
-    string aaa;
-    for (int i = 0; i < n; i++) {
-        int a;
-        cin >> a;
-        bool bbb = (s[i] == 'R');
-        if (bbb == flag) {
-            if (max1 < a) {
-                max1 = a;
-                ts = s.substr(i, 1);
-            }
-        } else {
-            aaa+=ts;
-            ts = s.substr(i, 1);
-            v.push_back(max1);
-            max1 = a;
-            flag = bbb;
-        }
+    cin>>n>>k>>s;
+    vector<int> arr(n);
+    int r = 0,l = 0;
+    for(int i = 0;i<n;i++){
+        cin>>arr[i];
+        r = max(arr[i],r);
     }
-    if (ts[0] == 'B') {
-        aaa.append(ts);
-        v.push_back(max1);
+    while(l<r){
+        int mid = (l+r)>>1;
+        if(check(arr,s,n,k,mid)) r = mid;
+        else l = mid+1;
     }
-
+    cout<<l<<endl;
 }
 
 int main() {

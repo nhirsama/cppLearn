@@ -8,7 +8,22 @@ typedef long long int ll;
 #define endl '\n'
 #define space << ' '
 typedef pair<int, int> pii;
+void dfs(int u,int d,vector<vector<int> > &g,vector<int> &dp){
+
+}
 void Solve() {
+    int n;
+    cin>>n;
+    vector<vector<int> > g(n+1),dist(n+1);
+    vector<int > dp(n+1);
+    for(int i = 2;i<=n;i++){
+        int u;
+        cin>>u;
+        g[u].push_back(i);
+        dist[i] = dist[u]+1;
+    }
+    dfs(1,0,g);
+
 }
 
 int main() {

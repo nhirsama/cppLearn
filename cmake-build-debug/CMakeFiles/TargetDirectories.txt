@@ -1,3 +1,0 @@
-G:/OneDrive/Desktop/learn_file/computer_file/Cpp/Learn/cmake-build-debug/CMakeFiles/Learn.dir
-G:/OneDrive/Desktop/learn_file/computer_file/Cpp/Learn/cmake-build-debug/CMakeFiles/edit_cache.dir
-G:/OneDrive/Desktop/learn_file/computer_file/Cpp/Learn/cmake-build-debug/CMakeFiles/rebuild_cache.dir

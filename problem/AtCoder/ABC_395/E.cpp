@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
-constexpr int N = 2e5 + 10;
+constexpr int N = 4e5 + 10;
 typedef long long int ll;
+#define int long long
 #define x first
 #define y second
 #define endl '\n'
@@ -9,16 +10,15 @@ typedef long long int ll;
 typedef pair<int, int> pii;
 long long dist[N];
 bool st[N];
+int n = 0;
 
-void dijkstra(vector<vector<pair<int,int> > > g,int u)  // 求1号点到n号点的最短路距离
+void dijkstra(vector<vector<pair<int, int> > > g, int u,int x) // 求1号点到n号点的最短路距离
 {
-    memset(st,0,sizeof st);
-    dist[1] = 0;
-    priority_queue<pii, vector<pii>, greater<pii>> heap;
+    dist[u] = x;
+    priority_queue<pii, vector<pii>, greater<pii> > heap;
     heap.push({0, u});
 
-    while (heap.size())
-    {
+    while (heap.size()) {
         auto t = heap.top();
         heap.pop();
 
@@ -27,38 +27,36 @@ void dijkstra(vector<vector<pair<int,int> > > g,int u)  // 求1号点到n号点�
         if (st[ver]) continue;
         st[ver] = true;
 
-        for (auto i : g[ver])
-        {
+        for (auto i: g[ver]) {
             int j = i.x;
-            if (dist[j] > dist[ver] + i.y)
-            {
+            if (dist[j] > dist[ver] + i.y) {
                 dist[j] = dist[ver] + i.y;
                 heap.push({dist[j], j});
             }
         }
     }
 }
-int main() {
+
+signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-    int n,m,x;
-    cin>>n>>m>>x;
-    vector<vector<pair<int,int> > >g(N);
-    vector<vector<pair<int,int> > > exg(N);
-    for(int i = 1;i<=m;i++){
-        int u,v;
-        cin>>u>>v;
-        g[u].push_back(make_pair(v,1));
-        exg[v].push_back(make_pair(u,1));
+    int m,x;
+    cin >> n >> m >> x;
+    vector<vector<pair<int, int> > > g(N);
+    for (int i = 1; i <= m; i++) {
+        int u, v;
+        cin >> u >> v;
+        g[u].push_back(make_pair(v, 1));
+        g[v + n].push_back(make_pair(u + n, 1));
+    }
+    for (int i = 1; i <= n; i++) {
+        g[i].push_back(make_pair(i+n,x));
+        g[i+n].push_back(make_pair(i,x));
     }
     memset(dist, 0x3f, sizeof dist);
-    int cnt =-1;
-    int u = 1;
-    while(dist[n]>0x3f3f3f3f3f3f3f3f/2){
-      cnt++;
-        if(cnt%2==0)dijkstra(g,u++);
-        else dijkstra(exg,u++);
-    }
-    cout<<dist[n]+cnt*m;
+    dijkstra(g, 1,0);
+    long long ans = 0;
+    ans = min(dist[n],dist[n*2]);
+    cout << ans;
     return 0;
 }

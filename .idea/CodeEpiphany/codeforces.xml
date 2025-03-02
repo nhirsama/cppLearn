@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.wenjun.codeepiphany.codeforces.settings">
+    <option name="languageSettings">
+      <list>
+        <LanguageSettingsState sourceFolder="G:\OneDrive\Desktop\learn_file\computer_file\Cpp\Learn\problem\CodeForcesOJ" language="cpp" languageVersion="23(GCC 14.2)" fileNameTemplate="$!velocity.camelCaseName($challenge.id)" codeTemplate="#defind LOCAL&#10;${beginRegion}&#10;&#10;\#include &lt;bits/stdc++.h&gt;&#10;using namespace std;&#10;constexpr int N = 1e5 + 10;&#10;typedef long long int ll;&#10;\#define x first&#10;\#define y second&#10;\#define endl '\n'&#10;\#define space &lt;&lt; ' '&#10;typedef pair&lt;int, int&gt; pii;&#10;&#10;void Solve() {&#10;    &#10;}&#10;&#10;int main() {&#10;    ios::sync_with_stdio(false);&#10;    cin.tie(nullptr);cout.tie(nullptr);&#10;    #ifdef LOCAL&#10;    freopen(&quot;Testlib.in&quot;, &quot;r&quot;, stdin);&#10;    #endif&#10;    int T;&#10;    cin &gt;&gt; T;&#10;    while (T--) {&#10;        Solve();&#10;    }&#10;    return 0;&#10;}&#10;${endRegion}" />
+      </list>
+    </option>
+  </component>
+</project>

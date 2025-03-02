@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.wenjun.codeepiphany.luogu.settings">
+    <option name="languageSettings">
+      <list>
+        <LanguageSettingsState sourceFolder="G:\OneDrive\Desktop\learn_file\computer_file\Cpp\Learn\problem\LuoguOJ" language="cpp" languageVersion="20" fileNameTemplate="$!velocity.camelCaseName($challenge.id)" codeTemplate="${beginRegion}&#10;\#include &lt;bits/stdc++.h&gt;&#10;using namespace std;&#10;&#10;int main() {&#10;    &#10;    return 0;&#10;}&#10;&#10;${endRegion}" />
+      </list>
+    </option>
+  </component>
+</project>

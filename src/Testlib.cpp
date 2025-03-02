@@ -1,63 +1,56 @@
 #include <bits/stdc++.h>
 using namespace std;
-constexpr int N = 4e5 + 10;
-typedef long long int ll;
-#define int long long
-typedef pair<int, int> pii;
-ll dist[N];
-bool st[N];
-int n;
+const int N = 2505;
+int dits[N];
+vector<pair<int, int> > g[N];
+int dist[N], st[N];
 
-void dijkstra(vector<vector<pii>> &g, int start) {
-    memset(dist, 0x3f, sizeof(dist));
-    memset(st, 0, sizeof(st));
-    dist[start] = 0;
-    priority_queue<pii, vector<pii>, greater<pii>> heap;
-    heap.push({0, start});
+int main() {
+    int n, c, be, en;
+    cin >> n >> c >> be >> en;
+    int a, b, d, i = 1;
+input_loop_start:
+    if (i > c) goto input_loop_end;
+    cin >> a >> b >> d;
+    g[a].push_back({b, d});
+    g[b].push_back({a, d});
+    i++;
+    goto input_loop_start;
+input_loop_end:
+    memset(dist, 0x3f, sizeof dist);
+    vector<pair<int, int> > q;
+    q.push_back({0, be});
+    dist[be] = 0;
 
-    while (!heap.empty()) {
-        auto [d, u] = heap.top();
-        heap.pop();
-
-        if (st[u]) continue;
-        st[u] = true;
-
-        for (auto [v, w] : g[u]) {
-            if (dist[v] > d + w) {
-                dist[v] = d + w;
-                heap.push({dist[v], v});
-            }
+queue_loop_start:
+    if (q.empty()) goto queue_loop_end;
+    int min_val = 0x3f3f3f3f, min_idx = -1;
+    for (int j = 0; j < q.size(); j++) {
+        if (q[j].first < min_val) {
+            min_val = q[j].first;
+            min_idx = j;
         }
     }
-}
+    if (min_idx == -1) goto queue_loop_end;
+    auto p = q[min_idx];
+    q.erase(q.begin() + min_idx);
 
-signed main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    int m, x;
-    cin >> n >> m >> x;
-    vector<vector<pii>> g(2 * n + 10);
-
-    for (int i = 0; i < m; ++i) {
-        int u, v;
-        cin >> u >> v;
-        // Original state edges: u -> v
-        g[u].emplace_back(v, 1);
-        // Reversed state edges: v -> u (represented as u+n <- v+n)
-        g[v + n].emplace_back(u + n, 1);
+    int t = p.second;
+    int edge_idx = 0;
+dijkstra_loop_start:
+    if (edge_idx >= g[t].size()) goto dijkstra_loop_end;
+    auto inls = g[t][edge_idx];
+    if (dist[inls.first] > dist[t] + inls.second) {
+        dist[inls.first] = dist[t] + inls.second;
+        q.push_back({dist[inls.first], inls.first});
     }
+    edge_idx++;
+    goto dijkstra_loop_start;
+dijkstra_loop_end:
 
-    // Add flip transitions for each node
-    for (int u = 1; u <= n; ++u) {
-        // Flip from original to reversed state
-        g[u].emplace_back(u + n, x);
-        // Flip back from reversed to original state
-        g[u + n].emplace_back(u, x);
-    }
+    goto queue_loop_start;
+queue_loop_end:
 
-    dijkstra(g, 1);
-    ll ans = min(dist[n], dist[2 * n]);
-    cout << ans << '\n';
-
+    cout << dist[en];
     return 0;
 }

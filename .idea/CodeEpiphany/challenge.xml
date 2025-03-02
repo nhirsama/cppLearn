@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.wenjun.codeepiphany.challenge.settings">
+    <option name="challenges">
+      <map>
+        <entry key="$PROJECT_DIR$/problem/CodeForcesOJ/.cc">
+          <value>
+            <ChallengeSettingsStateItem>
+              <option name="challengeId" value="1896060629165412352" />
+              <option name="challengeLanguageId" value="1896060629266075648" />
+              <option name="dojo" value="codeforces" />
+              <option name="language" value="cpp" />
+              <option name="solutionId" value="1896060629274464256" />
+            </ChallengeSettingsStateItem>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/problem/LuoguOJ/P1001.cc">
+          <value>
+            <ChallengeSettingsStateItem>
+              <option name="challengeId" value="1896055489586925568" />
+              <option name="challengeLanguageId" value="1896055489729531904" />
+              <option name="dojo" value="luogu" />
+              <option name="language" value="cpp" />
+              <option name="solutionId" value="1896055489742114816" />
+            </ChallengeSettingsStateItem>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/problem/LuoguOJ/P1828.cc">
+          <value>
+            <ChallengeSettingsStateItem>
+              <option name="challengeId" value="1896138181645045760" />
+              <option name="challengeLanguageId" value="1896138181812817920" />
+              <option name="dojo" value="luogu" />
+              <option name="language" value="cpp" />
+              <option name="solutionId" value="1896138181825400832" />
+            </ChallengeSettingsStateItem>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/problem/LuoguOJ/P8646.cc">
+          <value>
+            <ChallengeSettingsStateItem>
+              <option name="challengeId" value="1896068759865659392" />
+              <option name="challengeLanguageId" value="1896068759874048000" />
+              <option name="dojo" value="luogu" />
+              <option name="language" value="cpp" />
+              <option name="solutionId" value="1896068759874048001" />
+            </ChallengeSettingsStateItem>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

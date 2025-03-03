@@ -17,7 +17,7 @@ int main() {
         for (int i = 0; i < n; i++) {
             cin >> arr[i].t >> arr[i].d >> arr[i].l;
         }
-        sort(arr.begin(), arr.end(), [](auto a, auto b)-> bool { return a.t < b.t; });
+        sort(arr.begin(), arr.end(), [](auto a, auto b)-> bool { if (a.t==b.t)return a.d < b.d;return a.t < b.t; });
         long long t = 0;
         for (auto i: arr) {
 

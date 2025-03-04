@@ -5,11 +5,11 @@ constexpr int N = 1e5 + 10;
 typedef long long int ll;
 #define x first
 #define y second
-#define endl << '\n'
-#define space << ' ' <<
+#define endl '\n'
+#define space << ' '
 typedef pair<int, int> pii;
 
-ll read() {
+inline ll read() {
     ll ans = 0;
     bool flag = false;
     char c = cin.get();

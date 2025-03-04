@@ -1,4 +1,5 @@
 //P9241 [蓝桥杯 2023 省 B] 飞机降落
+//狗屎贪心，过不了，开搜。
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -20,15 +21,14 @@ int main() {
         sort(arr.begin(), arr.end(), [](auto a, auto b)-> bool { if (a.t==b.t)return a.d < b.d;return a.t < b.t; });
         long long t = 0;
         for (auto i: arr) {
-
-            while (t <= i.t) {
+            while (t < i.t) {
                 if (p.empty()) {
                     t = i.t;
                     break;
                 }
                 auto aa = p.top();
                 p.pop();
-                if (aa.first <= t)t += aa.second;
+                if (aa.first >= t)t += aa.second;
                 else {
                     cout << "NO" << endl;
                     return;
@@ -36,17 +36,16 @@ int main() {
             }
             p.push({i.t + i.d, i.l});
         }
-        while (p.empty()) {
+        while (!p.empty()) {
             auto aa = p.top();
             p.pop();
-            if (aa.first <= t)t += aa.second;
+            if (aa.first >= t)t += aa.second;
             else {
                 cout << "NO" << endl;
                 return;
             }
         }
         cout << "YES" << endl;
-        return;
     };
     while (t--) {
         solve();

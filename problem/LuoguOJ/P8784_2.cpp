@@ -1,3 +1,6 @@
+//P8784 [蓝桥杯 2022 省 B] 积木画
+//dp做法，可以优化为logn时间复杂度、空间复杂度为常数。
+//并且未取模
 #include <bits/stdc++.h>
 using namespace std;
 #define endl '\n'

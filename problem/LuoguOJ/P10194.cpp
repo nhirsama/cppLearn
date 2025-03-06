@@ -8,6 +8,7 @@ typedef long long int ll;
 #define endl '\n'
 #define space << ' '
 typedef pair<int, int> pii;
+
 int main() {
     if (getenv("ONLINE_JUDGE") == nullptr) {
         freopen("Testlib.in", "r", stdin);
@@ -15,21 +16,49 @@ int main() {
     }
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-    int n,m;
-    cin>>n>>m;
+    ll n, m;
+    ll sum = 0;
+    cin >> n >> m;
     string s;
-    cin>>s;
-    s = s.substr(s.size()-1)+s;
-    vector<int> arr(n+1),sum(n+1);
-    ll minn = 0;
-    for(int i = 1;i<=n;i++){
-        cin>>arr[i];
+    cin >> s;
+    vector<int> arr(n), ind(n);
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+        sum += arr[i];
     }
-    arr[0] = arr[n];
-    for(int i = 1;i<=n;i++){
-        if (s[i-1]=='R' && s[i] == 'L') minn+=arr[i-1]+arr[i];
+    for (int i = 0; i < n; i++) {
+        if (s[i] == 'L') ind[i - 1 >= 0 ? i - 1 : n - 1]++;
+        else ind[i + 1 < n ? i + 1 : 0]++;
+    }
+    ll ans = 0;
+    stack<int> sta;
+    vector<bool> st(n, false);
+    auto dfs = [&](auto self, auto u) -> ll {
+        if (st[u]) return 0;
+        st[u] = true;
+        ll summ = 0;
+        summ += arr[u];
+        if (s[u] == 'L') {
+            int v = u - 1 >= 0 ? u - 1 : n - 1;
+            --ind[v];
+            if (ind[v] == 0) {
+                return summ + self(self, v);
+            }
+        } else {
+            int v = u + 1 < n ? u + 1 : 0;
+            --ind[v];
+            if (ind[v] == 0) {
+                return summ + self(self, v);
+            }
+        }
+        return summ;
+    };
+    for (int i = 0; i < n; i++) {
+        if (ind[i] == 0 && !st[i]) {
+            ans += min(dfs(dfs, i), m);
+        }
     }
 
-    cout<<minn<<endl;
+    cout << sum - ans << endl;
     return 0;
 }

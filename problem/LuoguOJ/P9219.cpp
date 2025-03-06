@@ -1,25 +1,28 @@
 //P9219 「TAOI-1」Antipathy World
 #include <bits/stdc++.h>
 using namespace std;
-constexpr int N = 1e5 + 3;
+constexpr int N = 1e5 + 10;
 typedef long long int ll;
-vector<int> v(N);
-ll oi(ll a,ll b){
-    return abs(v[a]-v[b]);
-}
 void solve() {
-    ll n = N-1,k = (N-1)/2+2;
+    ll n,k;
+    cin>>n>>k;
     pair<ll,ll> ans;
     ll maxn=0;
     for(ll i=1;i<n;i+=2) {
-        ll a = oi(i,i+1);
+        cout<<"? "<<i<<" "<<i+1<<endl;
+        ll a;
+        cin>>a;
         if(a>maxn) {
             ans = {i,i+1};
             maxn=a;
         }
     }
     if(n&1){
-        ll a = oi(ans.first,n),b = oi(ans.second,n);
+        cout<<"? "<<ans.first<<" "<<n<<endl;
+        ll a,b;
+        cin>>a;
+        cout<<"? "<<ans.second<<" "<<n<<endl;
+        cin>>b;
         if (a>maxn && b>maxn) {
             cout<<"! "<<n<<endl;
         }
@@ -32,7 +35,11 @@ void solve() {
     }
     else {
         ll m = ans.second<n?n:1;
-        ll a = oi(ans.first,m),b = oi(ans.second,m);
+        cout<<"? "<<ans.first<<" "<<m<<endl;
+        ll a,b;
+        cin>>a;
+        cout<<"? "<<ans.second<<" "<<m<<endl;
+        cin>>b;
         if(a>b) {
             cout<<"! "<<ans.first<<endl;
         }
@@ -44,12 +51,8 @@ void solve() {
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-    for(int i=1;i<N;i++) v[i]=i;
-    srand((unsigned int)(time(nullptr)));
-    ll r = (ll)rand();
-    cout<<r<<endl;
-    v[r]=2*N;
-    int t = 1;
+    int t;
+    cin>>t;
     while(t--) {
         solve();
     }

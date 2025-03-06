@@ -4,14 +4,19 @@ using namespace std;
 void solve() {
     string s;
     cin>>s;
-    for (int i = 0;i<5;i++) {
-        if ((s[i]-'0')%2==0) {
-            if (s[4] != '0') swap(s[i],s[4]);
-            cout<<s<<endl;
-            return ;
-        }
+    int len = s.size()-1;
+    int i = 0;
+    goto for_loop_begin;
+    for(int i = 0;i<s.size();i++,len--){
+        cout<<s[i];
+        if(len%3==0 && len) cout<<',';
     }
-    cout<<97531<<endl;
+    for_loop_begin:
+    cout<<s[i];
+    if(len%3==0 && len) cout<<',';
+    i++;len--;
+    if (i<size()) goto for_loop_begin;
+    goto for_loop_end;
 }
 int main() {
     int n;

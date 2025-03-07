@@ -1,57 +1,42 @@
-//P9219 「TAOI-1」Antipathy World
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-constexpr int N = 1e5 + 3;
-typedef long long int ll;
-vector<int> v(N);
-ll oi(ll a,ll b){
-    return abs(v[a]-v[b]);
-}
-void solve() {
-    ll n = N-1,k = (N-1)/2+2;
-    pair<ll,ll> ans;
-    ll maxn=0;
-    for(ll i=1;i<n;i+=2) {
-        ll a = oi(i,i+1);
-        if(a>maxn) {
-            ans = {i,i+1};
-            maxn=a;
-        }
-    }
-    if(n&1){
-        ll a = oi(ans.first,n),b = oi(ans.second,n);
-        if (a>maxn && b>maxn) {
-            cout<<"! "<<n<<endl;
-        }
-        else if(a>b) {
-            cout<<"! "<<ans.first<<endl;
-        }
-        else  {
-            cout<<"! "<<ans.second<<endl;
-        }
-    }
-    else {
-        ll m = ans.second<n?n:1;
-        ll a = oi(ans.first,m),b = oi(ans.second,m);
-        if(a>b) {
-            cout<<"! "<<ans.first<<endl;
-        }
-        else  {
-            cout<<"! "<<ans.second<<endl;
-        }
-    }
-}
+using ll = long long;
+ll ans;
+
+struct node {
+    ll a, b, n;
+};
+
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-    for(int i=1;i<N;i++) v[i]=i;
-    srand((unsigned int)(time(nullptr)));
-    ll r = (ll)rand();
-    cout<<r<<endl;
-    v[r]=2*N;
-    int t = 1;
-    while(t--) {
-        solve();
+    ll n;
+    cin >> n;
+    vector<node> arr(n + 1),brr(n+1);
+    vector<bool> st(n + 1);
+    for (int i = 1; i <= n; i++) {
+        ll a, b;
+        cin >> a >> b;
+        arr[i] = {a, b, i};
+        brr[i] = arr[i];
     }
-    return 0;
+    ll cnt = 0;
+    sort(arr.begin() + 1, arr.end(), [](node &a, node &b) { return a.a < b.a; });
+    sort(brr.begin() + 1, brr.end(), [](node &a, node &b) { return a.b < b.b; });
+    int ptr = 1;
+    for (int i = 1; i <= n; i++) {
+        if (st[arr[i].n]) continue;
+        if (cnt >= arr[i].a) {
+            cnt++;
+            st[arr[i].n] = true;
+        } else {
+            for (;ptr<=n;ptr++) {
+                if (!st[brr[ptr].n]) {
+                    ans+=brr[ptr].b;
+                    cnt++;
+                    st[brr[ptr].n] = true;
+                    break;
+                }
+            }
+        }
+    }
+    cout << ans << endl;
 }

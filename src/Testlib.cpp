@@ -1,42 +1,89 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
-ll ans;
 
-struct node {
-    ll a, b, n;
+struct DSU {
+    vector<int> ccb;
+    vector<int> d;
+
+    DSU(int n) : ccb(n + 1), d(n + 1, 0) {
+        for (int i = 1; i <= n; ++i)
+            ccb[i] = i;
+    }
+
+    int find(int x) {
+        if (ccb[x] != x) {
+            int root = find(ccb[x]);
+            d[x] ^= d[ccb[x]];
+            ccb[x] = root;
+        }
+        return ccb[x];
+    }
+
+    bool unite(int x, int y, int z) {
+        int rx = find(x);
+        int ry = find(y);
+        if (rx == ry) {
+            return (d[x] ^ d[y]) == z;
+        }
+        ccb[ry] = rx;
+        d[ry] = d[x] ^ d[y] ^ z;
+        return true;
+    }
 };
 
 int main() {
-    ll n;
-    cin >> n;
-    vector<node> arr(n + 1),brr(n+1);
-    vector<bool> st(n + 1);
-    for (int i = 1; i <= n; i++) {
-        ll a, b;
-        cin >> a >> b;
-        arr[i] = {a, b, i};
-        brr[i] = arr[i];
-    }
-    ll cnt = 0;
-    sort(arr.begin() + 1, arr.end(), [](node &a, node &b) { return a.a < b.a; });
-    sort(brr.begin() + 1, brr.end(), [](node &a, node &b) { return a.b < b.b; });
-    int ptr = 1;
-    for (int i = 1; i <= n; i++) {
-        if (st[arr[i].n]) continue;
-        if (cnt >= arr[i].a) {
-            cnt++;
-            st[arr[i].n] = true;
-        } else {
-            for (;ptr<=n;ptr++) {
-                if (!st[brr[ptr].n]) {
-                    ans+=brr[ptr].b;
-                    cnt++;
-                    st[brr[ptr].n] = true;
-                    break;
-                }
-            }
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m;
+    cin >> n >> m;
+
+    DSU dsu(n);
+
+    bool flag = true;
+    for (int i = 0; i < m; ++i) {
+        int x, y, z;
+        cin >> x >> y >> z;
+        if (!dsu.unite(x, y, z)) {
+            flag = false;
         }
     }
-    cout << ans << endl;
+
+    if (!flag) {
+        cout << -1 << '\n';
+        return 0;
+    }
+
+    map<int, vector<int>> brr;
+    for (int i = 1; i <= n; ++i) {
+        int root = dsu.find(i);
+        brr[root].push_back(i);
+    }
+
+    vector<int> arr(n + 1);
+    for (auto &[root, nodes] : brr) {
+        vector<int> bits(31, 0);
+        for (int i : nodes) {
+            int num = dsu.d[i];
+            for (int k = 0; k < 31; ++k) {
+                if (num & (1 << k))
+                    bits[k]++;
+            }
+        }
+        int n = nodes.size();
+        int a = 0;
+        for (int k = 0; k < 31; ++k) {
+            if (bits[k] > n - bits[k])
+                a |= (1 << k);
+        }
+        for (int i : nodes) {
+            arr[i] = a ^ dsu.d[i];
+        }
+    }
+
+    for (int i = 1; i <= n; ++i) {
+        cout << arr[i] << " \n"[i == n];
+    }
+
+    return 0;
 }

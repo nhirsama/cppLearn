@@ -1,89 +1,59 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-struct DSU {
-    vector<int> ccb;
-    vector<int> d;
-
-    DSU(int n) : ccb(n + 1), d(n + 1, 0) {
-        for (int i = 1; i <= n; ++i)
-            ccb[i] = i;
-    }
-
-    int find(int x) {
-        if (ccb[x] != x) {
-            int root = find(ccb[x]);
-            d[x] ^= d[ccb[x]];
-            ccb[x] = root;
-        }
-        return ccb[x];
-    }
-
-    bool unite(int x, int y, int z) {
-        int rx = find(x);
-        int ry = find(y);
-        if (rx == ry) {
-            return (d[x] ^ d[y]) == z;
-        }
-        ccb[ry] = rx;
-        d[ry] = d[x] ^ d[y] ^ z;
-        return true;
-    }
-};
+using ll = long long;
+const int N = 1005;
+const int mod = 1e9 + 7;
+ll arr[N][N], base[N][N];
 
 int main() {
     ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
-    int n, m;
-    cin >> n >> m;
-
-    DSU dsu(n);
-
-    bool flag = true;
-    for (int i = 0; i < m; ++i) {
-        int x, y, z;
-        cin >> x >> y >> z;
-        if (!dsu.unite(x, y, z)) {
-            flag = false;
+    cin.tie(0);
+    int n, m, q;
+    cin >> n >> m >> q;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            cin >> base[i][j];
         }
     }
-
-    if (!flag) {
-        cout << -1 << '\n';
-        return 0;
+    memset(arr, 0, sizeof(arr));
+    while (q--) {
+        int x1, y1, x2, y2, c;
+        cin >> x1 >> y1 >> x2 >> y2 >> c;
+        arr[x1][y1] += c;
+        arr[x1][y2 + 1] -= c;
+        arr[x2 + 1][y1] -= c;
+        arr[x2 + 1][y2 + 1] += c;
     }
-
-    map<int, vector<int>> brr;
-    for (int i = 1; i <= n; ++i) {
-        int root = dsu.find(i);
-        brr[root].push_back(i);
-    }
-
-    vector<int> arr(n + 1);
-    for (auto &[root, nodes] : brr) {
-        vector<int> bits(31, 0);
-        for (int i : nodes) {
-            int num = dsu.d[i];
-            for (int k = 0; k < 31; ++k) {
-                if (num & (1 << k))
-                    bits[k]++;
-            }
-        }
-        int n = nodes.size();
-        int a = 0;
-        for (int k = 0; k < 31; ++k) {
-            if (bits[k] > n - bits[k])
-                a |= (1 << k);
-        }
-        for (int i : nodes) {
-            arr[i] = a ^ dsu.d[i];
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            if (j > 1) arr[i][j] += arr[i][j - 1];
         }
     }
-
-    for (int i = 1; i <= n; ++i) {
-        cout << arr[i] << " \n"[i == n];
+    for (int j = 1; j <= m; j++) {
+        for (int i = 1; i <= n; i++) {
+            if (i > 1) arr[i][j] += arr[i - 1][j];
+        }
     }
-
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            arr[i][j] = (base[i][j] + arr[i][j]) % mod;
+            arr[i][j] = arr[i][j] * arr[i][j] % mod;
+        }
+    }
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            arr[i][j] = (arr[i][j] + arr[i - 1][j] + arr[i][j - 1] - arr[i - 1][j - 1]) % mod;
+            arr[i][j] = (arr[i][j] + mod) % mod;
+        }
+    }
+    int Q;
+    cin >> Q;
+    while (Q--) {
+        int x1, y1, x2, y2;
+        cin >> x1 >> y1 >> x2 >> y2;
+        ll ans = (arr[x2][y2] - arr[x1 - 1][y2] - arr[x2][y1 - 1] + arr[x1 - 1][y1 - 1]) % mod;
+        ans = (ans + mod) % mod;
+        cout << ans << '\n';
+    }
     return 0;
 }

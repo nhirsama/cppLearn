@@ -14,20 +14,25 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     while (cin >> l >> n) {
+        int cnt11 = 0;
         bool pass = false;
         vector<char> v(n + 1);
         vector<bool> st(n + 1);
+
         for (int i = 1; i <= n; i++)
             cin >> v[i];
         vector<char> ans;
         sort(v.begin() + 1, v.end());
+        vector<string> s;
         auto dfs = [&](auto self, int a, bool flag, int cnt, int fn) {
+            if (cnt11>25000) return;
             if (l == a && flag && fn >= 2) {
                 pass = true;
                 for (auto b: ans) {
-                    cout << b;
+                    cout<<b;
                 }
-                cout << endl;
+                cnt11++;
+                cout<<endl;
                 return;
             }
             if (l == a) {
@@ -49,6 +54,12 @@ int main() {
         };
         dfs(dfs, 0, false, 0, 0);
         if (!pass) cout << "No Password!" << endl;
+        else {
+            sort(s.begin(),s.end());
+            for (auto ss:s) {
+                cout<<ss<<endl;
+            }
+        }
     }
     return 0;
 }

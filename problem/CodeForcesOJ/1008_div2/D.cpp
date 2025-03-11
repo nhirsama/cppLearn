@@ -12,10 +12,11 @@ typedef pair<int, int> pii;
 void Solve() {
     int n;
     cin >> n;
+    ll ans1 = 1, ans2 = 1;
     vector<pair<char, int> > arr(n + 3), arr2(n + 3);
-    vector<pii> upd1(n + 3), upd2(n + 3);
-    upd1[0] = pii(1, 0);
-    upd2[0] = pii(1, 0);
+    //    vector<pii> upd1(n + 3), upd2(n + 3);
+    //    upd1[0] = pii(1, 0);
+    //    upd2[0] = pii(1, 0);
     for (int i = 1; i <= n; i++) {
         char op1, op2;
         int a, b;
@@ -23,41 +24,75 @@ void Solve() {
         arr[i] = pii(op1, a);
         arr2[i] = pii(op2, b);
     }
-    upd1[n + 1] = pii(1, 0);
-    upd2[n + 1] = pii(1, 0);
-    ll ans1 = 1, ans2 = 1;
-    for (int i = n; i; i--) {
-        if (arr[i].x == '+') {
-            upd1[i] = {upd1[i + 1].x, arr[i].y};
+    auto get = [&](int aa)-> int {
+        for (int i = aa+1; i <= n; i++) {
+            if (arr[i].x == 'x' && arr2[i].x == 'x') {
+                if (arr[i].y > arr2[i].y) return 1;
+                if (arr2[i].y > arr[i].y) return 2;
+            }
+            if (arr[i].x == 'x' && arr2[i].x == '+') return 1;
+            if (arr2[i].x == 'x' && arr[i].x == '+') return 2;
         }
+        return 1;
+    };
+    for (int i = 1; i <= n; i++) {
+        ll upd1 = 0, upd2 = 0;
         if (arr[i].x == 'x') {
-            upd1[i] = {upd1[i + 1].x * arr[i].y, 0};
-        }
-        if (arr2[i].x == '+') {
-            upd2[i] = {upd2[i + 1].x, arr2[i].y};
+            upd1 += ans1 * (arr[i].y - 1);
         }
         if (arr2[i].x == 'x') {
-            upd2[i] = {upd2[i + 1].x * arr2[i].y, 0};
+            upd2 += ans2 * (arr2[i].y - 1);
+        }
+        if (arr[i].x == '+') {
+            upd1 += arr[i].y;
+        }
+
+        if (arr2[i].x == '+') {
+            upd2 += arr2[i].y;
+        }
+        if (get(i) == 1) {
+            ans1 += upd1;
+            ans1 += upd2;
+        } else {
+            ans2 += upd1;
+            ans2 += upd2;
         }
     }
-    ans1 = upd1[1].x;
-    ans2 = upd2[1].x;
-    for (int i = 1; i <= n; i++) {
-        if (upd1[i].y) {
-            if (upd1[i + 1].x > upd2[i + 1].x) {
-                ans1 += upd1[i].y * upd1[i + 1].x;
-            } else {
-                ans2 += upd1[i].y * upd2[i + 1].x;
-            }
-        }
-        if (upd2[i].y) {
-            if (upd1[i + 1].x > upd2[i + 1].x) {
-                ans1 += upd2[i].y * upd1[i + 1].x;
-            } else {
-                ans2 += upd2[i].y * upd2[i + 1].x;
-            }
-        }
-    }
+    //    upd1[n + 1] = pii(1, 0);
+    //    upd2[n + 1] = pii(1, 0);
+    //    ll ans1 = 1, ans2 = 1;
+    //    for (int i = n; i; i--) {
+    //        if (arr[i].x == '+') {
+    //            upd1[i] = {upd1[i + 1].x, arr[i].y};
+    //        }
+    //        if (arr[i].x == 'x') {
+    //            upd1[i] = {upd1[i + 1].x * arr[i].y, 0};
+    //        }
+    //        if (arr2[i].x == '+') {
+    //            upd2[i] = {upd2[i + 1].x, arr2[i].y};
+    //        }
+    //        if (arr2[i].x == 'x') {
+    //            upd2[i] = {upd2[i + 1].x * arr2[i].y, 0};
+    //        }
+    //    }
+    //    ans1 = upd1[1].x;
+    //    ans2 = upd2[1].x;
+    //    for (int i = 1; i <= n; i++) {
+    //        if (upd1[i].y) {
+    //            if (upd1[i + 1].x > upd2[i + 1].x) {
+    //                ans1 += upd1[i].y * upd1[i + 1].x;
+    //            } else {
+    //                ans2 += upd1[i].y * upd2[i + 1].x;
+    //            }
+    //        }
+    //        if (upd2[i].y) {
+    //            if (upd1[i + 1].x > upd2[i + 1].x) {
+    //                ans1 += upd2[i].y * upd1[i + 1].x;
+    //            } else {
+    //                ans2 += upd2[i].y * upd2[i + 1].x;
+    //            }
+    //        }
+    //    }
     cout << ans1 + ans2 << endl;
 }
 

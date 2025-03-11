@@ -1,4 +1,4 @@
-//模板
+//D. 算法竞赛新手
 #include <bits/stdc++.h>
 using namespace std;
 constexpr int N = 1e5 + 10;
@@ -8,7 +8,6 @@ typedef long long int ll;
 #define y second
 #define endl '\n'
 #define space << ' '
-#define allp1(x) (x).begin() + 1, (x).end()
 typedef pair<int, int> pii;
 int main() {
     if (getenv("ONLINE_JUDGE") == nullptr) {
@@ -16,7 +15,9 @@ int main() {
         freopen("Code.out", "w", stdout);
     }
     IOS
-    cin.tie(nullptr);
+    int n,m,x;
+    cin>>n>>m>>x;
+    vector
 
     return 0;
 }

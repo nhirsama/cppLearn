@@ -25,14 +25,13 @@ int main() {
         sort(v.begin() + 1, v.end());
         vector<string> s;
         auto dfs = [&](auto self, int a, bool flag, int cnt, int fn) {
-            if (cnt11>25000) return;
             if (l == a && flag && fn >= 2) {
                 pass = true;
+                string sss;
                 for (auto b: ans) {
-                    cout<<b;
+                    sss+=b;
                 }
-                cnt11++;
-                cout<<endl;
+                s.push_back(sss);
                 return;
             }
             if (l == a) {
@@ -55,9 +54,11 @@ int main() {
         dfs(dfs, 0, false, 0, 0);
         if (!pass) cout << "No Password!" << endl;
         else {
+
             sort(s.begin(),s.end());
-            for (auto ss:s) {
-                cout<<ss<<endl;
+            int endd = unique(s.begin(),s.end())-s.begin();
+            for (int i = 0;i<endd;i++) {
+                cout<<s[i]<<endl;
             }
         }
     }

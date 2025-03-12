@@ -17,7 +17,8 @@ void solve() {
         }
         return res;
     };
-    cout << po(n) << "\n";
+    if (n<=3) cout<<po(n)<<endl;
+    else cout << 26*25*24 << "\n";
 }
 
 int main() {

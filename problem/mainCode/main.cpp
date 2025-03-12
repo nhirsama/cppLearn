@@ -344,19 +344,19 @@ int main() {
             he++;
         }
     }
-    char aa = (char)(ji%11 + '0' );
-    if (aa == arr[12]) {
+    char 1009_div3 = (char)(ji%11 + '0' );
+    if (1009_div3 == arr[12]) {
         cout << "Right" << endl;
     }
-    else if (aa == ':' && arr[12] == 'X') {
+    else if (1009_div3 == ':' && arr[12] == 'X') {
         cout << "Right" << endl;
     }
-    else if (aa == ':') {
+    else if (1009_div3 == ':') {
         arr[12] = 'X';
         cout << arr << endl;
     }
     else {
-        arr[12] = aa;
+        arr[12] = 1009_div3;
         cout << arr << endl;
     }
     return 0;

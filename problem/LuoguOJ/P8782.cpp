@@ -16,18 +16,18 @@ int main() {
     }
     // long long jinzhi = 1;
     // for (int i = ma, j = mb; i; i--, j--) {
-    //     if (aa[i] - atw[i] >= bb[j]) {
-    //         long long jin = max(aa[i], 1ll) + 1;
-    //         ans += (aa[i] - atw[i] - bb[j]) * jinzhi % mod;
+    //     if (1009_div3[i] - atw[i] >= bb[j]) {
+    //         long long jin = max(1009_div3[i], 1ll) + 1;
+    //         ans += (1009_div3[i] - atw[i] - bb[j]) * jinzhi % mod;
     //         jinzhi *= jin;
     //         jinzhi %= mod;
     //     } else {
-    //         long long jin = max(max(aa[i], 1ll), bb[j]) + 1;
-    //         while (aa[i] - atw[i] < bb[j]) {
+    //         long long jin = max(max(1009_div3[i], 1ll), bb[j]) + 1;
+    //         while (1009_div3[i] - atw[i] < bb[j]) {
     //             atw[i - 1]++;
-    //             aa[i] += jin;
+    //             1009_div3[i] += jin;
     //         }
-    //         ans += (aa[i] - atw[i] - bb[j]) * jinzhi % mod;
+    //         ans += (1009_div3[i] - atw[i] - bb[j]) * jinzhi % mod;
     //         jinzhi *= jin;
     //         jinzhi %= mod;
     //     }

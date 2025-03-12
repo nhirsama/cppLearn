@@ -27,7 +27,7 @@ int main() {
     //     powSum(i);
     // }
     // for (int i = 1; i <= 1000; i++) {
-    //     aa(i);
+    //     1009_div3(i);
     // }
     // cout<<max1<<endl;
     cout << 145 << endl;

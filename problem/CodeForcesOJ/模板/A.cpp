@@ -8,13 +8,14 @@ typedef long long int ll;
 #define y second
 #define endl '\n'
 #define space << ' '
+#define int long long
 typedef pair<int, int> pii;
 
 void Solve() {
 
 }
 
-int main() {
+signed main() {
     IOS
     #ifdef LOCAL
     freopen("Testlib.in", "r", stdin);

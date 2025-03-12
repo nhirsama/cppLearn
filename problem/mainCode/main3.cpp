@@ -901,11 +901,11 @@ int main() {
             for (int k = 1; k <= n; k++) {
                 if(j != k && ans[j][k] == arr[i]) {
                     num++;
-                    goto aa;
+                    goto 1009_div3;
                 }
             }
         }
-        aa:
+        1009_div3:
     }
     cout << num << endl;
     return 0;

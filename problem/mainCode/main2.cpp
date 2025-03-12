@@ -436,36 +436,36 @@ void delListI(int *list,int i,int length) {
     }
 }
 //将一个dp结构体传入，并返回选了格子m后的结构体
-struct dp delNum(struct dp aa,int m) {
-    if (aa.num < arrDel[m]) {
-        aa.num2++;
-        aa.num ++;
-        aa.fangAn[aa.num-1] = m;
-        aa.fangAn2[aa.num2-1] = m;
-        aa.ans += arr[m];
-        return aa;
+struct dp delNum(struct dp 1009_div3,int m) {
+    if (1009_div3.num < arrDel[m]) {
+        1009_div3.num2++;
+        1009_div3.num ++;
+        1009_div3.fangAn[1009_div3.num-1] = m;
+        1009_div3.fangAn2[1009_div3.num2-1] = m;
+        1009_div3.ans += arr[m];
+        return 1009_div3;
     }
     int i = 0;
     while (i<arrDel[m]) {
-        aa.ans -= arr[aa.fangAn[0]];
-        delListI(&aa.fangAn[0],0,aa.num);
-        aa.num--;
+        1009_div3.ans -= arr[1009_div3.fangAn[0]];
+        delListI(&1009_div3.fangAn[0],0,1009_div3.num);
+        1009_div3.num--;
         i++;
     }
-    aa.num ++;
-    aa.num2 ++;
-    aa.fangAn[aa.num-1] = m;
-    aa.ans += arr[m];
-    aa.fangAn2[aa.num2-1] = m;
-    return aa;
+    1009_div3.num ++;
+    1009_div3.num2 ++;
+    1009_div3.fangAn[1009_div3.num-1] = m;
+    1009_div3.ans += arr[m];
+    1009_div3.fangAn2[1009_div3.num2-1] = m;
+    return 1009_div3;
 }
 void dpFunc() {
     dp[0].num = 0;
     dp[0].ans = 0;
     for(int i=1;i<=n;i++) {
-        struct dp aa = delNum(dp[i-1],i);
-        if (dp[i-1].ans < aa.ans) {
-            dp[i] = aa;
+        struct dp 1009_div3 = delNum(dp[i-1],i);
+        if (dp[i-1].ans < 1009_div3.ans) {
+            dp[i] = 1009_div3;
         }
         else {
             dp[i] = dp[i-1];

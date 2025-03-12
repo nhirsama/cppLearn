@@ -9,15 +9,20 @@ typedef long long int ll;
 #define y second
 #define endl '\n'
 #define space << ' '
-#define allp1(x) (x).begin() + 1, (x).end()
+#define WA AC
+#define TLE AC
+#define MLE AC
+#define RE AC
+#define CE AC
 typedef pair<int, int> pii;
 signed main() {
-    if (getenv("ONLINE_JUDGE") == nullptr) {
-        freopen("Testlib.in", "r", stdin);
-        freopen("Code.out", "w", stdout);
-    }
-    IOS
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-
+    ll k;
+    string s;
+    cin>>s>>k;
+    sort(s.begin(),s.end());
+    while(--k) next_permutation(s.begin(),s.end());
+    cout<<s<<endl;
     return 0;
 }

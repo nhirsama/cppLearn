@@ -613,16 +613,16 @@ using namespace std;
 string strArr[23];
 int st[23];
 int n;
-int dfs(int aa,int len) {
+int dfs(int 1009_div3,int len) {
 	int max1 = 0;
 	for (int i = 1;i<=n;i++) {
 		if (st[i] >= 2)continue;
-		int Len = strArr[aa].length()-strArr[i].length();
+		int Len = strArr[1009_div3].length()-strArr[i].length();
 
-		for (int j = strArr[aa].length()-1;j>max(0,Len);j--) {
-			// string aaa = strArr[aa].substr(j);
-			// string bbb = strArr[i].substr(0,strArr[aa].length()-j);
-			if (strArr[aa].substr(j) == strArr[i].substr(0,strArr[aa].length()-j)) {
+		for (int j = strArr[1009_div3].length()-1;j>max(0,Len);j--) {
+			// string aaa = strArr[1009_div3].substr(j);
+			// string bbb = strArr[i].substr(0,strArr[1009_div3].length()-j);
+			if (strArr[1009_div3].substr(j) == strArr[i].substr(0,strArr[1009_div3].length()-j)) {
 				st[i] ++;
 				int maxA = dfs(i,len+j-Len);
 				st[i] --;
@@ -1074,17 +1074,17 @@ int main(){
 using namespace std;
 vector <char> a;
 vector <char> b;
-vector <char> add(vector <char> &aa,vector <char> &bb){
-	if(aa.size()<bb.size())return add(bb,aa);
-	for(int i=  0;i<aa.size();i++){
-		if(i<bb.size())aa[i] += bb[i];
-		if(aa[i]>=10){
-			if (i == aa.size()-1)aa.push_back(1);
-			else aa[i+1]++;
-			aa[i] %=10;
+vector <char> add(vector <char> &1009_div3,vector <char> &bb){
+	if(1009_div3.size()<bb.size())return add(bb,1009_div3);
+	for(int i=  0;i<1009_div3.size();i++){
+		if(i<bb.size())1009_div3[i] += bb[i];
+		if(1009_div3[i]>=10){
+			if (i == 1009_div3.size()-1)1009_div3.push_back(1);
+			else 1009_div3[i+1]++;
+			1009_div3[i] %=10;
 		}
 	}
-	return aa;
+	return 1009_div3;
 }
 int main(){
 	string mm;
@@ -1110,22 +1110,22 @@ int main(){
 using namespace std;
 vector <char> a;
 vector <char> b;
-vector <char> add(vector <char> &aa,vector <char> &bb){
-	if(aa.size()<bb.size())return add(bb,aa);
-	for(int i=  0;i<aa.size();i++){
-		if(i<bb.size())aa[i] += bb[i];
-		if(aa[i]>=10){
-			if (i == aa.size()-1)aa.push_back(1);
-			else aa[i+1]++;
-			aa[i] %=10;
+vector <char> add(vector <char> &1009_div3,vector <char> &bb){
+	if(1009_div3.size()<bb.size())return add(bb,1009_div3);
+	for(int i=  0;i<1009_div3.size();i++){
+		if(i<bb.size())1009_div3[i] += bb[i];
+		if(1009_div3[i]>=10){
+			if (i == 1009_div3.size()-1)1009_div3.push_back(1);
+			else 1009_div3[i+1]++;
+			1009_div3[i] %=10;
 		}
 	}
-	return aa;
+	return 1009_div3;
 }
-vector <char> mul(vector <char> &aa,vector <char> &bb){
-	if(aa.size()<bb.size())return mul(bb,aa);
-	vector<char> c(aa.size()+bb.size()+1,0);
-	for(int i = 0;i<aa.size();i++){
+vector <char> mul(vector <char> &1009_div3,vector <char> &bb){
+	if(1009_div3.size()<bb.size())return mul(bb,1009_div3);
+	vector<char> c(1009_div3.size()+bb.size()+1,0);
+	for(int i = 0;i<1009_div3.size();i++){
 		for(int j = 0;j<bb.size();j++){
 			c[i+j] += a[i]*b[j];
 			c[i+j+1] += c[i+j]/10;
@@ -1391,9 +1391,9 @@ int main(){
 	}
 	sort(alls.begin(),alls.end());
 	alls.erase(unique(alls.begin(),alls.end()),alls.end());
-	for(auto aa:nVec){
-		int a = find(aa.first);
-		arr[a]+=aa.second;
+	for(auto 1009_div3:nVec){
+		int a = find(1009_div3.first);
+		arr[a]+=1009_div3.second;
 	}
 	for(int i = 1;i<=alls.size();i++) arr[i]+=arr[i-1];
 	for(auto bb:mVec){

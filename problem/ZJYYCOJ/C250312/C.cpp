@@ -9,15 +9,14 @@ typedef long long int ll;
 #define y second
 #define endl '\n'
 #define space << ' '
-#define allp1(x) (x).begin() + 1, (x).end()
 typedef pair<int, int> pii;
-signed main() {
-    if (getenv("ONLINE_JUDGE") == nullptr) {
-        freopen("Testlib.in", "r", stdin);
-        freopen("Code.out", "w", stdout);
-    }
-    IOS
-    cin.tie(nullptr);
 
+signed main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    string s;
+    cin>>s;
+    if(s == "Hello,World!") cout<<"AC"<<endl;
+    else cout<<"WA"<<endl;
     return 0;
 }

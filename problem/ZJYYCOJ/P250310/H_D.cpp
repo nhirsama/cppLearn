@@ -9,15 +9,40 @@ typedef long long int ll;
 #define endl '\n'
 #define space << ' '
 typedef pair<int, int> pii;
-int main() {
-    if (getenv("ONLINE_JUDGE") == nullptr) {
-        freopen("Testlib.in", "r", stdin);
-        freopen("Code.out", "w", stdout);
-    }
-    IOS
-    int n,m,x;
-    cin>>n>>m>>x;
-    vector
+long long ans = (1ll << 62);
 
+int main() {
+    IOS
+    int n, m,x;
+    cin >> n >> m >> x;
+    vector<vector<int> > arr(n + 1);
+    for (int i = 1; i <= n; i++) {
+        int c;
+        for (int j = 0; j <= m; j++) {
+            cin >> c;
+            arr[i].push_back(c);
+        }
+    }
+    vector<ll> v(m + 1);
+    vector<bool> st(n + 1);
+    auto dfs = [&](auto self, ll q, int cnt)-> void {
+        if (cnt >= m) {
+            ans = min(q, ans);
+            return;
+        }
+        for (int i = 1; i <= n; i++) {
+            if (st[i]) continue;
+            st[i] = true;
+            int aa = 0;
+            for (int j = 1; j <= m; j++) aa += (x <= (v[j] = v[j] + arr[i][j]));
+            self(self, q + arr[i][0], cnt + aa);
+            st[i] = false;
+            for (int j = 1; j <= m; j++) v[j] -= arr[i][j];
+        }
+    };
+    dfs(dfs, 0, 0);
+    if (ans == (1ll << 62)) {
+        cout << -1 << endl;
+    } else cout << ans << endl;
     return 0;
 }

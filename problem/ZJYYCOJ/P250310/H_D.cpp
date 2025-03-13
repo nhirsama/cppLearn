@@ -25,17 +25,19 @@ int main() {
     }
     vector<ll> v(m + 1);
     vector<bool> st(n + 1);
-    auto dfs = [&](auto self, ll q, int cnt)-> void {
-        if (cnt >= m) {
-            ans = min(q, ans);
-            return;
+    auto dfs = [&](auto self, ll q, int num)-> void {
+        int cnt = 0;
+        for (int i = 1; i <= m; i++) {
+            if (v[i] >= x)cnt++;
         }
-        for (int i = 1; i <= n; i++) {
+        if (cnt >= m) {
+            ans = min(ans, q);
+        }
+        for (int i = 1 + num; i <= n; i++) {
             if (st[i]) continue;
             st[i] = true;
-            int aa = 0;
-            for (int j = 1; j <= m; j++) aa += (x <= (v[j] = v[j] + arr[i][j]));
-            self(self, q + arr[i][0], cnt + aa);
+            for (int j = 1; j <= m; j++) v[j] += arr[i][j];
+            self(self, q + arr[i][0], num + 1);
             st[i] = false;
             for (int j = 1; j <= m; j++) v[j] -= arr[i][j];
         }

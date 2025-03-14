@@ -1,58 +1,55 @@
-//矩阵加速模板
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <queue>
+
 using namespace std;
-int mod = 1000000007;
 
-//i和j分别表示矩阵的行数和列数，初始化需要定义行数和列数，并重载乘号运算符，每次运算对mod取模。
-struct matrix {
-    long long rows, cols;
-    vector<vector<long long> > mat;
+typedef unsigned long long ull;
+typedef long long ll;
+const int maxn = 2e6 + 7;
 
-    matrix(long long r, long long c) : rows(r), cols(c), mat(r, vector<long long>(c)) {
+int a[maxn];
+ull f[maxn];
+
+void init() {
+    f[1] = 1;f[2] = 2;
+    for(int i = 3;i < maxn;i++) {
+        f[i] = f[i - 1] + f[i - 2];
     }
-
-    static matrix identity(long long n) {
-        matrix res(n, n);
-        for (int i = 0; i < n; ++i) res.mat[i][i] = 1;
-        return res;
-    }
-
-    matrix operator*(const matrix &o) const {
-        matrix res(rows, o.cols);
-        for (int i = 0; i < rows; ++i)
-            for (int k = 0; k < cols; ++k)
-                for (int j = 0; j < o.cols; ++j)
-                    res.mat[i][j] = (res.mat[i][j] + mat[i][k] * o.mat[k][j]) % mod;
-        return res;
-    }
-};
-
-//传入方阵a，并对其做p次幂运算，返回一个方阵.
-matrix qpow(matrix a, long long p) {
-    matrix res = matrix::identity(a.rows);
-    for (; p; p >>= 1, a = a * a)
-        if (p & 1) res = res * a;
-    return res;
 }
 
 int main() {
-    long long n;
-    cin >> n;
-    matrix base(2, 2), ans(2, 2);
-    base.mat = {
-        {1, 12},
-        {0, 0}
-    };
-    ans.mat = {
-        {3, 1},
-        {-7, 0}
-    };
-    if (n > 2) {
-        ans = base * qpow(ans, n - 2);
-        cout << ans.mat[0][0] << endl;
-    } else {
-        if (n == 1)cout << 12 << endl;
-        else cout << 1 << endl;;
+    init();
+    int T;scanf("%d",&T);
+    while(T--) {
+        ull s1 = 0,s2 = 0,s3 = 0;
+        int m1;scanf("%d",&m1);
+        for(int i = 1;i <= m1;i++) {
+            int x;scanf("%d",&x);
+            if(x) s1 += f[i];
+        }
+        int m2;scanf("%d",&m2);
+        for(int i = 1;i <= m2;i++) {
+            int x;scanf("%d",&x);
+            if(x) s2 += f[i];
+        }
+        int m3;scanf("%d",&m3);
+        for(int i = 1;i <= m3;i++) {
+            scanf("%d",&a[i]);
+            if(a[i]) s3 += f[i];
+        }
+        ull s4 = s1 * s2;
+        int ans = 0;
+        for(int i = 1;i < m3;i++) {
+            if(a[i] == 0 && a[i + 1] != 1 && a[i - 1] != 1) {
+                if(s3 + f[i] == s4) {
+                    ans = i;
+                    break;
+                }
+            }
+        }
+        printf("%d\n",ans);
     }
     return 0;
 }

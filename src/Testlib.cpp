@@ -1,105 +1,58 @@
+//矩阵加速模板
 #include <bits/stdc++.h>
 using namespace std;
+int mod = 1000000007;
 
-struct augment_path {
-    vector<vector<int> > g;
-    vector<int> pa; // 匹配
-    vector<int> pb;
-    vector<int> vis; // 访问
-    int n, m; // 两个点集中的顶点数量
-    int dfn; // 时间戳记
-    int res; // 匹配数
+//i和j分别表示矩阵的行数和列数，初始化需要定义行数和列数，并重载乘号运算符，每次运算对mod取模。
+struct matrix {
+    long long rows, cols;
+    vector<vector<long long> > mat;
 
-    augment_path(int _n, int _m) : n(_n), m(_m) {
-        assert(0 <= n && 0 <= m);
-        pa = vector<int>(n, -1);
-        pb = vector<int>(m, -1);
-        vis = vector<int>(n);
-        g.resize(n);
-        res = 0;
-        dfn = 0;
+    matrix(long long r, long long c) : rows(r), cols(c), mat(r, vector<long long>(c)) {
     }
 
-    void add(int from, int to) {
-        assert(0 <= from && from < n && 0 <= to && to < m);
-        g[from].push_back(to);
+    static matrix identity(long long n) {
+        matrix res(n, n);
+        for (int i = 0; i < n; ++i) res.mat[i][i] = 1;
+        return res;
     }
 
-    bool dfs(int v) {
-        vis[v] = dfn;
-        for (int u: g[v]) {
-            if (pb[u] == -1) {
-                pb[u] = v;
-                pa[v] = u;
-                return true;
-            }
-        }
-        for (int u: g[v]) {
-            if (vis[pb[u]] != dfn && dfs(pb[u])) {
-                pa[v] = u;
-                pb[u] = v;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    int solve() {
-        while (true) {
-            dfn++;
-            int cnt = 0;
-            for (int i = 0; i < n; i++) {
-                if (pa[i] == -1 && dfs(i)) {
-                    cnt++;
-                }
-            }
-            if (cnt == 0) {
-                break;
-            }
-            res += cnt;
-        }
+    matrix operator*(const matrix &o) const {
+        matrix res(rows, o.cols);
+        for (int i = 0; i < rows; ++i)
+            for (int k = 0; k < cols; ++k)
+                for (int j = 0; j < o.cols; ++j)
+                    res.mat[i][j] = (res.mat[i][j] + mat[i][k] * o.mat[k][j]) % mod;
         return res;
     }
 };
 
-int main() {
-    int n;
-    while (cin >> n) {
-        vector<string> arr(n);
-        for (int i = 0; i < n; ++i) {
-            cin >> arr[i];
-        }
-        vector arr2(n, vector<int>(n));
-        vector arr3(n, vector<int>(n));
-        int cnth = 1;
-        for (int i = 0; i < n; i++) {
-            bool flag = false;
-            for (int j = 0; j < n; j++) {
-                if (arr[i][j] == '.')arr2[i][j] = cnth, flag = true;
-                else if (flag)cnth++, flag = false;
-            }
-            if (flag)cnth++;
-        }
-        int cntl = 1;
-        for (int i = 0; i < n; i++) {
-            bool flag = false;
-            for (int j = 0; j < n; j++) {
-                if (arr[j][i] == '.')arr3[j][i] = cntl, flag = true;
-                else if (flag)cntl++, flag = false;
-            }
-            if (flag)cntl++;
-        }
-        augment_path xyl(cnth, cntl);
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (arr[i][j] == '.') {
-                    xyl.add(arr2[i][j], arr3[i][j]);
-                }
-            }
-        }
-        int ans = xyl.solve();
-        cout << ans << endl;
-    }
+//传入方阵a，并对其做p次幂运算，返回一个方阵.
+matrix qpow(matrix a, long long p) {
+    matrix res = matrix::identity(a.rows);
+    for (; p; p >>= 1, a = a * a)
+        if (p & 1) res = res * a;
+    return res;
+}
 
+int main() {
+    long long n;
+    cin >> n;
+    matrix base(2, 2), ans(2, 2);
+    base.mat = {
+        {1, 12},
+        {0, 0}
+    };
+    ans.mat = {
+        {3, 1},
+        {-7, 0}
+    };
+    if (n > 2) {
+        ans = base * qpow(ans, n - 2);
+        cout << ans.mat[0][0] << endl;
+    } else {
+        if (n == 1)cout << 12 << endl;
+        else cout << 1 << endl;;
+    }
     return 0;
 }

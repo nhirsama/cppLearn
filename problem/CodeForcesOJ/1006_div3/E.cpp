@@ -5,31 +5,37 @@ constexpr int N = 1e5 + 10;
 typedef long long int ll;
 #define x first
 #define y second
-#define endl << '\n'
+#define endl '\n'
 #define space << ' ' <<
 typedef pair<int, int> pii;
-int find(int k) {
-    if (k == 0) return 0;
-    int low = 2, high = 2e5;
-    int ans = 0;
-    while (low <= high) {
-        int mid = (low + high) / 2;
-        if ((long long)mid * (mid - 1) / 2 <= k) {
-            ans = mid;
-            low = mid + 1;
-        } else {
-            high = mid - 1;
-        }
-    }
-    return ans;
-}
-void Func(){
 
+void Func() {
+    int n;
+    cin >> n;
+    vector<pii> ans;
+    int x = 1,y = 1;
+    if (!n) {
+        cout<<"1\n 1 \n 2"<<endl;
+        return ;
+    }
+    while (n) {
+        int m = 0;
+        while (m * (m - 1) / 2 <= n) {
+            ans.push_back({x++,y});
+            m++;
+        }
+        m--;
+        ans.pop_back();
+        n -= (m * (m - 1) / 2);
+        y++;
+    }
+    cout<<ans.size()<<endl;
+    for (auto [a,b]: ans) {
+        cout << a << ' ' << b << endl;
+    }
 }
+
 int main() {
-    #ifdef LOCAL
-    freopen("Testlib.in", "r", stdin);
-    #endif
     int T;
     cin >> T;
     while (T--) {

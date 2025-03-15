@@ -16,9 +16,8 @@ constexpr int N = 1e5 + 10;
 void nhir() {
 }
 
-signed main() {
-    const string LOCAL_ENV = getenv("LOCAL");
-    if (LOCAL_ENV == "nhir") {
+signed main() {;
+    if (getenv("LOCAL") != nullptr) {
         freopen("Testlib.in", "r", stdin);
         // freopen("Code.out", "w", stdout);
     }

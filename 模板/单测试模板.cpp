@@ -1,21 +1,27 @@
 //模板
 #include <bits/stdc++.h>
 using namespace std;
+typedef __int128 i128;
+typedef long long int i64;
+typedef int i32;
+typedef short i16;
+typedef char i8;
+typedef pair<i32, i32> pii;
 constexpr int N = 1e5 + 10;
-typedef long long int ll;
-using i64 = long long;
-using i32 = int;
-typedef pair<int, int> pii;
-#define int long long
-#define IOS ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+#define IOS ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
 #define x first
 #define y second
 #define endl '\n'
-#define space << ' '
-
+#define all1(x) (x).begin() + 1, (x).end()
+#define int long long
 
 signed main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
+    const string LOCAL_ENV = getenv("LOCAL");
+    if (LOCAL_ENV == "nhir") {
+        freopen("Testlib.in", "r", stdin);
+        // freopen("Code.out", "w", stdout);
+    }
+    IOS;
+
     return 0;
 }

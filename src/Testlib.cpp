@@ -1,39 +1,23 @@
+//模板
 #include <bits/stdc++.h>
 using namespace std;
-
-const int MAX_N = 100;
-
-int t[MAX_N], lo[MAX_N], hi[MAX_N];
-
-int main()
-{
-    int tc;
-    cin >> tc;
-    while (tc--)
-    {
-        int n, m, i;
-        cin >> n >> m;
-        for (i = 0; i < n; i++)
-            cin >> t[i] >> lo[i] >> hi[i];
-        int prev = 0;
-        int mn = m, mx = m;
-        bool flag = true;
-        for (i = 0; i < n; i++)
-        {
-            mx += t[i] - prev;
-            mn -= t[i] - prev;
-            if (mx < lo[i] || mn > hi[i])
-            {
-                flag = false;
-                break;
-            }
-            mx = min(mx, hi[i]);
-            mn = max(mn, lo[i]);
-            prev = t[i];
-        }
-        if (flag)
-            cout << "YES\n";
-        else
-            cout << "NO\n";
+constexpr int N = 1e5 + 10;
+typedef long long int ll;
+#define int long long
+#define IOS ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+#define x first
+#define y second
+#define endl '\n'
+#define space << ' '
+#define allp1(x) (x).begin() + 1, (x).end()
+typedef pair<int, int> pii;
+signed main() {
+    string s = getenv("LOCAL");
+    if (s == "nhir") {
+        cout<<"Hello world"<<endl;
     }
+    IOS
+    cin.tie(nullptr);
+
+    return 0;
 }

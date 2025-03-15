@@ -1,55 +1,39 @@
-#include <cstdio>
-#include <cstring>
-#include <algorithm>
-#include <queue>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-typedef unsigned long long ull;
-typedef long long ll;
-const int maxn = 2e6 + 7;
+const int MAX_N = 100;
 
-int a[maxn];
-ull f[maxn];
+int t[MAX_N], lo[MAX_N], hi[MAX_N];
 
-void init() {
-    f[1] = 1;f[2] = 2;
-    for(int i = 3;i < maxn;i++) {
-        f[i] = f[i - 1] + f[i - 2];
-    }
-}
-
-int main() {
-    init();
-    int T;scanf("%d",&T);
-    while(T--) {
-        ull s1 = 0,s2 = 0,s3 = 0;
-        int m1;scanf("%d",&m1);
-        for(int i = 1;i <= m1;i++) {
-            int x;scanf("%d",&x);
-            if(x) s1 += f[i];
-        }
-        int m2;scanf("%d",&m2);
-        for(int i = 1;i <= m2;i++) {
-            int x;scanf("%d",&x);
-            if(x) s2 += f[i];
-        }
-        int m3;scanf("%d",&m3);
-        for(int i = 1;i <= m3;i++) {
-            scanf("%d",&a[i]);
-            if(a[i]) s3 += f[i];
-        }
-        ull s4 = s1 * s2;
-        int ans = 0;
-        for(int i = 1;i < m3;i++) {
-            if(a[i] == 0 && a[i + 1] != 1 && a[i - 1] != 1) {
-                if(s3 + f[i] == s4) {
-                    ans = i;
-                    break;
-                }
+int main()
+{
+    int tc;
+    cin >> tc;
+    while (tc--)
+    {
+        int n, m, i;
+        cin >> n >> m;
+        for (i = 0; i < n; i++)
+            cin >> t[i] >> lo[i] >> hi[i];
+        int prev = 0;
+        int mn = m, mx = m;
+        bool flag = true;
+        for (i = 0; i < n; i++)
+        {
+            mx += t[i] - prev;
+            mn -= t[i] - prev;
+            if (mx < lo[i] || mn > hi[i])
+            {
+                flag = false;
+                break;
             }
+            mx = min(mx, hi[i]);
+            mn = max(mn, lo[i]);
+            prev = t[i];
         }
-        printf("%d\n",ans);
+        if (flag)
+            cout << "YES\n";
+        else
+            cout << "NO\n";
     }
-    return 0;
 }

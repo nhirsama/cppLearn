@@ -12,13 +12,21 @@ constexpr int N = 1e5 + 10;
 #define endl '\n'
 #define all1(x) (x).begin() + 1, (x).end()
 #define int long long
-
-signed main() {
-    if (getenv("LOCAL") != nullptr) {
-        freopen("Testlib.in", "r", stdin);
-        // freopen("Code.out", "w", stdout);
+void nhir(){
+    string s;
+    cin>>s;
+    i64 a = 0,b = 0;
+    for(int i = 0;i<s.size()-1;i++){
+        if(s[i] == '0' && s[i+1] == '1') a++;
+        else if(s[i] == '1' && s[i+1] == '0') b++;
     }
+    if(a>2 || b>2) cout<<"No"<<endl;
+    else cout<<"Yes"<<endl;
+}
+signed main() {
     IOS;
-
+    int t;
+    cin>>t;
+    while(t--) nhir();
     return 0;
 }

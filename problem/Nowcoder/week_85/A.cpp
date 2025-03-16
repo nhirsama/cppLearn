@@ -19,6 +19,9 @@ signed main() {
         // freopen("Code.out", "w", stdout);
     }
     IOS;
-
+    i64 n;
+    cin>>n;
+    if(n&1) cout<<"kou"<<endl;
+    else cout<<"yukari"<<endl;
     return 0;
 }

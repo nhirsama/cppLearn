@@ -14,11 +14,17 @@ constexpr int N = 1e5 + 10;
 #define int long long
 
 signed main() {
-    if (getenv("LOCAL") != nullptr) {
-        freopen("Testlib.in", "r", stdin);
-        // freopen("Code.out", "w", stdout);
-    }
     IOS;
-
+    i64 n;
+    cin>>n;
+    vector<i32> arr(n+1);
+    for(int i = 1;i<=n;i++) cin>>arr[i];
+    sort(all1(arr));
+    i64 ans =0;
+    for(int i = 1;i<=n;i++){
+        if(i&1) ans+=arr[i];
+        else ans-=arr[i];
+    }
+    cout<<ans<<endl;
     return 0;
 }

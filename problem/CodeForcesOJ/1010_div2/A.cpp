@@ -8,19 +8,35 @@ typedef long long int ll;
 #define y second
 #define endl '\n'
 #define space << ' '
-#define int long long
 typedef pair<int, int> pii;
 
 void Solve() {
-
+    ll n, m;
+    cin >> n >> m;
+    vector<string> arr(n);
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+    ll a = 0, b = 0;
+    for (int i = 0; i < n; i++) {
+        ll c = 0;
+        for (int j = 0; j < m; j++) {
+            c = c ^ (arr[i][j] - '0');
+        }
+        if (c) a++;
+    }
+    for (int i = 0;i<m;i++) {
+        ll c = 0;
+        for (int j = 0; j < n; j++) {
+            c = c ^ (arr[j][i] - '0');
+        }
+        if (c) b++;
+    }
+    ll ans = 0;
+    cout << max(a,b) << endl;
 }
 
 signed main() {
     IOS
-    #ifdef LOCAL
-    freopen("Testlib.in", "r", stdin);
-    //freopen("Code.out", "w", stdout);
-    #endif
     int T;
     cin >> T;
     while (T--) {

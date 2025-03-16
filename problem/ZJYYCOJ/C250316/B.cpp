@@ -12,15 +12,22 @@ constexpr int N = 1e5 + 10;
 #define endl '\n'
 #define all1(x) (x).begin() + 1, (x).end()
 #define int long long
-
-signed main() {
-    vector<string> v = {"(())","()()"};
-    sort(v.begin(), v.end());
-    for (auto i : v) {
-        cout << i << endl;
+void base_e(){
+    i64 n,p;
+    cin>>n>>p;
+    vector<i64> a(n+1);
+    for(int i=1;i<=n;i++){
+        cin>>a[i];
+        a[i]%=p;
     }
-    if ("()()"<"(())") {
-        cout<<1<<endl;
+
+}
+signed main() {
+    IOS;
+    i32 t;
+    cin>>t;
+    while(t--) {
+      base_e();
     }
     return 0;
 }

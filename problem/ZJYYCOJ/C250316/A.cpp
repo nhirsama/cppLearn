@@ -14,13 +14,14 @@ constexpr int N = 1e5 + 10;
 #define int long long
 
 signed main() {
-    vector<string> v = {"(())","()()"};
-    sort(v.begin(), v.end());
-    for (auto i : v) {
-        cout << i << endl;
+    IOS;
+    i64 a,b,c;
+    cin>>a>>b>>c;
+    if(a+b<c){
+        cout<<"No"<<endl;
     }
-    if ("()()"<"(())") {
-        cout<<1<<endl;
+    else{
+        cout<<"Yes"<<endl;
     }
     return 0;
 }

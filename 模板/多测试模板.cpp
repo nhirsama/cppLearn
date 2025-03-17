@@ -14,6 +14,7 @@ constexpr int N = 1e5 + 10;
 #define int long long
 
 void nhir() {
+
 }
 
 signed main() {;

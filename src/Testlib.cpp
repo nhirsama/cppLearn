@@ -1,20 +1,14 @@
-#include <stdio.h>
-
-int main()
-{
-    int sum = 0;
-    int count = 0;
-    int number;
-
-    scanf("%d", &number);
-    while ( number != -1 ) {
-        sum += number;
-        count ++;
-        scanf("%d", &number);
+#pragma GCC optimize(2)
+#include <bits/stdc++.h>
+using namespace std;
+signed main() {
+    const clock_t beginTime = clock();
+    int n = 1e9+4e8,res = 0,cnt =1;
+    for (int i = 1;i<=n;i++) {
+        res|=i&n|cnt;
+        cnt = ~res;
     }
-
-    double dsum = sum;
-    printf("The average is %f.\n", dsum / count);
-
-    return 0;
+    const clock_t endTime = clock();
+    std::cout << "本程序运行时间为" << static_cast<double>(endTime - beginTime) << "毫秒" << std::endl;
+    cout << res << "\n";
 }

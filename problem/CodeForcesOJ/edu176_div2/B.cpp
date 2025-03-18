@@ -47,6 +47,7 @@ void nhir() {
 }
 
 signed main() {
+    freopen("Code.out", "r", stdin);
     IOS;
     i32 T;
     cin >> T;

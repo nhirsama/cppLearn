@@ -1,14 +1,9 @@
-#pragma GCC optimize(2)
 #include <bits/stdc++.h>
-using namespace std;
-signed main() {
-    const clock_t beginTime = clock();
-    int n = 1e9+4e8,res = 0,cnt =1;
-    for (int i = 1;i<=n;i++) {
-        res|=i&n|cnt;
-        cnt = ~res;
+int main() {
+    freopen("Code.out", "w", stdout);
+    std::cout<<"1\n5000 4998\n";
+    for (int i = 1; i <= 5000; i++) {
+        std::cout<<99999990-i<<" ";
     }
-    const clock_t endTime = clock();
-    std::cout << "本程序运行时间为" << static_cast<double>(endTime - beginTime) << "毫秒" << std::endl;
-    cout << res << "\n";
+    return 0;
 }

@@ -16,48 +16,38 @@ constexpr int N = 1e5 + 10;
 void nhir() {
     i32 n, k;
     cin >> n >> k;
-    vector tree(n * k + 1, vector<i32>());
-    for (int i = 1; i < n * k; i++) {
+    vector tree(n + 1, vector<i32>());
+    for (int i = 1; i < n; i++) {
         i32 u, v;
         cin >> u >> v;
         tree[u].push_back(v);
         tree[v].push_back(u);
     }
-    vector<i32> cnt(n * k + 1, 1);
+    vector<i32> cnt(n + 1);
     auto dfs = [&](auto &&self, i32 u, i32 root)-> void {
-        i32 res = 0;
         for (auto v: tree[u]) {
             if (v == root) continue;
             self(self, v, u);
+            if (cnt[v] == k) cnt[v] = 0;
             cnt[u] += cnt[v];
-            if (cnt[v]) res++;
         }
-        if (cnt[u] < k && res >= 2) {
-            cout << "No" << endl;
-            exit(0);
-        }
-        if (cnt[u] > k || res >= 3) {
-            cout << "No" << endl;
-            exit(0);
-        }
-        if (cnt[u] == k) {
-            cnt[u] = 0;
-        }
+        cnt[u]++;
     };
     dfs(dfs, 1, 0);
-    cout << "Yes" << endl;
+    if (cnt[1] == k) {
+        cout << "YES" << endl;
+    } else cout << "NO" << endl;
 }
 
 signed main() {
-    i32 T;
-    T = 1;
-    // if (getenv("LOCAL") != nullptr) {
-    //     freopen("Testlib.in", "r", stdin);
-    //     // freopen("Code.out", "w", stdout);
-    //     cin >> T;
-    // }
+    ;
+    if (getenv("LOCAL") != nullptr) {
+        freopen("Testlib.in", "r", stdin);
+        // freopen("Code.out", "w", stdout);
+    }
     IOS;
-
+    i32 T;
+    cin >> T;
     while (T--) nhir();
     return 0;
 }

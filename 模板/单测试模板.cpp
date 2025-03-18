@@ -13,12 +13,19 @@ constexpr int N = 1e5 + 10;
 #define all1(x) (x).begin() + 1, (x).end()
 #define int long long
 
-signed main() {
+void nhir() {
+
+}
+
+signed main() {;
+    IOS;
+    i32 T = 1;
     if (getenv("LOCAL") != nullptr) {
         freopen("Testlib.in", "r", stdin);
         // freopen("Code.out", "w", stdout);
+        cin >> T;
     }
-    IOS;
 
+    while (T--) nhir();
     return 0;
 }

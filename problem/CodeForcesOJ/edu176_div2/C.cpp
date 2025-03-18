@@ -1,4 +1,4 @@
-//模板
+//C. Two Colors
 #include <bits/stdc++.h>
 using namespace std;
 using i128 = __int128;

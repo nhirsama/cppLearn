@@ -1,4 +1,4 @@
-//模板
+//D. Equalization
 #include <bits/stdc++.h>
 using namespace std;
 using i128 = __int128;
@@ -12,18 +12,25 @@ constexpr int N = 1e5 + 10;
 #define endl '\n'
 #define all1(x) (x).begin() + 1, (x).end()
 #define int long long
-vector<i64> dp(200, 1ll << 62);
+i64 dp[65][65];
 
 void nhir() {
-    i64 x,y;
+    i64 x,y, ans = 1ll << 60;
     cin >> x >> y;
     i32 xcnt = 0, ycnt = 0;
-    while ((x >> xcnt) != (y >> ycnt)) {
-        if ((x >> xcnt) > (y >> ycnt)) {
-            xcnt++;
-        } else ycnt++;
+    for (i32 i = 0; i <= 60; i++) {
+        for (i32 j = 0; j <= 60; j++) {
+            if (x >> i == y >> j) {
+                ans = min(ans, dp[i][j]);
+            }
+        }
     }
-    cout << dp[xcnt + ycnt] << endl;
+    // while ((x >> xcnt) != (y >> ycnt)) {
+    //     if ((x >> xcnt) > (y >> ycnt)) {
+    //         xcnt++;
+    //     } else ycnt++;
+    // }
+    cout << ans << endl;
     // cout << (min(1ll,xcnt*1ll) << xcnt) + (min(1ll,ycnt*1ll) << ycnt) << endl;
 }
 
@@ -32,17 +39,14 @@ signed main() {
         freopen("Testlib.in", "r", stdin);
         // freopen("Code.out", "w", stdout);
     }
-    vector<bool> st(200);
-    dp[0] = 0;
-    for (i32 a = 0; a <= 180; ++a) {
-        for (i32 x = 180; x >= a; --x) {
-            if (dp[x - a] != 1ll << 62) {
-                i64 cost;
-                if (a > 60) cost = dp[x - a] + (1LL << 61);
-                else cost = dp[x - a] + (1LL << a);
-                if (cost < dp[x]) {
-                    dp[x] = cost;
-                }
+    //对于前i次除法，x除j次y除k的代价
+    memset(dp, 0x3f, sizeof dp);
+    dp[0][0] = 0;
+    for (i32 i = 0; i < 61; i++) {
+        for (i32 j = 60; ~j; j--) {
+            for (i32 k = 60; ~k; k--) {
+                dp[min(60, i + j)][k] = min(dp[min(60, i + j)][k], dp[j][k] + (1ll << i));
+                dp[j][min(60, k + i)] = min(dp[j][min(60, k + i)], dp[j][k] + (1ll << i));
             }
         }
     }

@@ -1,4 +1,4 @@
-//模板
+//B. Array Recoloring
 #include <bits/stdc++.h>
 using namespace std;
 using i128 = __int128;

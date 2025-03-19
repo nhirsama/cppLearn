@@ -17,15 +17,14 @@ void nhir() {
 
 }
 
-signed main() {
-    IOS;
-    i32 T = 1;
+signed main() {;
     if (getenv("LOCAL") != nullptr) {
         freopen("Testlib.in", "r", stdin);
         // freopen("Code.out", "w", stdout);
-        cin >> T;
     }
-
+    IOS;
+    i32 T;
+    cin >> T;
     while (T--) nhir();
     return 0;
 }

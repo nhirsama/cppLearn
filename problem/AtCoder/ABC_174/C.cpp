@@ -14,10 +14,22 @@ constexpr int N = 1e5 + 10;
 #define int long long
 
 void nhir() {
-
+    i64 k;
+    i64 nana = 0;
+    cin >> k;
+    for (i64 i = 1; i <= k; i++) {
+        nana = ((nana << 3) + (nana << 1) + 7) % k;
+        if (nana == 0) {
+            cout << i << endl;
+            return;
+        }
+    }
+    cout << -1 << endl;
+    return;
 }
 
 signed main() {
+    ;
     IOS;
     i32 T = 1;
     if (getenv("LOCAL") != nullptr) {

@@ -27,14 +27,13 @@ void nhir() {
     for (i32 i = 1; i <= m; i++) {
         i64 x,y;
         cin >> x >> y;
+        for (; r <= y; r++) {
+            while (!q.empty() && q.back().x < a[r]) q.pop_back();
+            q.push_back(pii(a[r], r));
+        }
         while ((!q.empty()) && q.front().y < x) {
             q.pop_front();
         }
-        for (r = max(x, r); r <= y; r++) {
-            while (!q.empty() && q.front().x < a[r]) q.pop_front();
-            q.push_front(pii(a[r], r));
-        }
-
         cout << q.front().y << endl;
     }
 }

@@ -4,7 +4,7 @@ using namespace std;
 using i128 = __int128;
 using i64 = long long int;
 using i32 = int;
-typedef pair<i32, i32> pii;
+typedef pair<i64, i64> pii;
 constexpr int N = 1e5 + 10;
 #define IOS ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
 #define x first
@@ -20,26 +20,22 @@ void nhir() {
     for (int i = 1; i <= n; i++) {
         cin >> a[i];
     }
-    i64 l = 1, r = 1;
-    queue<pii> q;
+    i64 r = 1;
+    deque<pii> q;
     i64 m;
     cin >> m;
-    for (int i = 1; i <= m; i++) {
-        i32 x,y;
+    for (i32 i = 1; i <= m; i++) {
+        i64 x,y;
         cin >> x >> y;
-        for (; r <= y; r++) {
-            if (q.empty()) {
-                q.push(pii(x, r));
-            } else
-                while ((!q.empty()) && q.front().x < a[r]) {
-                    q.pop();
-                    q.push(pii(x, r));
-                }
+        while ((!q.empty()) && q.front().y < x) {
+            q.pop_front();
         }
-        while (!q.empty() && q.front().y < x) {
-            q.pop();
+        for (r = max(x, r); r <= y; r++) {
+            while (!q.empty() && q.front().x < a[r]) q.pop_front();
+            q.push_front(pii(a[r], r));
         }
-        cout << q.front().x << endl;
+
+        cout << q.front().y << endl;
     }
 }
 
@@ -50,7 +46,6 @@ signed main() {
         freopen("Testlib.in", "r", stdin);
         // freopen("Code.out", "w", stdout);
     }
-
     while (T--) nhir();
     return 0;
 }

@@ -13,24 +13,12 @@ constexpr int N = 1e5 + 10;
 #define all1(x) (x).begin() + 1, (x).end()
 #define int long long
 
-inline i32 read() {
-    i32 x = 0, f = 1;
-    char ch = getchar();
-    while (ch < '0' || ch > '9') {
-        if (ch == '-') f = -1;
-        ch = getchar();
-    }
-    while (ch >= '0' && ch <= '9') {
-        x = x * 10 + ch - 48;
-        ch = getchar();
-    }
-    return x * f;
-}
-
 i64 dp[N][25];
 i64 qsum[N];
+
 inline i64 query(i32 &l, i32 &r) {
     i32 log = 0;
+    if (r < l) return 0x3f3f3f3f3f3f3f;
     for (; (r - l + 1) >> log; log++) {
     };
     log--;
@@ -38,34 +26,34 @@ inline i64 query(i32 &l, i32 &r) {
 }
 
 void nhir() {
-    i32 n, m;
-    n = read();
-    m = read();
+    i64 n;
+    i64 m;
+    cin >> n >> m;
     for (i32 i = 1; i <= n; i++) {
-        dp[i][0] = read();
-        qsum[i] = qsum[i-1]+dp[i][0];
+        cin >> qsum[i] >> dp[i][0];
+        qsum[i] += qsum[i - 1];
     }
     for (i32 i = 1; i <= 22; i++) {
         for (i32 j = 1; j + (1 << i) - 1 <= n; j++) {
             dp[j][i] = max(dp[j][i - 1], dp[j + (1 << (i - 1))][i - 1]);
         }
     }
-    i32 l, r;
-    while (m--) {
-        l = read(), r = read();
-        printf("%d\n", query(l, r));
+    i32 l = 1, r = 1;
+    i64 ans = 0x3f3f3f3f3f3f3f3f;
+    for (; r <= n; r++) {
+        if (qsum[r] - qsum[l - 1] >= m)ans = min(ans, query(l, r));
+        while (l < r && (qsum[r] - qsum[l] >= m)) {
+            l++;
+            ans = min(ans, query(l, r));
+        }
     }
+    cout << ans << endl;
 }
 
 signed main() {
-    IOS;
+    freopen("inAndoutFile/P4085_4.in", "r", stdin);
+    freopen("Code.out", "w", stdout);
     i32 T = 1;
-    if (getenv("LOCAL") != nullptr) {
-        freopen("Testlib.in", "r", stdin);
-        // freopen("Code.out", "w", stdout);
-        cin >> T;
-    }
-
     while (T--) nhir();
     return 0;
 }

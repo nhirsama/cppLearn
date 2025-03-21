@@ -16,8 +16,8 @@ constexpr int N = 1e5 + 10;
 struct node {
     i64 w, cnt, yw;
 
-    bool operator>(const node &b) const {
-        return 1.0 * w / cnt > 1.0 * b.w / b.cnt;
+    auto operator>(const node &b) const {
+        return (1.0 * w / cnt) > (1.0 * b.w / b.cnt);
     }
 };
 
@@ -25,7 +25,7 @@ void nhir() {
     i64 n, r;
     cin >> n >> r;
     while (n || r) {
-        vector<vector<i32> > g(n + 1, vector<i32>());
+        vector g(n + 1, vector<i32>());
         vector<node> point(n + 1);
         for (i32 i = 1; i <= n; i++) {
             cin >> point[i].yw;
@@ -37,26 +37,24 @@ void nhir() {
             cin >> u >> v;
             g[u].push_back(v);
         }
-        function<void(int)> dfs;
-        dfs = [&](int u) {
+        auto dfs = [&](auto self, i32 u)-> void {
             for (auto i: g[u]) {
-                dfs(i);
+                self(self, i);
                 point[u].w += point[i].w;
                 point[u].cnt += point[i].cnt;
             }
         };
-        dfs(r);
+        dfs(dfs, r);
         i64 ans = 0, num = 1;
-        function<void(int)> dfs2;
-        dfs2 = [&](int u) {
+        auto dfs2 = [&](auto self, i32 u)-> void {
             ans += point[u].yw * num;
             num++;
-            sort(g[u].begin(), g[u].end(), [&](i32 a, i32 b) { return point[a] > point[b]; });
+            sort(g[u].begin(), g[u].end(), [&](i32 a, i32 b)-> bool { return point[a] > point[b]; });
             for (auto i: g[u]) {
-                dfs2(i);
+                self(self, i);
             }
         };
-        dfs2(r);
+        dfs2(dfs2, r);
         cout << ans << endl;
         cin >> n >> r;
     }

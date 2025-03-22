@@ -1,20 +1,29 @@
-//UVA1205 Color a Tree
 #include <bits/stdc++.h>
 using namespace std;
-using i128 = __int128;
-using i64 = long long int;
-using i32 = int;
-typedef pair<i32, i32> pii;
-constexpr int N = 1e5 + 10;
-#define IOS ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
-#define x first
-#define y second
-#define endl '\n'
-#define all1(x) (x).begin() + 1, (x).end()
-#define int long long
-signed main() {
-    i32 t;
-    cin>>t;
-    cout<<t;
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        long long x, y;
+        cin >> x >> y;
+        long long z = x & y;
+        if (z == 0) {
+            cout << 0 << '\n';
+            continue;
+        }
+        long long m = z & -z;
+        long long k = m;
+        if (((x + k) & (y + k)) == 0) {
+            cout << k << '\n';
+            continue;
+        }
+        k = (m << 1) - 1;
+        if (((x + k) & (y + k)) == 0) {
+            cout << k << '\n';
+        } else {
+            cout << -1 << '\n';
+        }
+    }
     return 0;
 }

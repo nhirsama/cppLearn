@@ -12,64 +12,9 @@ constexpr int N = 1e5 + 10;
 #define endl '\n'
 #define all1(x) (x).begin() + 1, (x).end()
 #define int long long
-
-struct node {
-    i64 w, cnt, yw;
-
-    bool operator>(const node &b) const {
-        return 1.0 * w / cnt > 1.0 * b.w / b.cnt;
-    }
-};
-
-void nhir() {
-    i64 n, r;
-    cin >> n >> r;
-    while (n || r) {
-        vector<vector<i32> > g(n + 1, vector<i32>());
-        vector<node> point(n + 1);
-        for (i32 i = 1; i <= n; i++) {
-            cin >> point[i].yw;
-            point[i].cnt = 1;
-            point[i].w = point[i].yw;
-        }
-        for (i32 i = 1; i < n; i++) {
-            i32 u, v;
-            cin >> u >> v;
-            g[u].push_back(v);
-        }
-        function<void(int)> dfs;
-        dfs = [&](int u) {
-            for (auto i: g[u]) {
-                dfs(i);
-                point[u].w += point[i].w;
-                point[u].cnt += point[i].cnt;
-            }
-        };
-        dfs(r);
-        i64 ans = 0, num = 1;
-        function<void(int)> dfs2;
-        dfs2 = [&](int u) {
-            ans += point[u].yw * num;
-            num++;
-            sort(g[u].begin(), g[u].end(), [&](i32 a, i32 b) { return point[a] > point[b]; });
-            for (auto i: g[u]) {
-                dfs2(i);
-            }
-        };
-        dfs2(r);
-        cout << ans << endl;
-        cin >> n >> r;
-    }
-}
-
 signed main() {
-    IOS;
-    i32 T = 1;
-    if (getenv("LOCAL") != nullptr) {
-        freopen("Testlib.in", "r", stdin);
-        // freopen("Code.out", "w", stdout);
-    }
-
-    while (T--) nhir();
+    i32 t;
+    cin>>t;
+    cout<<t;
     return 0;
 }

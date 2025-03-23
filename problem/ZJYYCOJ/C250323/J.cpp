@@ -14,17 +14,31 @@ constexpr int N = 1e5 + 10;
 #define int long long
 
 void nhir() {
-
+    i64 n;
+    cin >> n;
+    vector<i64> a(n + 1);
+    vector<i64> pre(n + 6);
+    i64 cnt = 0;
+    for (int i = 1; i <= n; i++) {
+        cin >> a[i];
+        cnt++;
+        pre[0] += a[i];
+        pre[cnt + 1] -= a[i];
+    }
+    i64 p = 0;
+    for (int i = 1; i <= n; i++) {
+        pre[i] += pre[i - 1];
+        if (pre[i] >= 4) {
+            p++;
+        }
+    }
+    cout << p << endl;
 }
 
-signed main() {;
-    if (getenv("LOCAL") != nullptr) {
-        freopen("Testlib.in", "r", stdin);
-        // freopen("Code.out", "w", stdout);
-    }
+signed main() {
     IOS;
-    i32 T;
-    cin >> T;
+    i32 T = 1;
+
     while (T--) nhir();
     return 0;
 }

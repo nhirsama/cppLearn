@@ -1,11 +1,9 @@
 //F
 #include <bits/stdc++.h>
 using namespace std;
-typedef __int128 i128;
-typedef long long int i64;
-typedef int i32;
-typedef short i16;
-typedef char i8;
+using i128 = __int128;
+using i64 = long long int;
+using i32 = int;
 typedef pair<i32, i32> pii;
 constexpr int N = 1e5 + 10;
 #define IOS ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
@@ -16,13 +14,13 @@ constexpr int N = 1e5 + 10;
 #define int long long
 
 void nhir() {
+
 }
 
-signed main() {
-    const string LOCAL_ENV = getenv("LOCAL");
-    if (LOCAL_ENV == "nhir") {
+signed main() {;
+    if (getenv("LOCAL") != nullptr) {
         freopen("Testlib.in", "r", stdin);
-//        freopen("Code.out", "w", stdout);
+        // freopen("Code.out", "w", stdout);
     }
     IOS;
     i32 T;

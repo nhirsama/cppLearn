@@ -12,19 +12,23 @@ constexpr int N = 1e5 + 10;
 #define all1(x) (x).begin() + 1, (x).end()
 #define int long long
 
-void nhir() {
-
+void nhir(i32 n) {
+    std::vector<i32> v(n + 1);
+    for (int i = 1; i <= n; i++) {
+        std::cin >> v[i];
+    }
+    i64 max = 0;
+    for (i32 l = 1, r = n; r >= l;) {
+        max = std::max(1ll * std::min(v[r], v[l]) * (r - l), max);
+        if (v[l] < v[r])l++;
+        else r--;
+    }
+    std::cout << max<<endl;
 }
 
 signed main() {
     IOS;
-    i32 T = 1;
-    if (getenv("LOCAL") != nullptr) {
-        freopen("Testlib.in", "r", stdin);
-        // freopen("Code.out", "w", stdout);
-        std::cin >> T;
-    }
-
-    while (T--) nhir();
+    i32 n;
+    while (std::cin >> n) nhir(n);
     return 0;
 }

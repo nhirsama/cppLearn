@@ -17,7 +17,7 @@ vector<int> minp, primes;
 void sieve(int n) {
     minp.assign(n + 1, 0);
     primes.clear();
-    for (int i = 2; i < n; i++) {
+    for (int i = 2; i <= n; i++) {
         // primecnt.push_back(primecnt.back());
         if (minp[i] == 0) {
             minp[i] = i;
@@ -45,10 +45,15 @@ void nhir() {
     i64 n;
     cin >> n;
     i64 ans = 0;
-    for (i32 i = 0; primes[i] < n; i++) {
-        ans += n / primes[i];
-    }
+    auto t = upper_bound(primes.begin(), primes.end(), n);
+    for (auto p = primes.begin(); p != t; ++p)
+        ans += n / *p;
     cout << ans << endl;
+    // ans+=primecnt[n];
+    // for (int i = 0; primes[i] <= n; i++) {
+    //     ans += (primecnt[n / primes[i]]);
+    // }
+    // cout << ans << endl;
 }
 
 signed main() {
@@ -57,7 +62,7 @@ signed main() {
         // freopen("Code.out", "w", stdout);
     }
     IOS;
-    sieve(1e7 + 10);
+    sieve(1e7+10);
     i32 T;
     cin >> T;
     while (T--) nhir();

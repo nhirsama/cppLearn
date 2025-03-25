@@ -12,28 +12,52 @@ constexpr int N = 1e5 + 10;
 #define endl '\n'
 #define all1(x) (x).begin() + 1, (x).end()
 #define int long long
-i32 dx[] = {0,0,1,1,1,-1,-1,-1};
-i32 dy[] = {1,-1,0,1,-1,0,1,-1};
+i32 dx[] = {0, 0, 1, 1, 1, -1, -1, -1};
+i32 dy[] = {1, -1, 0, 1, -1, 0, 1, -1};
+
 void nhir() {
     i64 x,y;
-    std::cin>>x>>y;
-    std::map<pii,i32> m;
-    auto dfs = [&] (auto self,i64 ux,i64 uy)->bool {
-        if (ux == uy) return true;
-        if (std::gcd(ux,uy) == 1)return false;
-        for (i32 i = 0;i<8;i++) {
-            i64 vx = ux+dx[i];
-            i64 vy = uy+dy[i];
-            if (m.find(pii(vx,vy)) == m.end()) {
+    std::cin >> x >> y;
+    std::set<pii> s;
+    i64 id = 0, cd = 0;
+    auto bfs = [&]()-> bool {
+        std::queue<pii> q;
+        q.push(pii(x,y));
+        s.insert(pii(x,y));
+        while (!q.empty()) {
+            i64 xx = q.front().x;
+            i64 yy = q.front().y;
+            q.pop();
 
+            if (xx == yy) return true;
+            id++;
+            for (i32 i = 0; i < 8; i++) {
+                i64 vx = xx + dx[i];
+                i64 vy = yy + dy[i];
+                if (std::gcd(vx, vy) == 1) {
+                    continue;
+                }
+                id++;
+                if (s.find(pii(vx, vy)) != s.end()) {
+                    continue;
+                }
+                q.push(pii(vx, vy));
+                s.insert(pii(vx, vy));
             }
+            if (cd == 0) cd = id;
         }
-
+        return false;
     };
 
+    if (bfs()) {
+        cout << "0/1\n";
+    } else {
+        i64 gcd = std::gcd(id, cd);
+        cout << cd / gcd << '/' << id / gcd << endl;
+    }
 }
 
-signed main() {;
+signed main() {
     if (getenv("LOCAL") != nullptr) {
         freopen("Testlib.in", "r", stdin);
         // freopen("Code.out", "w", stdout);

@@ -12,17 +12,52 @@ constexpr int N = 1e5 + 10;
 #define endl '\n'
 #define all1(x) (x).begin() + 1, (x).end()
 #define int long long
+vector<int> minp, primes;
 
-void nhir() {
+void sieve(int n) {
+    minp.assign(n + 1, 0);
+    primes.clear();
+    for (int i = 2; i < n; i++) {
+        // primecnt.push_back(primecnt.back());
+        if (minp[i] == 0) {
+            minp[i] = i;
+            primes.push_back(i);
+            //primecnt.back()++;
+        }
 
+        for (auto p: primes) {
+            if (i * p > n) {
+                break;
+            }
+            minp[i * p] = p;
+            if (p == minp[i]) {
+                break;
+            }
+        }
+    }
 }
 
-signed main() {;
+bool isprime(int n) {
+    return minp[n] == n;
+}
+
+void nhir() {
+    i64 n;
+    cin >> n;
+    i64 ans = 0;
+    for (i32 i = 0; primes[i] < n; i++) {
+        ans += n / primes[i];
+    }
+    cout << ans << endl;
+}
+
+signed main() {
     if (getenv("LOCAL") != nullptr) {
         freopen("Testlib.in", "r", stdin);
         // freopen("Code.out", "w", stdout);
     }
     IOS;
+    sieve(1e7 + 10);
     i32 T;
     cin >> T;
     while (T--) nhir();

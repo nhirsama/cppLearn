@@ -1,4 +1,4 @@
-//E
+//模板
 #include <bits/stdc++.h>
 using namespace std;
 using i128 = __int128;
@@ -14,10 +14,18 @@ constexpr int N = 1e5 + 10;
 #define int long long
 
 void nhir() {
-
+    i64 x,y, a;
+    std::cin >> x >> y >> a;
+    a %= (x + y);
+    if (a < x) {
+        std::cout << "NO" << endl;
+    } else {
+        std::cout << "YES" << endl;
+    }
 }
 
-signed main() {;
+signed main() {
+    ;
     if (getenv("LOCAL") != nullptr) {
         freopen("Testlib.in", "r", stdin);
         // freopen("Code.out", "w", stdout);

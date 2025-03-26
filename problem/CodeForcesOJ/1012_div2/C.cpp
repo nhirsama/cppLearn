@@ -1,4 +1,4 @@
-//F
+//C
 #include <bits/stdc++.h>
 using namespace std;
 using i128 = __int128;
@@ -12,12 +12,22 @@ constexpr int N = 1e5 + 10;
 #define endl '\n'
 #define all1(x) (x).begin() + 1, (x).end()
 #define int long long
-
+struct node{
+    i32 x,y;
+    i32 p[5]{0};
+    i32 cnt = 0;
+    node(i32 x,i32 y){
+        this->x = x;
+        this->y = y;
+    }
+};
 void nhir() {
+    i32 n;
+    cin>>n;
 
 }
 
-signed main() {;
+signed main() {
     if (getenv("LOCAL") != nullptr) {
         freopen("Testlib.in", "r", stdin);
         // freopen("Code.out", "w", stdout);

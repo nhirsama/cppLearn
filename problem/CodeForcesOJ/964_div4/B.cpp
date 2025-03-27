@@ -1,34 +1,30 @@
-//模板
-//记得把文件重定向注释掉
 #include <bits/stdc++.h>
 using namespace std;
-void Func(){
-    int a[5];
-    for(int i=0;i<4;i++) {
-        cin>>a[i];
-    }
-    int ans  =0;
-    for(int i=0;i<2;i++) {
-        for(int j=2;j<4;j++) {
-            if (a[i]>a[j] && a[1-i]>a[5-j]) ans++;
-            else if (a[i]>a[j] && a[1-i] == a[5-j]) ans++;
-        }
-    }
-    cout<<ans<<endl;
+
+int f(int a, int b) {
+    if (a > b) return 1;
+    if (a == b) return 0;
+    return -1;
 }
+
+void Func() {
+    int a[5];
+    for (int i = 0; i < 4; i++) {
+        cin >> a[i];
+    }
+    int ans = 0;
+    if (f(a[0], a[2]) + f(a[1], a[3]) > 0) ans++;
+    if (f(a[0], a[3]) + f(a[1], a[2]) > 0) ans++;
+    if (f(a[0], a[2]) + f(a[1], a[3]) > 0) ans++;
+    if (f(a[0], a[3]) + f(a[1], a[2]) > 0) ans++;
+    cout << ans << endl;
+}
+
 int main() {
-    #ifdef LOCAL
-    freopen("Testlib.in", "r", stdin);
-    freopen("Code.out", "w", stdout);
-    #endif
     int T;
     cin >> T;
     while (T--) {
         Func();
     }
-    #ifdef LOCAL
-    fclose(stdin);
-    fclose(stdout);
-    #endif
     return 0;
 }

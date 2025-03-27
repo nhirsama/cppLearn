@@ -11,19 +11,36 @@ constexpr int N = 1e5 + 10;
 #define all1(x) (x).begin() + 1, (x).end()
 #define int long long
 
+i64 L(i64 x, i64 n) {
+    while (n--) {
+        if (!x) return 0;
+        x >>= 1;
+    }
+    return x;
+}
+
+i64 U(i64 x, i64 n) {
+    while (n--) {
+        if (x<=1) return x;
+        x = (x + 1) >> 1;
+    }
+    return x;
+}
+
 void nhir() {
     i64 x, n, m;
     std::cin >> x >> n >> m;
-    i64 y = (x>>std::min(35ll,n+m));
-    bool flag = false,flag2 = false;
-    if (n+m<=30) {
-        i64 t = (x>>n)-(y<<m);
-        flag = t;
-        t = (y<<(m+n))-x;
-        if (t)t++;
-        flag2 = (t==(t&-t));
-    }
-    std::cout<<y+flag2<< ' '<<y+flag<<endl;
+    std::cout << L(U(x, m), n) << ' ' << U(L(x, n), m) << endl;
+    //    i64 y = (x>>std::min(35ll,n+m));
+    //    bool flag = false,flag2 = false;
+    //    if (n+m<=30) {
+    //        i64 t = (x>>n)-(y<<m);
+    //        flag = t;
+    //        t = (y<<(m+n))-x;
+    //        if (t)t++;
+    //        flag2 = (t==(t&-t));
+    //    }
+    //    std::cout<<y+flag2<< ' '<<y+flag<<endl;
     // if (n + m > 30) {
     //     if (n <= 30) {
     //         if (x > (1ll << n) && (x & 1)) {

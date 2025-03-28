@@ -1,3 +1,4 @@
+//P3803 【模板】多项式乘法（FFT）
 #include <bits/stdc++.h>
 using i128 = __int128;
 using i64 = long long int;
@@ -93,12 +94,7 @@ vector<int> mul(vector<int> a, vector<int> b) {
     return a;
 }
 
-signed main() {
-    if (getenv("LOCAL") != nullptr) {
-        freopen("inAndoutFile/P3803_4.in", "r", stdin);
-        // freopen("Code.out", "w", stdout);
-    }
-    IOS;
+void nhir() {
     i32 n, m, k = 1;
     std::cin >> n >> m;
     while (k <= n + m) k <<= 1;
@@ -108,8 +104,18 @@ signed main() {
 
     a = mul(a, b);
     for (i32 i = 0; i <= n + m; i++) {
-        cout << (a[i]+P)%P << ' ';
+        cout << (a[i] + P) % P << ' ';
     }
     cout << endl;
+}
+
+signed main() {
+    IOS;
+    i32 T = 1;
+    if (getenv("LOCAL") != nullptr) {
+        freopen("inAndoutFile/P3803_4.in", "r", stdin);
+        // freopen("Code.out", "w", stdout);
+    }
+    while (T--) nhir();
     return 0;
 }

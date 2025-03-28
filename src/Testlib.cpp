@@ -14,7 +14,7 @@ struct Polynomial {
     constexpr static double PI = acos(-1);
     std::vector<std::complex<double> > c;
 
-    Polynomial(std::vector<int> &a,i32 n) {
+    Polynomial(std::vector<int> &a, i32 n) {
         c.resize(n);
         for (int i = 0; i < n; i++) {
             c[i] = std::complex<double>(a[i], 0);
@@ -26,7 +26,7 @@ struct Polynomial {
         for (int i = 1, j = n / 2; i < n - 1; i++) {
             if (i < j) std::swap(a[i], a[j]);
             int k = n / 2;
-            while (j >= k) {
+            while (j > k) {
                 j -= k;
                 k /= 2;
             }
@@ -51,23 +51,29 @@ struct Polynomial {
         }
         if (opt == -1) {
             for (int i = 0; i < n; i++) {
-                a[i].real /= n;
-                a[i].imag /= n;
+                a[i].real(a[i].real() / n);
+                a[i].imag(a[i].imag() / n);
             }
         }
     }
 };
 
 void nhir() {
-    i64 n, m;
+    i32 n, m, k = 1;
+
     std::cin >> n >> m;
-    std::vector<i32> a(n), b(m);
-    for (auto &_: a)std::cin >> _;
-    for (auto &_: b)std::cin >> _;
-    Polynomial afft(a,n+m), bfft(b,n+m);
-    afft
-
-
+    while (k <= n+m) k <<= 1;
+    std::vector<i32> a(k), b(k);
+    for (i32 i = 0; i <= n; i++) std::cin >> a[i];
+    for (i32 i = 0; i <= m; i++) std::cin >> b[i];
+    Polynomial afft(a, k), bfft(b, k);
+    for (i32 i = 0; i < k; i++) {
+        afft.c[i] *= bfft.c[i];
+    }
+    afft.fft(afft.c, n + m, 1);
+    for (i32 i = 0; i <= n + m; i++) {
+        std::cout << afft.c[i].real() << ' ';
+    }
 }
 
 signed main() {
@@ -78,7 +84,6 @@ signed main() {
         // freopen("Code.out", "w", stdout);
         std::cin >> T;
     }
-
     while (T--) nhir();
     return 0;
 }

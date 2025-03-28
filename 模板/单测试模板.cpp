@@ -10,7 +10,7 @@ constexpr int mod = 1e9+7;
 #define x first
 #define y second
 #define endl '\n'
-#define all1(x) (x).begin() + 1, (x).end()
+#define all(x) (x).begin(), (x).end()
 
 void nhir() {
 

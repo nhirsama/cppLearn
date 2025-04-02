@@ -25,7 +25,6 @@ signed main() {
         freopen("Testlib.in", "r", stdin);
         // freopen("Code.out", "w", stdout);
     }
-    std::cin>>T;
     while (T--) nhir();
     return 0;
 }

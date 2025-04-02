@@ -13,18 +13,14 @@ constexpr int mod = 1e9+7;
 #define all(x) (x).begin(), (x).end()
 
 void nhir() {
-    i32 a,b;
+    i64 a,b;
     std::cin>>a>>b;
-    std::cout<<b<<endl;
+    std::cout<<std::max(0ll,b-a)<<endl;
 }
 
 signed main() {
     IOS;
     i32 T = 1;
-    if (getenv("LOCAL") != nullptr) {
-        freopen("Testlib.in", "r", stdin);
-        // freopen("Code.out", "w", stdout);
-    }
     std::cin>>T;
     while (T--) nhir();
     return 0;

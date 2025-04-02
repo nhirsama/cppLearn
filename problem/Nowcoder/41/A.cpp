@@ -15,10 +15,14 @@ constexpr int mod = 1e9+7;
 void nhir() {
     i64 n;
     std::cin>>n;
-    for(i32 i = 1;i<=n;i++){
-        std::cout<<1<< ' ';
+    if(n<=1){
+        std::cout<<-1<<endl;
+        return;
     }
-
+    for(i32 i = 1;i<=n;i++){
+        std::cout<<n-i+1<< ' ';
+    }
+    
 }
 
 signed main() {

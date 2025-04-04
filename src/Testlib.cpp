@@ -1,60 +1,71 @@
-#include <ctype.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/mman.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+#include<bits/stdc++.h>
+#define endl '\n'
+using i64 = long long;
+using u64 = unsigned long long;
+using d64 = double;
+using ld64 = long double;
+static constexpr i64 mod=998244353;
+i64 qpow(i64 a,i64 b){
+    i64 ans=1;
+    while(b){
+        if(b&1){
+            ans=ans*a%mod;
+        }
+        a=a*a%mod;
+        b=b>>1;
 
-int flag;
-void print(char a, char b, int diff) {
-  if ((diff+a-'0'+b-'0')%10 != 0) flag = 1;
-  if (flag) putchar((diff+a-'0'+b-'0')%10+'0');
+    }
+    return ans;
+}
+const int maxn=500000;
+std::vector<i64> fact(maxn+10),invfact(maxn+10);
+void solve(){
+    std::vector<int> c(26);
+    int sum=0;
+    for(int i=0;i<26;i++){
+        std::cin>>c[i];
+        sum+=c[i];
+    }
+    int n=sum;
+    int odd=(n%2==0)?n/2:(n+1)/2;
+    int even=n-odd;
+    std::vector<int> a;
+    for(int i=0;i<26;i++){
+        if(c[i]>0){
+            a.emplace_back(c[i]);
+        }
+    }
+    std::vector<int> dp(odd+1,0),nxt(odd+1,0);
+    dp[0]=1;
+    for(int x:a){
+        fill(nxt.begin(),nxt.end(),0);
+        for(int j=0;j<=odd;j++){
+            if(dp[j]!=0){
+                nxt[j]=(nxt[j]+dp[j])%mod;
+                if(j+x<=odd){
+                    nxt[j+x]=(nxt[j+x]+dp[j])%mod;
+                }
+            }
+        }
+        dp.swap(nxt);
+    }
+    int v=dp[odd]%mod;
+    i64 w=(fact[odd]*fact[even])%mod;
+    i64 dd=1;
+    for(int i=0;i<26;i++){
+        dd=(dd*fact[c[i]])%mod;
+    }
+    w=w*qpow(dd,mod-2)%mod;
+    i64 ans=w*v%mod;
+    std::cout<<ans<<endl;
+
+}
+signed main(){
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    int t=1;
+    std::cin>>t;
+    std::cout<<(t&31)<<endl;
+    return 0;
 }
 
-int main()
-{
-  int fd = 0;
-  struct stat state;
-  fstat(fd, &state);
-  char* addr = (char *)mmap(NULL, state.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
-  int len = state.st_size;
-
-  int pos = 0, len1 = 0, len2 = 0;
-  while (len1 < len && isdigit(addr[len1])) len1 ++;
-  pos = len1;
-  while (pos < len && !isdigit(addr[pos])) pos ++;
-  while (len2+pos < len && isdigit(addr[len2+pos])) len2 ++;
-  int ptr = len1 > len2 ? len1 : len2;
-
-  // [0, len1-1] [pos, pos+len2-1]
-  #define s1(i) ((0<=i&&i<len1)?addr[len1-i-1]:'0')
-  #define s2(i) ((0<=i&&i<len2)?addr[pos+len2-i-1]:'0')
-
-  while (ptr >= 0) {
-    int i = ptr - 1;
-    while (i >= 0 && s1(i) - '0' + s2(i) - '0' <= 9) i --;
-    int j = i + 1;
-    while (j < ptr && s1(j) - '0' + s2(j) - '0' + 1 > 9) j ++;
-    if (i >= 0) {
-      for (int k = ptr; k > j; k --) {
-        print(s1(k), s2(k), 0);
-      }
-      for (int k = j; k > i; k --) {
-        print(s1(k), s2(k), 1);
-      }
-    }
-    else {
-      for (int k = ptr; k >= 0; k --) {
-        print(s1(k), s2(k), 0);
-      }
-      break;
-    }
-    ptr = i;
-  }
-
-  if (!flag) putchar('0');
-
-   return(0);
-}

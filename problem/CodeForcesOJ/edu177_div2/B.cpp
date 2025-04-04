@@ -26,16 +26,9 @@ void nhir() {
             ans += k;
         } else {
             i64 t = x - pre[i];
-            if (t <= 0) {
-                ans += k;
-            } else {
-                if (pre[0] == 0) {
-                    continue;
-                }
-                i64 cnt = k - (t + pre[0] - 1) / pre[0];
-                if (cnt < 0) cnt = 0;
-                ans += cnt;
-            }
+            i64 cnt = k - (t + pre[0] - 1) / pre[0];
+            if (cnt < 0) cnt = 0;
+            ans += cnt;
         }
     }
     std::cout << ans << endl;

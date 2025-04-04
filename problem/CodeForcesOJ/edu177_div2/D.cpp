@@ -4,7 +4,7 @@ using i128 = __int128;
 using i64 = long long int;
 using i32 = int;
 typedef std::pair<i32, i32> pii;
-constexpr int N = 5e5 + 10;
+constexpr int N = 3e5 + 10;
 constexpr int mod = 998244353;
 #define IOS std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr);
 #define x first

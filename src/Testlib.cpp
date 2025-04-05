@@ -1,71 +1,80 @@
-#include<bits/stdc++.h>
+//C
+#include <bits/stdc++.h>
+using i128 = __int128;
+using i64 = long long int;
+using i32 = int;
+typedef std::pair<i32, i32> pii;
+constexpr int N = 1e5 + 10;
+constexpr int mod = 1e9 + 7;
+#define IOS std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr);
+#define x first
+#define y second
 #define endl '\n'
-using i64 = long long;
-using u64 = unsigned long long;
-using d64 = double;
-using ld64 = long double;
-static constexpr i64 mod=998244353;
-i64 qpow(i64 a,i64 b){
-    i64 ans=1;
-    while(b){
-        if(b&1){
-            ans=ans*a%mod;
-        }
-        a=a*a%mod;
-        b=b>>1;
+#define all(x) (x).begin(), (x).end()
 
+void nhir() {
+    i32 n;
+    std::cin >> n;
+    std::vector<i32> a(n + 1), b(n + 1);
+    bool flag = (n % 2 == 0);
+    for (i32 i = 1; i <= n; i++) {
+        std::cin >> a[i];
     }
-    return ans;
-}
-const int maxn=500000;
-std::vector<i64> fact(maxn+10),invfact(maxn+10);
-void solve(){
-    std::vector<int> c(26);
-    int sum=0;
-    for(int i=0;i<26;i++){
-        std::cin>>c[i];
-        sum+=c[i];
+    for (i32 i = 1; i <= n; i++) {
+        std::cin >> b[i];
     }
-    int n=sum;
-    int odd=(n%2==0)?n/2:(n+1)/2;
-    int even=n-odd;
-    std::vector<int> a;
-    for(int i=0;i<26;i++){
-        if(c[i]>0){
-            a.emplace_back(c[i]);
+    for (i32 i = 1; i <= n; i++) {
+        if (a[i] == b[i]) {
+            if (flag) {
+                std::cout << -1 << endl;
+                return;
+            }
+            flag = true;
         }
     }
-    std::vector<int> dp(odd+1,0),nxt(odd+1,0);
-    dp[0]=1;
-    for(int x:a){
-        fill(nxt.begin(),nxt.end(),0);
-        for(int j=0;j<=odd;j++){
-            if(dp[j]!=0){
-                nxt[j]=(nxt[j]+dp[j])%mod;
-                if(j+x<=odd){
-                    nxt[j+x]=(nxt[j+x]+dp[j])%mod;
-                }
+    std::vector<i32> arr(n + 1);
+    for (i32 i = 1; i <= n; i++) {
+        if (arr[std::min(a[i], b[i])] == 0) {
+            arr[std::min(a[i], b[i])] = std::max(a[i], b[i]);
+        } else if (arr[std::min(a[i], b[i])] != std::max(a[i], b[i])) {
+            std::cout << -1 << endl;
+            return;
+        }
+    }
+    std::vector<pii> ans;
+    std::vector<i32> yq(n + 1);
+    i32 l = 1, r = n;
+    for (i32 i = 1; i <= n && l < r; i++) {
+        if (a[i] == b[i]) {
+            yq[(n + 1) / 2] = a[i];
+        } else {
+            yq[l++] = a[i];
+            yq[r--] = b[i];
+        }
+    }
+    for (i32 i = 1; i <= n; i++) {
+        if (yq[i] == a[i]) continue;
+        for (i32 j = i + 1; j <= n; j++) {
+            if (yq[i] == a[j]) {
+                ans.emplace_back(i, j);
+                std::swap(a[i], a[j]);
             }
         }
-        dp.swap(nxt);
     }
-    int v=dp[odd]%mod;
-    i64 w=(fact[odd]*fact[even])%mod;
-    i64 dd=1;
-    for(int i=0;i<26;i++){
-        dd=(dd*fact[c[i]])%mod;
+    std::cout << ans.size() << endl;
+    for (auto [x,y]: ans) {
+        std::cout << x << " " << y << endl;
     }
-    w=w*qpow(dd,mod-2)%mod;
-    i64 ans=w*v%mod;
-    std::cout<<ans<<endl;
-
 }
-signed main(){
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    int t=1;
-    std::cin>>t;
-    std::cout<<(t&31)<<endl;
+
+signed main() {
+    IOS;
+    i32 T = 1;
+    if (getenv("LOCAL") != nullptr) {
+        freopen("Testlib.in", "r", stdin);
+        // freopen("Code.out", "w", stdout);
+    }
+    std::cin >> T;
+    while (T--) nhir();
     return 0;
 }
-

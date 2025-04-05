@@ -14,10 +14,20 @@ constexpr int N = 1e5 + 10;
 #define int long long
 
 void nhir() {
-
+    i32 l, r;
+    std::cin >> l >> r;
+    auto get = [&](i32 t) {
+        i32 res = 0;
+        while (t >> res) res++;
+        return res - 1;
+    };
+    i32 a = l | ((1 << get(l ^ r)) - 1);
+    i32 b = a + 1;
+    i32 c = a == l ? r : l;
+    std::cout << a << ' ' << b << ' ' << c << endl;
 }
 
-signed main() {;
+signed main() {
     if (getenv("LOCAL") != nullptr) {
         freopen("Testlib.in", "r", stdin);
         // freopen("Code.out", "w", stdout);

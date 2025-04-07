@@ -1,6 +1,7 @@
-//模板
-#include <bits/stdc++.h>
-signed main() {
-    std::cout<<"flag{miskchalengr}"<<std::endl;
-    return 0;
+#include <iostream>
+using namespace std;
+int main()
+{
+  std::cout<<256*1024*1024/4<<std::endl;
+  return 0;
 }

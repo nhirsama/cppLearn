@@ -2,6 +2,6 @@
 using namespace std;
 int main()
 {
-  std::cout<<256*1024*1024/4<<std::endl;
+  std::cout<<1510553%1000007<<std::endl;
   return 0;
 }

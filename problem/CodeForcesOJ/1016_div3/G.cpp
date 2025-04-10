@@ -1,3 +1,4 @@
+//G
 #include <bits/stdc++.h>
 using i64 = long long int;
 using i32 = int;
@@ -18,7 +19,6 @@ void nhir() {
     std::cin >> n >> k;
     std::vector<i32> v(n);
     for (auto &i: v) std::cin >> i;
-
     std::vector<node> trie(1);
     auto add = [&](i32 ve, i32 idx) {
         i32 index = 0;
@@ -33,24 +33,25 @@ void nhir() {
             trie[index].num = std::max(trie[index].num, idx);
         }
     };
-    auto find = [&](i32 ve) -> i32 {
+    auto find = [&](i32 ve) {
         i32 index = 0;
         i32 ans = -1;
-        for (i32 j = 29; ~j; j--) {
-            i32 x_bit = (ve >> j) & 1;
-            i32 k_bit = (k >> j) & 1;
+        for (i32 i = 29; ~i; i--) {
+            auto &next = trie[index].next;
+            int x_bit = (ve >> i) & 1;
+            int k_bit = (k >> i) & 1;
             if (k_bit) {
-                if (trie[index].next[x_bit ^ 1] != -1)
-                    index = trie[index].next[x_bit ^ 1];
-                else
-                    return ans;
+                // ans = std::max(ans, trie[index].num);
+                if (next[x_bit ^ 1] != -1) {
+                    index = next[x_bit ^ 1];
+                } else return ans;
             } else {
-                if (trie[index].next[x_bit ^ 1] != -1)
-                    ans = std::max(ans, trie[trie[index].next[x_bit ^ 1]].num);
-                if (trie[index].next[x_bit] != -1)
-                    index = trie[index].next[x_bit];
-                else
-                    return ans;
+                if (next[x_bit ^ 1] != -1) {
+                    ans = std::max(ans, trie[next[x_bit ^ 1]].num);
+                }
+                if (next[x_bit] != -1) {
+                    index = next[x_bit];
+                } else return ans;
             }
         }
         ans = std::max(ans, trie[index].num);

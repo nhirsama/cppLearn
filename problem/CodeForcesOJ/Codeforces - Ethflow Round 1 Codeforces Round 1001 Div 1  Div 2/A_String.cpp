@@ -1,4 +1,6 @@
+//  A. String
 #include <bits/stdc++.h>
+
 using i64 = long long int;
 using i32 = int;
 using pii = std::pair<i32, i32>;
@@ -9,7 +11,11 @@ constexpr int mod = 1e9 + 7;
 #define all(x) (x).begin(), (x).end()
 
 void nhir() {
-
+    std::string s;
+    std::cin >> s;
+    i32 ans = 0;
+    for (auto c: s) if (c == '1') ans++;
+    std::cout << ans << endl;
 }
 
 signed main() {

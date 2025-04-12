@@ -1,21 +1,11 @@
-#include <bits/stdc++.h>
-using i64 = long long int;
-using i32 = int;
-using pii = std::pair<i32, i32>;
-constexpr int N = 1e5 + 10;
-constexpr int mod = 1e9 + 7;
-#define IOS std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr);
-#define endl '\n'
-#define all(x) (x).begin(), (x).end()
+#include <iostream>
+#include <cmath>
 
-void nhir() {
-
-}
-
-signed main() {
-    IOS;
-    i32 T = 1;
-    std::cin >> T;
-    while (T--) nhir();
+int main() {
+    double x = 233, y = 666;
+    double r = std::sqrt(x*x + y*y);
+    double theta = std::acos(x / r);
+    double distance = r * (1 + theta);
+    std::cout << static_cast<int>(std::round(distance)) << std::endl;
     return 0;
 }

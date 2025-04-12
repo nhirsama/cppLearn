@@ -6,7 +6,10 @@ using i32 = int;
 typedef std::pair<i32, i32> pii;
 constexpr int N = 1e6 + 10;
 constexpr i64 M = 1e12;
-constexpr int mod = 1e9+7;
+constexpr int mod = 1e9 + 7;
+
+std::vector<i64> primepow();
+
 #define IOS std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr);
 #define x first
 #define y second
@@ -14,6 +17,7 @@ constexpr int mod = 1e9+7;
 #define all(x) (x).begin(), (x).end()
 std::vector<int> minp, primes;
 std::vector<i64> dp;
+
 void sieve(int n) {
     minp.assign(n + 1, 0);
     primes.clear();
@@ -24,7 +28,7 @@ void sieve(int n) {
             primes.push_back(i);
         }
 
-        for (auto p : primes) {
+        for (auto p: primes) {
             if (i * p > n) {
                 break;
             }
@@ -35,22 +39,35 @@ void sieve(int n) {
         }
     }
 }
+
 bool isprime(int n) {
     return minp[n] == n;
 }
-void nhir() {
 
+void nhir() {
+    i64 n;
+    std::cin >> n;
+    auto p = std::lower_bound(all(dp), n);
+    if (*p > n) p--;
+    std::cout << *p << endl;
 }
 
 signed main() {
     IOS;
     i32 T = 1;
     sieve(N);
-    // for (i32 i = 0; i < primes.size(); i++) {
-    //     for (i32 j = i+1; j < primes.size(); j++) {
-    //         i64 t = primes[i]*primes[j]*primes[j]*primes[i];
-    //     }
-    // }
+    for (i32 i = 0; i < primes.size(); i++) {
+        for (i32 j = i + 1; j < primes.size() && 1ll * primes[i] * primes[j] < N; j++) {
+            i64 a = primes[i];
+            for (; a < N; a *= primes[i]) {
+                i64 b = primes[j];
+                for (; a * b < N; b *= primes[j]) {
+                    dp.push_back(a * b * a * b);
+                }
+            }
+        }
+    }
+    std::sort(all(dp));
     if (getenv("LOCAL") != nullptr) {
         freopen("Testlib.in", "r", stdin);
         // freopen("Code.out", "w", stdout);

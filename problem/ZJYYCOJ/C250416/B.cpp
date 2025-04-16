@@ -153,7 +153,6 @@ void nhir() {
 signed main() {
     IOS;
     i32 T = 1;
-    std::cout<<(1^2^3)<<endl;
     while (T--) nhir();
     return 0;
 }

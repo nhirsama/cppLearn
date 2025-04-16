@@ -38,11 +38,11 @@ bool isprime(int n) {
 }
 
 void nhir() {
-    i32 n;
+    i64 n;
     std::cin >> n;
-    std::map<i32, i32> pr, spr;
+    std::map<i32, i64> pr, spr;
     for (i32 i = 0; i < n; i++) {
-        i32 m;
+        i64 m;
         std::cin >> m;
         if (isprime(m)) pr[m]++;
         else {

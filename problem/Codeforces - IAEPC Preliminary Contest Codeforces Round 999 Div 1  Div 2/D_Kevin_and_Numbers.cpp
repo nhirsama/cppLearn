@@ -53,8 +53,8 @@ void nhir() {
         if (y)ok = false;
     }
     if (ok) {
-        std::cout << "YES\n";
-    } else std::cout << "NO\n";
+        std::cout << "Yes\n";
+    } else std::cout << "No\n";
 }
 
 signed main() {

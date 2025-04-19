@@ -13,9 +13,7 @@ constexpr int mod = 1e9 + 7;
 void nhir() {
     i32 n, k;
     std::cin >> n >> k;
-    if (k == 1) {
-        std::cout << 0 << endl;
-    }
+
     std::vector g(n, std::vector<int>());
     std::vector<bool> flag(n);
     int beg = 0;
@@ -33,6 +31,10 @@ void nhir() {
         u--, v--;
         g[u].push_back(v);
         g[v].push_back(u);
+    }
+    if (k == 1) {
+        std::cout << 0 << endl;
+        return ;
     }
     std::queue<pii> q;
     std::vector<bool> vi(n);

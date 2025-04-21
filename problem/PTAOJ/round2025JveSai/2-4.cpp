@@ -21,7 +21,7 @@ void dfs(int t, long long sum) {
         //     if ((sum/tenn)%n) return;
         //     tenn*=10;
         // }
-        if (sum%n)return;
+        if (sum % n)return;
         if (a <= sum && sum <= b) {
             flag = true;
 

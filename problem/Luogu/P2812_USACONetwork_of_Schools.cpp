@@ -101,7 +101,7 @@ void nhir() {
         }
     }
     if (tarjan.cnt == 1) {
-        std::cout << "0\n0" << endl;
+        std::cout << "1\n0" << endl;
         return;
     } else {
         int dinc = std::count(din.begin(), din.end(), 0);

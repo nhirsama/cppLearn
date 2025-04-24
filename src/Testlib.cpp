@@ -1,4 +1,4 @@
-//  P2812 校园网络【[USACO]Network of Schools加强版】
+//  C. Sums on Segments
 #include <bits/stdc++.h>
 
 using i64 = long long int;
@@ -9,111 +9,68 @@ constexpr int mod = 1e9 + 7;
 #define IOS std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr);
 #define endl '\n'
 #define all(x) (x).begin(), (x).end()
-
-struct SCC {
-    int n;
-    std::vector<std::vector<int> > adj;
-    std::vector<int> stk;
-    std::vector<int> dfn, low, bel;
-    int cur, cnt;
-
-    SCC() {
-    }
-
-    SCC(int n) {
-        init(n);
-    }
-
-    void init(int __n) {
-        this->n = __n;
-        adj.assign(__n, {});
-        dfn.assign(__n, -1);
-        low.resize(__n);
-        bel.assign(__n, -1);
-        stk.clear();
-        cur = cnt = 0;
-    }
-
-    void addEdge(int u, int v) {
-        adj[u].push_back(v);
-    }
-
-    void dfs(int x) {
-        dfn[x] = low[x] = cur++;
-        stk.push_back(x);
-
-        for (auto y: adj[x]) {
-            if (dfn[y] == -1) {
-                dfs(y);
-                low[x] = std::min(low[x], low[y]);
-            } else if (bel[y] == -1) {
-                low[x] = std::min(low[x], dfn[y]);
-            }
-        }
-
-        if (dfn[x] == low[x]) {
-            int y;
-            do {
-                y = stk.back();
-                bel[y] = cnt;
-                stk.pop_back();
-            } while (y != x);
-            cnt++;
-        }
-    }
-
-    std::vector<int> work() {
-        for (int i = 0; i < n; i++) {
-            if (dfn[i] == -1) {
-                dfs(i);
-            }
-        }
-        return bel;
-    }
+struct node {
+    int a;
 };
-
 void nhir() {
     int n;
+    std::priority_queue<int,std::vector<int> ,decltype([](node a,node b){return a.a<b.a;})> pq;
+
     std::cin >> n;
-    SCC tarjan(n);
+    std::vector<int> a(n);
+    for (int i = 0; i < n; i++) {
+        std::cin >> a[i];
+    }
+
+    i64 l1 = 0, r1 = 0;
+    i64 l2 = 0x3f3f3f3f, r2 = -0x3f3f3f3f;
+    i64 pr = 0;
+    i64 mnl = 0, mxl = 0;
+    i64 mnr = 0x3f3f3f3f, mxr = -0x3f3f3f3f;
 
     for (int i = 0; i < n; i++) {
-        int u;
-        while (std::cin >> u) {
-            if (!u) break;
-            tarjan.addEdge(i, --u);
+        pr += a[i];
+        if (a[i] != 1 && a[i] != -1) {
+            mnr = mnl;
+            mxr = mxl;
+            mnl = mxl = pr;
         }
+        l1 = std::min(l1, pr - mxl);
+        r1 = std::max(r1, pr - mnl);
+        l2 = std::min(l2, pr - mxr);
+        r2 = std::max(r2, pr - mnr);
+        mnl = std::min(mnl, pr);
+        mxl = std::max(mxl, pr);
     }
-    tarjan.work();
-    std::vector<int> din(tarjan.cnt), dout(tarjan.cnt);
-    std::vector<std::set<int> > vs(tarjan.cnt);
-    for (int i = 0; i < n; i++) {
-        for (int j: tarjan.adj[i]) {
-            int u = tarjan.bel[i];
-            int v = tarjan.bel[j];
-            if (u != v) {
-                if (vs[u].find(v) == vs[u].end()) {
-                    din[v]++;
-                    dout[u]++;
-                    vs[u].insert(v);
-                }
-            }
-        }
-    }
-    if (tarjan.cnt == 1) {
-        std::cout << "0\n0" << endl;
-        return;
+    if (l2 > r1) {
+        std::cout << r1 - l1 + 1 + r2 - l2 + 1 << endl;
+        for (i64 x = l1; x <= r1; x++) std::cout << x << ' ';
+        for (i64 x = l2; x <= r2; x++) std::cout << x << ' ';
+    } else if (r2 < l1) {
+        std::cout << r1 - l1 + 1 + r2 - l2 + 1 << endl;
+        for (i64 x = l2; x <= r2; ++x) std::cout << x << ' ';
+        for (i64 x = l1; x <= r1; ++x) std::cout << x << ' ';
     } else {
-        int dinc = std::count(din.begin(), din.end(), 0);
-        int doutc = std::count(dout.begin(), dout.end(), 0);
-        std::cout << dinc << endl;
-        std::cout << std::max(doutc, dinc);
+        i64 L = std::min(l1, l2);
+        i64 R = std::max(r1, r2);
+        std::cout << R - L + 1 << endl;
+        for (i64 x = L; x <= R; ++x) std::cout << x << ' ';
     }
+    std::pair<std::pair<std::pair<int,int>,std::pair<int,int>>,std::pair<std::pair<int,int>,std::pair<int,int>>> pppiipiippiipii;
+    pppiipiippiipii.first.second.first = pppiipiippiipii.first.second.second = 1;
+    pppiipiippiipii.second.second.first = pppiipiippiipii.second.second.second = n;
+    std::tuple<int,int,int,int,int,int,int,int> tiiiiiiii;
+    std::get<2>(tiiiiiiii) = std::get<3>(tiiiiiiii) = 1;
+    std::get<6>(tiiiiiiii) = std::get<7>(tiiiiiiii) = n;
+    std::get<
+
+    std::cout << endl;
 }
 
-signed main() {
+int main() {
     IOS;
-    i32 T = 1;
+    i32 T;
+    std::cin >> T;
     while (T--) nhir();
     return 0;
 }

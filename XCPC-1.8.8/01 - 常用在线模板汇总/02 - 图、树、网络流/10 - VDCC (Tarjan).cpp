@@ -20,7 +20,7 @@ struct V_DCC {
         ver[y].push_back(x);
     }
     void tarjan(int x, int root) {
-        low[x] = dfn[x] = now++;
+        low[x] = dfn[x] = ++now;
         S.push_back(x);
         if (x == root && !ver[x].size()) { // 特判孤立点
             ++cnt;

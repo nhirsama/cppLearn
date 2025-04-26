@@ -32,7 +32,8 @@ private:
 
 public:
     explicit UnionFind(int n) : parent(n), rank(n, 1) {
-        for (int i = 0; i < n; ++i) parent[i] = i;
+        //for (int i = 0; i < n; ++i) parent[i] = i;
+        std::iota(parent.begin(), parent.end(), 0);
     }
 
     int find(int x) const {

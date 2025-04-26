@@ -11,9 +11,55 @@ constexpr int mod = 1e9+7;
 #define y second
 #define endl '\n'
 #define all(x) (x).begin(), (x).end()
+struct UnionFind {
+private:
+    mutable std::vector<int> parent;
+    std::vector<int> rank;
 
+    struct ElementProxy {
+        UnionFind &uf;
+        int index;
+
+        operator int() const { return uf.find(index); }
+
+        void operator=(const ElementProxy &other) {
+            uf.merge(index, other.index);
+        }
+    };
+
+public:
+    explicit UnionFind(int n) : parent(n), rank(n, 1) {
+        for (int i = 0; i < n; ++i) parent[i] = i;
+    }
+
+    int find(int x) const {
+        return parent[x] == x ? x : (parent[x] = find(parent[x]));
+    }
+
+    void merge(int x, int y) {
+        int rootX = find(x);
+        int rootY = find(y);
+        if (rootX == rootY) return;
+
+        if (rank[rootX] > rank[rootY]) {
+            parent[rootY] = rootX;
+        } else {
+            parent[rootX] = rootY;
+            if (rank[rootX] == rank[rootY]) ++rank[rootY];
+        }
+    }
+
+    ElementProxy operator[](int x) {
+        return {*this, x};
+    }
+
+    // const 版本调用 const find
+    int operator[](int x) const {
+        return find(x);
+    }
+};
 void nhir() {
-
+	
 }
 
 signed main() {

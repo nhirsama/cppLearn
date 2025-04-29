@@ -1,92 +1,74 @@
-// D. Shop
 #include <bits/stdc++.h>
 using namespace std;
-using i32 = long long;
-
-struct node {
-    int op, i;
-    double b;
-    int num;
-};
-
-void nhir() {
-    int k, n, m;
-    cin >> k >> n >> m;
-    vector<double> a(k);
-    for (int i = 0; i < k; i++) cin >> a[i];
-    // 存储每个技能的最佳赋值、所有加法和所有乘法
-    vector<node> bestAssign(k, {0, 0, 0.0, 0});
-    vector<bool> hasAssign(k, false);
-    vector<vector<node> > adds(k);
-    vector<node> mults;
-    // 读入并分类
-    for (int idx = 1; idx <= n; idx++) {
-        int op, ii;
-        double b;
-        cin >> op >> ii >> b;
-        if (op == 1) {
-            // 记录最大的赋值
-            if (!hasAssign[ii - 1] || b > bestAssign[ii - 1].b) {
-                bestAssign[ii - 1] = {1, ii, b, idx};
-                hasAssign[ii - 1] = true;
-            }
-        } else if (op == 2) {
-            adds[ii - 1].push_back({2, ii, b, idx});
-        } else {
-            mults.push_back({3, ii, b, idx});
-        }
-    }
-    // 把赋值当作一次加法 Δ = b - a，并且只有 Δ>0 时才有意义
-    for (int i = 0; i < k; i++) {
-        if (hasAssign[i]) {
-            double delta = bestAssign[i].b - a[i];
-            if (delta > 0) {
-                adds[i].push_back({1, i + 1, delta, bestAssign[i].num});
-            }
-        }
-    }
-    // 计算所有“加法→乘法”升级的倍数，并收集所有乘法升级
-    vector<node> items;
-    for (int i = 0; i < k; i++) {
-        auto &v = adds[i];
-        sort(v.begin(), v.end(), [](const node &x, const node &y) {
-            return x.b > y.b;
-        });
-        double denom = a[i];
-        for (auto &nd: v) {
-            double ratio = 1.0 + nd.b / denom;
-            items.push_back({nd.op, nd.i, ratio, nd.num});
-            denom += nd.b;
-        }
-    }
-    for (auto &nd: mults) {
-        items.push_back(nd);
-    }
-    // 按倍数降序选出前 m 个，且倍数要大于 1
-    sort(items.begin(), items.end(), [](const node &x, const node &y) {
-        return x.b > y.b;
-    });
-    vector<node> ans;
-    for (auto &nd: items) {
-        if (ans.size() >= (size_t) m) break;
-        if (nd.b <= 1.0) break;
-        ans.push_back(nd);
-    }
-    // 最终输出按 op 升序，同 op 下按原编号升序
-    sort(ans.begin(), ans.end(), [](const node &x, const node &y) {
-        if (x.op != y.op) return x.op < y.op;
-        return x.num < y.num;
-    });
-    cout << ans.size() << '\n';
-    for (auto &nd: ans) {
-        cout << nd.num << ' ';
-    }
-    cout << '\n';
-}
+using ll = long long;
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    nhir();
+
+    int n, k;
+    cin >> n >> k;
+    string s;
+    cin >> s;
+
+    // 1) 预处理 dp[i]: s[i..n-1] 中最短的缺失子序列长度
+    vector<int> dp(n + 2, 0);
+    vector<int> nextPos(k, -1);
+    const int INF = n + 5;
+
+    dp[n] = 1;
+    // 从后向前计算
+    for (int i = n - 1; i >= 0; i--) {
+        nextPos[s[i] - 'a'] = i;
+        // 检查是否有未出现过的字母
+        bool foundMissing = false;
+        for (int c = 0; c < k; c++) {
+            if (nextPos[c] == -1) {
+                dp[i] = 1;
+                foundMissing = true;
+                break;
+            }
+        }
+        if (!foundMissing) {
+            int best = INF;
+            for (int c = 0; c < k; c++) {
+                int np = nextPos[c];
+                // np >= 0 保证安全
+                best = min(best, 1 + dp[np + 1]);
+            }
+            dp[i] = best;
+        }
+    }
+
+    // 2) 为快速匹配 s 中的子序列，记录每个字母的位置列表
+    vector<vector<int> > posList(k);
+    for (int i = 0; i < n; i++) {
+        posList[s[i] - 'a'].push_back(i);
+    }
+
+    int q;
+    cin >> q;
+    while (q--) {
+        string t;
+        cin >> t;
+        int cur = -1; // 当前匹配到的位置
+        bool ok = true;
+        for (char ch: t) {
+            auto &v = posList[ch - 'a'];
+            auto it = upper_bound(v.begin(), v.end(), cur);
+            if (it == v.end()) {
+                // 无法继续匹配
+                cout << 0 << "\n";
+                ok = false;
+                break;
+            }
+            cur = *it;
+        }
+        if (ok) {
+            // 匹配完全部 t，答案为 dp[cur+1]
+            cout << dp[cur + 1] << "\n";
+        }
+    }
+
     return 0;
 }

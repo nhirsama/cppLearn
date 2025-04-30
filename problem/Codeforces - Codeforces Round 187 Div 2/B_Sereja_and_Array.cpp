@@ -11,20 +11,28 @@ constexpr __i_know_i_need_int mod = 1e9 + 7;
 
 
 void nhir() {
-    i32 n,m;
-    std::cin>>n>>m;
-    std::vector<i32> v(n+1);
-    for (i32 i = 1;i<=n;i++) {
-        std::cin>>v[i];
+    i32 n, m;
+    std::cin >> n >> m;
+    std::vector<i32> v(n + 1);
+    for (i32 i = 1; i <= n; i++) {
+        std::cin >> v[i];
     }
-    std::vector<i32> z(n+1);
+    i32 add = 0;
     while (m--) {
         i32 op;
-        std::cin>>op;
+        std::cin >> op;
         if (op == 1) {
-            i32 p,y;
-            std::cin>>p>>y;
-            z[]
+            i32 p, y;
+            std::cin >> p >> y;
+            v[p] = y - add;
+        } else if (op == 2) {
+            i32 y;
+            std::cin >> y;
+            add += y;
+        } else {
+            i32 p;
+            std::cin >> p;
+            std::cout << v[p] + add << endl;
         }
     }
 }
@@ -32,7 +40,6 @@ void nhir() {
 signed main() {
     IOS;
     __i_know_i_need_int T = 1;
-    std::cin >> T;
     while (T--) nhir();
     return 0;
 }

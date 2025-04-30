@@ -18,25 +18,25 @@ void solve() {
         tr[v].push_back(u);
     }
     auto dfs = [&](auto &&self, int v, int f)-> void {
-        for (auto i: tr[v]) {
-            if (i == f) continue;
-            self(self, i, v);
-        }
         dp[v] = true;
         for (auto i: tr[v]) {
             if (i == f) continue;
-            dp[v] = (w[i] * 2 >= w[v] && dp[i]);
+            self(self, i, v);
+            dp[v] = dp[v] && (w[i] * 2 >= w[v] && dp[i]);
         }
     };
     dfs(dfs, 1, 1);
     i32 ans = 0;
     auto dfs2 = [&](auto &&self, int v, int f)-> void {
         bool ft = dp[f];
-        dp[f] = true;
-        for (auto i: tr[f]) {
-            if (i == v) continue;
-            dp[f] = dp[f] && (w[i] * 2 >= w[f]) && dp[i];
-            if (!dp[f]) break;
+        //dp[f] = true;
+        if ((dp[v] && w[v] * 2 >= w[f]) == false && dp[f] == false) {
+            dp[f] = true;
+            for (auto i: tr[f]) {
+                if (i == v) continue;
+                dp[f] = (w[i] * 2 >= w[f]) && dp[i];
+                if (!dp[f]) break;
+            }
         }
         bool vt = dp[v];
         dp[v] = dp[v] && dp[f] && (w[f] * 2 >= w[v]);

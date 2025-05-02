@@ -25,22 +25,25 @@ int main() {
             dp[t] = j + 1;
         }
     }
-    for (int i = (1 << 18) - 1; i; i--) {
-        for (int j = 0; j <= 18; j++) {
-            //if (i & (1 << j)) continue;
-            dp[i] = max(dp[i], dp[(i >> j) << j] + dp[((1 << j) - 1) & i]);
-            //dp[i | (1 << j)] = max(dp[i] + dp[1 << j], dp[i | (1 << j)]);
-            //dp[i] = max(dp[i], dp[i | (1 << j)]);
-        }
-    }
-    // for (int i = 0; i < 1 << 18; i++) {
-    //     for (int j = 0; j < 18; j++) {
-    //         if (i & (1 << j)) {
-    //             dp[i] = max(dp[i],dp[i])
-    //         }
+    // for (int i = (1 << 18) - 1; i; i--) {
+    //     for (int j = 0; j <= 18; j++) {
+    //         //if (i & (1 << j)) continue;
+    //         dp[i] = max(dp[i], dp[(i >> j) << j] + dp[((1 << j) - 1) & i]);
+    //         //dp[i | (1 << j)] = max(dp[i] + dp[1 << j], dp[i | (1 << j)]);
+    //         //dp[i] = max(dp[i], dp[i | (1 << j)]);
     //     }
     // }
-
+    for (int i = 0; i < 1 << 18; i++) {
+        for (int j = 0; j < 18; j++) {
+            if (i & (1 << j)) {
+                dp[i] = max(dp[i], dp[i ^ (1 << j)]);
+            }
+        }
+    }
+    int ans = 0;
+    for (int i = 0; i < 1 << 18; i++) {
+        ans = max(ans, dp[i] + dp[((1 << 18) - 1) ^ i]);
+    }
     // vector<int> vv[19];
     // for (auto i: s) {
     //     vv[__builtin_popcount(i)].push_back(i);
@@ -63,5 +66,5 @@ int main() {
     //         }
     //     }
     // }
-    std::cout << *max_element(dp + 1, dp + (1 << 18)) << endl;
+    std::cout << ans << endl;
 }

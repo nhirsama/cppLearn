@@ -1,74 +1,79 @@
-#include <bits/stdc++.h>
+#include<iostream>
+#include<cstdio>
+
 using namespace std;
-using ll = long long;
+#define maxn 2000007
+#define maxn1 1000007
+long long int x, y, tot, n, Head[maxn], Next[maxn], u[maxn], v[maxn];
+long long int size2[maxn1], f[maxn1], ans, kkk, dep[maxn1];
+bool vis[maxn1], gfg[maxn1];
+
+inline int max(int a, int b) {
+    return a > b ? a : b;
+}
+
+inline void read(long long &x) {
+    int fh;
+    char ch;
+    x = 0;
+    while (ch != '-' && (ch < '0' || ch > '9')) ch = getchar();
+    if (ch == '-') {
+        fh = -1;
+        ch = getchar();
+    } else fh = 1;
+    while (ch >= '0' && ch <= '9') {
+        x = (x << 1) + (x << 3) + ch - '0';
+        ch = getchar();
+    }
+}
+
+inline void add() {
+    u[++tot] = x, v[tot] = y;
+    Next[tot] = Head[x], Head[x] = tot;
+    u[++tot] = y, v[tot] = x;
+    Next[tot] = Head[y], Head[y] = tot; //建边
+}
+
+long long int dfs(int x, int root) //求f1和size
+{
+    int sum = 0;
+    vis[x] = 1;
+    size2[x] = 1;
+    for (int i = Head[x]; i; i = Next[i]) {
+        if (vis[v[i]]) continue;
+        dep[v[i]] = dep[x] + 1;
+        sum += dfs(v[i], x);
+    }
+    size2[root] = size2[root] + size2[x];
+    return sum + dep[x];
+}
+
+void zy(int x, int root) //转移
+{
+    gfg[x] = 1;
+    for (int i = Head[x]; i; i = Next[i]) {
+        if (gfg[v[i]]) continue;
+        f[v[i]] = f[x] + n - 2 * size2[v[i]];
+        if (f[v[i]] > ans) {
+            ans = f[v[i]];
+            kkk = v[i];
+        }
+        if (f[v[i]] == ans) kkk = min(kkk, v[i]);
+        zy(v[i], x);
+    }
+}
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
-    int n, k;
-    cin >> n >> k;
-    string s;
-    cin >> s;
-
-    // 1) 预处理 dp[i]: s[i..n-1] 中最短的缺失子序列长度
-    vector<int> dp(n + 2, 0);
-    vector<int> nextPos(k, -1);
-    const int INF = n + 5;
-
-    dp[n] = 1;
-    // 从后向前计算
-    for (int i = n - 1; i >= 0; i--) {
-        nextPos[s[i] - 'a'] = i;
-        // 检查是否有未出现过的字母
-        bool foundMissing = false;
-        for (int c = 0; c < k; c++) {
-            if (nextPos[c] == -1) {
-                dp[i] = 1;
-                foundMissing = true;
-                break;
-            }
-        }
-        if (!foundMissing) {
-            int best = INF;
-            for (int c = 0; c < k; c++) {
-                int np = nextPos[c];
-                // np >= 0 保证安全
-                best = min(best, 1 + dp[np + 1]);
-            }
-            dp[i] = best;
-        }
+    read(n);
+    for (register int i = 1; i < n; i++) {
+        read(x);
+        read(y);
+        add();
     }
-
-    // 2) 为快速匹配 s 中的子序列，记录每个字母的位置列表
-    vector<vector<int> > posList(k);
-    for (int i = 0; i < n; i++) {
-        posList[s[i] - 'a'].push_back(i);
-    }
-
-    int q;
-    cin >> q;
-    while (q--) {
-        string t;
-        cin >> t;
-        int cur = -1; // 当前匹配到的位置
-        bool ok = true;
-        for (char ch: t) {
-            auto &v = posList[ch - 'a'];
-            auto it = upper_bound(v.begin(), v.end(), cur);
-            if (it == v.end()) {
-                // 无法继续匹配
-                cout << 0 << "\n";
-                ok = false;
-                break;
-            }
-            cur = *it;
-        }
-        if (ok) {
-            // 匹配完全部 t，答案为 dp[cur+1]
-            cout << dp[cur + 1] << "\n";
-        }
-    }
-
-    return 0;
+    f[1] = dfs(1, 0);
+    gfg[1] = 1;
+    ans = f[1];
+    kkk = 1;
+    zy(1, 0);
+    printf("%d\n", kkk);
 }

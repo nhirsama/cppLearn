@@ -17,11 +17,13 @@ void solve() {
         tr[u].push_back(v);
         tr[v].push_back(u);
     }
+    std::vector<i32> cnt(n + 1);
     auto dfs = [&](auto &&self, int v, int f)-> void {
         dp[v] = true;
         for (auto i: tr[v]) {
             if (i == f) continue;
             self(self, i, v);
+            cnt[v] += (w[i] * 2 < w[v]);
             dp[v] = dp[v] && (w[i] * 2 >= w[v] && dp[i]);
         }
     };
@@ -30,7 +32,7 @@ void solve() {
     auto dfs2 = [&](auto &&self, int v, int f)-> void {
         bool ft = dp[f];
         //dp[f] = true;
-        if ((dp[v] && w[v] * 2 >= w[f]) == false && dp[f] == false) {
+        if ((dp[v] && w[v] * 2 >= w[f]) == false && dp[f] == false && cnt[f] <= 1) {
             dp[f] = true;
             for (auto i: tr[f]) {
                 if (i == v) continue;

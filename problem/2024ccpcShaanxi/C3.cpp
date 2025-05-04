@@ -6,7 +6,7 @@ int main() {
     int n;
     std::cin >> n;
     std::vector<int> id(n * 2 + 1), od(n * 2 + 1);
-    std::vector g(n + 1, std::vector<int>());
+    std::vector g(n * 2 + 1, std::vector<int>());
     for (int i = 1; i <= n; i++) {
         int t;
         std::cin >> t;
@@ -14,29 +14,32 @@ int main() {
         id[t]++;
         od[i]++;
     }
-    std::vector<int> cnt(2 * n + 1);
+    std::vector<int> len(2 * n + 1);
     for (int i = 1; i <= n; i++) {
         if (id[i] == 0 && od[i]) {
             std::queue<int> u;
             u.push(i);
-            int len = 0;
+            len[i]++;
             while (!u.empty()) {
                 auto v = u.front();
                 u.pop();
                 //std::cout<<v<<std::endl;
 
                 if (n < v && v <= n * 2) {
-                    cnt[v] = std::max(cnt[v], len);
                     continue;
                 }
-                len++;
+                //len[v]++;
+                //len++;
                 for (auto j: g[v]) {
                     id[j]--;
                     if (id[j] == 0) {
                         u.push(j);
                     }
+                    //len[j] = std::max(len[j], len[v] + 1);
                     if (n < j && j <= n * 2) {
-                        cnt[j] = std::max(cnt[j], len);
+                        len[j] = std::max(len[j], len[v]);
+                    } else {
+                        len[j] = std::max(len[j], len[v] + 1);
                     }
                     od[v]--;
                 }
@@ -47,12 +50,8 @@ int main() {
     for (int i = 1; i <= n; i++) {
         if (id[i] == od[i] && od[i]) ans++;
     }
-    // if (ans == n) {
-    //     std::cout << 0 << std::endl;
-    //     return 0;
-    // }
     for (int i = n + 1; i <= n * 2; i++) {
-        ans += cnt[i];
+        ans += len[i];
     }
     std::cout << ans << std::endl;
 }

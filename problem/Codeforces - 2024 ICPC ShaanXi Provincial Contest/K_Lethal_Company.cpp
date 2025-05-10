@@ -27,29 +27,19 @@ void nhir() {
         if (a[0] == b[0]) return a[2] < b[2];
         return a[0] > b[0];
     });
-    //std::vector<i32> stt(n + 1);
     auto check = [&](i32 ti)-> bool {
-        ll ret = ti; //从 ti 开始消耗用于凝视
+        i32 time = ti;
         std::map<i32, i32> mm;
         for (auto &[t,x,y]: v) {
-            if (ti < t) continue; //该子弹还未出现
-            ll tmp = (y - 1) / k + 1 + mm[x] + t - 1; //到达时的时间
-            if (tmp > ti) continue; //子弹在 ti 时无法达到
-            tmp = ti - tmp + 1; //需要凝视的时间
-            if (ret - tmp + 1 < t) return 0; //剩余时间无法处理
-            ret -= tmp;
-            mm[x] += tmp; //进行标记
+            if (ti < t) continue;
+            ll tmp = (y - 1) / k + 1 + mm[x] + t - 1;
+            if (tmp > ti) continue;
+            tmp = ti - tmp + 1;
+            if (time - tmp + 1 < t) return false;
+            time -= tmp;
+            mm[x] += tmp;
         }
-        // for (int i = 0; i < m; ++i) {
-        //     if (ti < v[i][0]) continue; //该子弹还未出现
-        //     ll tmp = (v[i][2] - 1) / k + 1 + mm[v[i][1]] + v[i][0] - 1; //到达时的时间
-        //     if (tmp > ti) continue; //子弹在 ti 时无法达到
-        //     tmp = ti - tmp + 1; //需要凝视的时间
-        //     if (ret - tmp + 1 < v[i][0]) return 0; //剩余时间无法处理
-        //     ret -= tmp;
-        //     mm[v[i][1]] += tmp; //进行标记
-        // }
-        return 1;
+        return true;
     };
     i32 l = 0, r = 0x3f3f3f3f3f3f3f3f;
     while (l < r) {

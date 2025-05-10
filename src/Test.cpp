@@ -1,56 +1,98 @@
-#include <bits/stdc++.h>
-namespace fs = std::filesystem;
+#include<bits/stdc++.h>
 
-void Test(const fs::path &correctFile, const fs::path &inputFile = "Code.out");
+using namespace std;
 
-int main() {
-    const clock_t beginTime = clock();
-    fs::path outPath; //放入程序输出文件路径
-    if (outPath.empty()) {
-        std::ifstream ifile;
-        ifile.open("Testlib.out");
-        std::string line;
-        ifile >> line;
-        //可以在Testlib.out中输入正确答案的文件相对路径，或者输入正确答案。
-        if (line.empty()) {
-            std::cout << "请输入与Code.out文件对拍的路径:" << std::endl;
-            std::cin >> outPath;
-        } else {
-            if (line.substr(0, 13) == "inAndoutFile/") outPath = line;
-            else outPath = "Testlib.out";
-        }
-        ifile.close();
-    }
-    Test(outPath);
-    const clock_t endTime = clock();
-    std::cout << "本程序运行时间为" << static_cast<double>(endTime - beginTime) << "毫秒" << std::endl;
-    return 0;
+#define int long long
+using PII = pair<int,int>;
+const int N = 5e5+10;
+int n,m,q,V;
+int fa[N];
+vector<vector<PII>>adj;
+vector<int>p;
+vector<PII>qs;
+vector<int>ans;
+
+inline int lowbit(int x){
+    return x&(-x);
 }
 
-//将inputFile与correctFile对拍。
-void Test(const fs::path &correctFile, const fs::path &inputFile) {
-    std::ifstream CFOut, IFOut;
-    CFOut.open(correctFile, std::ios::in);
-    IFOut.open(inputFile, std::ios::in);
-    std::string s;
-    int t = 1;
-    bool flag = true;
-    while (getline(CFOut, s)) {
-        std::string s1;
-        if (!getline(IFOut, s1)) {
-            std::cout << "程序输出过短，再重新检查一遍吧" << std::endl;
-            flag = false;
-            break;
+inline void add(int u,int v,int w){
+    adj[u].push_back({v,w});
+}
+
+inline int find(int x){
+    while(x!=fa[x]) x = fa[x] = fa[fa[x]];
+    return x;
+}
+
+void bfs(int u,int x){
+    queue<int>q;
+    q.push(u);
+    p[u] = u;
+    while(q.size()){
+        int t = q.front();
+        q.pop();
+        for(auto &edge:adj[t]){
+            int v = edge.first;
+            int w = edge.second;
+            if(p[v] || (w&x)!=x) continue;
+            q.push(v);
+            p[v] = u;
         }
-        if (s1 != s) {
-            std::cout << "在" << t << "行与正确答案不符" << std::endl;
-            flag = false;
-        }
-        t++;
     }
-    //若IFOut输入流不为空，则证明对拍
-    if (IFOut >> s) std::cout << "程序输出过长，再重新检查一下吧" << std::endl;
-    else if (flag) std::cout << "宝宝好棒，程序输出正确" << std::endl;
-    IFOut.close();
-    CFOut.close();
+
+}
+
+void work(int x){
+    p.assign(n+1,0);
+    for(int i=1;i<=n;i++){
+        if(!p[i]) bfs(i,x);
+    }
+
+    for(int i=1;i<=q;i++){
+        int u = qs[i].first;
+        int v = qs[i].second;
+        if(!ans[i]) ans[i] = (p[u] == p[v]);
+    }
+}
+
+void solve(){
+    cin>>n>>m>>q>>V;
+    adj.resize(n+1);
+    qs.resize(q+1);
+    ans.resize(q+1);
+    for(int i=1;i<=m;i++){
+        int u,v,w; cin>>u>>v>>w;
+        add(u,v,w); add(v,u,w);
+    }
+
+    for(int i=1;i<=q;i++){
+        cin>>qs[i].first>>qs[i].second;
+    }
+
+    int t = 1LL<<60;
+    if(V==0){
+        work(0);
+        // cout<<"work1\n";
+    }else{
+        // cout<<"work2\n";
+        for(int i=V;i<t;i+=lowbit(i)){
+            work(i);
+        }
+    }
+
+    // for(int i=1;i<=n;i++){
+    //     cout<<fa[i]<<' ';
+    // }
+    for(int i=1;i<=q;i++){
+        cout<<(ans[i]?"Yes\n":"No\n");
+    }
+
+}
+
+signed main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    solve();
+    return 0;
 }

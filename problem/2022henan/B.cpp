@@ -11,19 +11,7 @@ const i32 mod = 998244353;
 int main() {
     string ins;
     cin >> ins;
-    auto hash = [](char c) {
-        if (c == 'n') {
-            return 4;
-        } else if (c == 'h') {
-            return 3;
-        } else if (c == 'e') {
-            return 2;
-        } else if (c == 'a') {
-            return 1;
-        }
-        return 0;
-    };
-    // auto hash = [](string t) {
+    // auto hash = [](string &t) {
     //     i32 res = 0, base = 1;
     //     if (t.size() == 0) return 0ll;
     //     for (i32 i = t.size() - 1; ~i; i--) {
@@ -42,17 +30,28 @@ int main() {
     //     }
     //     return res % 998244353;
     // };
+    vector<i32> pow(30, 1);
+    for (i32 i = 1; i < 29; i++) {
+        pow[i] = (pow[i - 1] * 31) % mod;
+    }
+    auto get = [](char c) {
+        if (c == 'a') return 1;
+        if (c == 'e') return 2;
+        if (c == 'h') return 3;
+        if (c == 'n') return 4;
+        return 0;
+    };
     i32 n = ins.size();
     string s = ins + ins;
-    // vector<i32> ghash(n * 2 + 1);
-    // i32 pow = 1;
-    // for (i32 i = 0; i < 2 * n; i++) {
-    //     ghash[i + 1] = (pow * hash(s[i]) + ghash[i]) % mod;
-    //     pow *= 31;
-    //     pow %= mod;
-    // }
     i32 ans = 0;
     i32 D = 15;
+    vector<i32> hash(2 * n + 1, 0);
+    for (int i = 0; i < 2 * n; i++) {
+        hash[i + 1] = (hash[i] * 31 + get(s[i])) % mod;
+    }
+    auto geth = [&](i32 l, i32 r) {
+        return (hash[r + 1] - hash[l] * pow[r - l + 1] % mod + mod) % mod;
+    };
     vector<i32> dp(n + 1);
     i32 INF = 0x3f3f3f3f3f3f3f3f;
     for (int st = 0; st < n && st < D; st++) {
@@ -60,8 +59,9 @@ int main() {
         dp[0] = 0;
         for (int len = 1; len <= n; len++) {
             for (int k = 1; k <= D && k <= len; k++) {
-                // i64 h = hash(s.substr(st + len - k, k));
-                i64 h = (ghash[st + len] - ghash[st + len - k - 1] + mod) % mod;
+                //string ss = s.substr(st + len - k, k);
+                //i64 h = hash(ss);
+                i64 h = geth(st + len - k, st + len - 1);
                 dp[len] = max(dp[len], dp[len - k] + h);
             }
         }

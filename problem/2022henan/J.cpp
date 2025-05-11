@@ -6,16 +6,53 @@
 using namespace std;
 using i64 = long long;
 using i32 = i64;
-constexpr int N = 1000000 + 10;
+
 int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
     i64 n;
-    cin>>n;
-    vector<i32> val(n+1);
-    vector tr(n+1,vector<i32>());
-    for (i32 i = 1;i<=n;i++) {
-        cin>>val[i];
+    cin >> n;
+    vector<i32> val(n + 1), db(n + 1), minv(n + 1), cnt(n + 1);
+    i32 root = -1;
+    vector tr(n + 1, vector<i32>());
+    for (i32 i = 1; i <= n; i++) {
+        cin >> val[i];
+        if (val[i] == 0) root = i;
+        db[val[i]] = i;
     }
+    vector tree(n + 1, vector<i32>());
+    for (i32 i = 2; i <= n; i++) {
+        i32 u;
+        std::cin >> u;
+        tree[u].push_back(i);
+        tree[i].push_back(u);
+    }
+    auto dfs = [&](auto &&self, i32 u, i32 f)-> void {
+        minv[u] = val[u];
+        cnt[u]++;
+        for (auto v: tree[u]) {
+            if (v == f) continue;
+            self(self, v, u);
+            minv[u] = min(minv[u], minv[v]);
+            cnt[u] += cnt[v];
+        }
+    };
+    dfs(dfs, root, -1);
+    for (i32 i = 0; i < n; i++) {
+        i32 u = db[i];
+        if (i == 0) {
+            i32 ans = 0;
+            for (auto v: tree[u]) {
+                ans = max(cnt[v], ans);
+            }
+            cout << ans << ' ';
+        } else if (minv[u] == val[u]) {
+            cout << n - cnt[u] << ' ';
+        } else cout << 0 << ' ';
+    }
+    cout << n << '\n';
 }
+
 // int val[N], cnt[N], mins[N], p[N];
 // vector<int> g[N];
 //

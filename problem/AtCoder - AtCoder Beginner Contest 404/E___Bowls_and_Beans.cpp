@@ -14,8 +14,9 @@ void nhir() {
     i32 n;
     std::cin >> n;
     std::vector<i32> c(n), a(n);
-    for (i32 i = 1; i < n; i++) std::cin >> c[i];
-    for (i32 i = 1; i < n; i++) std::cin >> a[i];
+    for (i32 i = 1; i <= n; i++) std::cin >> c[i];
+    for (i32 i = 1; i <= n; i++) std::cin >> a[i];
+    std::vector<i32> dp(n+1);
     // for (auto &i:c) std::cin>>i;
     // for (auto &i:a) std::cin>>i;
     // std::vector g(n+1,std::vector<i32>());
@@ -42,13 +43,13 @@ void nhir() {
     //         }
     //     }
     // };
-    i32 ans = 0;
-    for (i32 i = n - 1; i; i--) {
-        if (a[i] > 0) {
-            ans++;
-            a[std::max(0ll,i - c[i])] += a[i];
-        }
-    }
+    // i32 ans = 0;
+    // for (i32 i = n - 1; i; i--) {
+    //     if (a[i] > 0) {
+    //         ans++;
+    //         a[std::max(0ll,i - c[i])] += a[i];
+    //     }
+    // }
 
     std::cout << ans << "\n";
 }

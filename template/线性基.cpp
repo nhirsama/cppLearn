@@ -1,5 +1,3 @@
-
-
 i32 gauss(std::vector<long long> &v) {
     i32 n = v.size();
     i32 k = 0;

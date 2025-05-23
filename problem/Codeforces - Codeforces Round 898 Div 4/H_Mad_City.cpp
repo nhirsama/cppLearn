@@ -42,27 +42,47 @@ void nhir() {
         return false;
     };
     dfs1(dfs1, b, b);
-    std::vector<i32> dis(n, 1E18);
-    auto dijkstra = [&](i32 s) -> void {
-        using PII = std::pair<i32, i32>;
-        std::priority_queue<PII, std::vector<PII>, std::greater<PII>> q;
+//    auto dijkstra = [&](i32 s) -> void {
+//        using PII = std::pair<i32, i32>;
+//        std::priority_queue<PII, std::vector<PII>, std::greater<PII>> q;
+//        q.emplace(0, s);
+//        dis[s] = 0;
+//        std::vector<i32> viss(n + 1);
+//        while (!q.empty()) {
+//            i32 x = q.top().second;
+//            q.pop();
+//            if (viss[x]) continue;
+//            viss[x] = 1;
+//            for (auto y: g[x]) {
+//                if (dis[y] > dis[x] + 1) {
+//                    dis[y] = dis[x] + 1;
+//                    q.emplace(dis[y], y);
+//                }
+//            }
+//        }
+//    };
+    auto dijkstra = [&](i32 s = 0) {
+        using pii = std::pair<i32, i32>;
+        std::vector<i32> dij_dis(n, 0x3f3f3f3f);
+        std::priority_queue<pii, std::vector<pii>, std::greater<pii>> q;
         q.emplace(0, s);
-        dis[s] = 0;
-        std::vector<i32> viss(n + 1);
+        dij_dis[s] = 0;
+        std::vector<i32> dij_vis(n);
         while (!q.empty()) {
-            i32 x = q.top().second;
+            i32 u = q.top().second;
             q.pop();
-            if (viss[x]) continue;
-            viss[x] = 1;
-            for (auto y: g[x]) {
-                if (dis[y] > dis[x] + 1) {
-                    dis[y] = dis[x] + 1;
-                    q.emplace(dis[y], y);
+            if (dij_vis[u]) continue;
+            dij_vis[u] = 1;
+            for (auto v: g[u]) {
+                if (dij_dis[v] > dij_dis[u] + 1) {
+                    dij_dis[v] = dij_dis[u] + 1;
+                    q.emplace(dij_dis[v], v);
                 }
             }
         }
+        return dij_dis;
     };
-    dijkstra(a);
+    auto dis = dijkstra(a);
 //    for (auto i: vis) {
 //        std::cout << i << ' ';
 //    }

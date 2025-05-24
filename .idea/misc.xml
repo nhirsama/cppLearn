@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Black">
-    <option name="sdkName" value="Python 3.11 virtualenv at G:\OneDrive\Desktop\learn_file\computer_file\Python\AlgorithmPython\.venv" />
+    <option name="sdkName" value="Python 3.11 virtualenv at C:\Users\zxy15\.platformio\penv" />
   </component>
   <component name="CMakePythonSetting">
     <option name="pythonIntegrationState" value="YES" />

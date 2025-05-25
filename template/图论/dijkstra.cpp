@@ -4,12 +4,12 @@ auto dijkstra = [&](i32 s = 0) {
     std::priority_queue<pii, std::vector<pii>, std::greater<pii>> q;
     q.emplace(0, s);
     dij_dis[s] = 0;
-    std::vector<i32> dij_vis(n);
+    std::vector<bool> dij_vis(n);
     while (!q.empty()) {
         i32 u = q.top().second;
         q.pop();
         if (dij_vis[u]) continue;
-        dij_vis[u] = 1;
+        dij_vis[u] = true;
         for (auto [v, w]: g[u]) {
             if (dij_dis[v] > dij_dis[u] + w) {
                 dij_dis[v] = dij_dis[u] + w;

@@ -10,61 +10,39 @@ using pii = std::pair<i32, i32>;
 void nhir() {
     i32 n;
     std::cin >> n;
-    std::vector<i32> d(n);
-    for (auto &i: d) std::cin >> i;
-    std::vector<pii> h(n);
-    std::vector<pii> lh;
-    for (auto &[x, y]: h) std::cin >> x >> y;
-    i32 low = 0, high = 0;
+    std::vector<i32> v(n);
+    for (auto &i: v) std::cin >> i;
+    std::vector<pii> high(n);
+    for (auto &[l,r]: high) std::cin >> l >> r;
+    std::vector<i32> l(n), r(n);
+    i32 ll = 0, rr = 0;
     for (i32 i = 0; i < n; i++) {
-        auto [x, y] = h[i];
-//        if (i) {
-//            if (x > maxh[i - 1].first) {
-//                maxh[i] = {x, std::max(0ll, d[i])};
-//            } else {
-//                maxh[i].second = maxh[i - 1].second + std::max(d[i], 0ll);
-//            }
-//        } else maxh[i] = {x, std::max(0ll, d[i])};
-//        maxh[i] = std::max((i ? maxh[i - 1] : 0), x);
-        if (d[i] == -1) high++;
-        else high += d[i], low += d[i];
-        high = std::min(y, high);
-        low = std::max(x, low);
-        lh.emplace_back(low, high);
-        //std::cout << low << ' ' << high << endl;
-        if (high < low) {
-            std::cout << -1 << endl;
+        i32 low = ll + (v[i] == 1);
+        i32 up = rr + (v[i] != 0);
+        if (v[i] == 0) up = rr;
+        auto [li, ri] = high[i];
+        l[i] = std::max(low, li);
+        r[i] = std::min(up, ri);
+        if (l[i] > r[i]) {
+            std::cout << -1 << '\n';
             return;
         }
+        ll = l[i];
+        rr = r[i];
     }
-    std::vector<i32> p;
-    i32 now = 0;
-    for (i32 i = 0; i < n; i++) {
-        if (d[i] == -1) {
-            p.push_back(i);
-        } else now += d[i];
-        //std::cout << lh[i].first << ' ' << lh[i].second << '\n';
-        while (now < lh[i].first) {
-            d[p.back()] = 1;
-            now++;
-            p.pop_back();
+    std::vector<i32> h(n), ans(n);
+    h[n - 1] = l[n - 1];
+    for (i32 i = n - 1; ~i; i--) {
+        if (v[i] == 0 || (v[i] == -1 && (i > 0 ? l[i - 1] : 0) <= h[i] && h[i] <= (i > 0 ? r[i - 1] : 0))) {
+            ans[i] = 0;
+            if (i > 0) h[i - 1] = h[i];
+        } else {
+            ans[i] = 1;
+            if (i > 0) h[i - 1] = h[i] - 1;
         }
     }
-    while (!p.empty()) {
-        d[p.back()] = 0;
-        p.pop_back();
-    }
-//    for (i32 i = n - 1; ~i; i--) {
-//        if (d[i] == 1)low--;
-//        else if (d[i] == -1) {
-//            if (low + maxh[i].second >= maxh[i].first)d[i] = 1, low--;
-//            else d[i] = 0;
-//        }
-//    }
-    //for (auto i: maxh) std::cout << i << ' ';
-    for (auto i: d) {
-        std::cout << i << ' ';
-    }
+
+    for (i32 i: ans) std::cout << i << ' ';
     std::cout << '\n';
 }
 

@@ -1,4 +1,9 @@
 #include <bits/stdc++.h>
+int main(){
+    std::cout<<"zako zako ~ \n ";
+    return 0;
+}
+#include <bits/stdc++.h>
 
 using namespace std;
 

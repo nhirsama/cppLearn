@@ -11,8 +11,8 @@ void nhir() {
     i32 n, k;
     std::cin >> n >> k;
     std::vector<i32> a(n), h(n);
-//    for (i32 i = 1; i <= n; i++) std::cin >> b[i];
-//    for (i32 i = 1; i <= n; i++) std::cin >> v[i];
+    //    for (i32 i = 1; i <= n; i++) std::cin >> b[i];
+    //    for (i32 i = 1; i <= n; i++) std::cin >> v[i];
     std::vector<i32> pre(n + 1);
     for (auto &i: a) std::cin >> i;
     for (auto &i: h) std::cin >> i;
@@ -26,16 +26,16 @@ void nhir() {
             len[i + 1] = len[i] + 1;
         } else len[i + 1] = 1;
     }
-//    for (auto i: len) {
-//        std::cout << i << ' ';
-//    }
-//    std::cout << endl;
-//    for (auto i: pre) {
-//        std::cout << i << ' ';
-//    }
+    //    for (auto i: len) {
+    //        std::cout << i << ' ';
+    //    }
+    //    std::cout << endl;
+    //    for (auto i: pre) {
+    //        std::cout << i << ' ';
+    //    }
     auto check = [&](i32 mid) {
-        for (i32 i = 0; i + mid < n; i++) {
-            if (len[i + mid - 1] < mid - 1) continue;
+        for (i32 i = 0; i + mid <= n; i++) {
+            if (len[i + mid - 1] < mid) continue;
             if (pre[i + mid] - pre[i] <= k) return true;
         }
         return false;
@@ -48,13 +48,13 @@ void nhir() {
     }
     std::cout << l << endl;
     //    v[0] = 1;
-//    i32 pl = 1, pr = 1, kk = 0;
-//    i32 ans = 0;
-//    while (pl <= pr && pr <= n) {
-//        while (pr <= n && v[pr] % v[pr+1] == 0 && kk + b[pr] <= k) kk += b[pr++];
-//        ans = std::max(ans, pr - pl);
-//        k -= b[pl++];
-//    }
+    //    i32 pl = 1, pr = 1, kk = 0;
+    //    i32 ans = 0;
+    //    while (pl <= pr && pr <= n) {
+    //        while (pr <= n && v[pr] % v[pr+1] == 0 && kk + b[pr] <= k) kk += b[pr++];
+    //        ans = std::max(ans, pr - pl);
+    //        k -= b[pl++];
+    //    }
 }
 
 signed main() {

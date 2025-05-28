@@ -1,10 +1,14 @@
-//  P3379 【模板】最近公共祖先（LCA）
+//  P3384 【模板】重链剖分/树链剖分
 #include <bits/stdc++.h>
 
 using i64 = long long int;
 using i32 = long long int;
 constexpr int mod = 1e9 + 7;
 #define endl '\n'
+
+//
+// Created by zxy15 on 25-5-27.
+//
 
 struct HLD {
     int n;  // 树的节点数
@@ -144,22 +148,18 @@ struct HLD {
     }
 };
 
-
 void nhir() {
-    i32 n, m, s;
-    std::cin >> n >> m >> s;
+    i32 n,m,r,p;
+    std::cin>>n>>m>>r>>p;
     HLD hld(n);
-    for (i32 i = 1; i < n; i++) {
-        i32 u, v;
-        std::cin >> u >> v;
-        u--, v--;
-        hld.addEdge(u, v);
+    for(i32 i = 1;i<n;i++){
+        i32 u,v;
+        std::cin>>u>>v;
+        u--,v--;
+        hld.addEdge(u,v);
     }
-    hld.work(--s);
-    while (m--) {
-        i32 a, b;
-        std::cin >> a >> b;
-        std::cout << hld.lca(--a, --b) + 1 << endl;
+    
+    while(m--){
 
     }
 }

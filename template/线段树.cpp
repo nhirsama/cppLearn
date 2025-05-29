@@ -1,8 +1,9 @@
-template<typename T>
 struct msg {
-    T lazy;
-    T sum;
+    i32 lazy;
+    i32 sum;
 };
+
+template<typename T>
 class segtree {
 private:
     int n;
@@ -13,7 +14,7 @@ private:
     }
 
     void pushdown(int node, int len) {
-        auto& [lazy, sum] = segmsg[node];
+        auto &[lazy, sum] = segmsg[node];
         sum += lazy * len;
         if (node * 2 + 1 < 4 * n) {
             segmsg[2 * node + 1].lazy += lazy;
@@ -22,9 +23,9 @@ private:
         lazy = 0;
     }
 
-    void build(int node, int l, int r, std::vector<T>& nums) {
+    void build(int node, int l, int r, std::vector<T> &nums) {
         if (l == r) {
-            segmsg[node] = { 0, nums[l] };
+            segmsg[node] = {0, nums[l]};
             return;
         }
         int mid = (l + r) / 2;
@@ -46,6 +47,7 @@ private:
         add(node * 2 + 2, mid + 1, r, ql, qr, val);
         merge(node);
     }
+
     T getsum(int node, int l, int r, int ql, int qr) {
         pushdown(node, r - l + 1);
         if (ql <= l && r <= qr) return segmsg[node].sum;
@@ -56,12 +58,14 @@ private:
 
 public:
     segtree() = default;
-    segtree(std::vector<T>& nums) {
+
+    segtree(std::vector<T> &nums) {
         n = nums.size();
         segmsg.resize(4 * n);
         build(0, 0, n - 1, nums);
     }
-    void build(std::vector<T>& nums) {
+
+    void build(std::vector<T> &nums) {
         n = nums.size();
         segmsg.resize(4 * n);
         build(0, 0, n - 1, nums);

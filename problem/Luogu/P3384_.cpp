@@ -3,12 +3,246 @@
 
 using i64 = long long int;
 using i32 = long long int;
-constexpr int mod = 1e9 + 7;
 #define endl '\n'
 
 //
 // Created by zxy15 on 25-5-27.
 //
+using namespace std;
+int P = 998244353;
+using i64 = long long;
+
+// assume -P <= x < 2P
+int norm(int x) {
+    if (x < 0) {
+        x += P;
+    }
+    if (x >= P) {
+        x -= P;
+    }
+    return x;
+}
+
+template<class T>
+T power(T a, i64 b) {
+    T res = 1;
+    for (; b; b /= 2, a *= a) {
+        if (b % 2) {
+            res *= a;
+        }
+    }
+    return res;
+}
+
+struct Z {
+    int x;
+
+    Z(int x = 0) : x(norm(x)) {}
+
+    Z(i64 x) : x(norm(x % P)) {}
+
+    int val() const {
+        return x;
+    }
+
+    Z operator-() const {
+        return Z(norm(P - x));
+    }
+
+    Z inv() const {
+        assert(x != 0);
+        return power(*this, P - 2);
+    }
+
+    Z &operator*=(const Z &rhs) {
+        x = i64(x) * rhs.x % P;
+        return *this;
+    }
+
+    Z &operator+=(const Z &rhs) {
+        x = norm(x + rhs.x);
+        return *this;
+    }
+
+    Z &operator-=(const Z &rhs) {
+        x = norm(x - rhs.x);
+        return *this;
+    }
+
+    Z &operator/=(const Z &rhs) {
+        return *this *= rhs.inv();
+    }
+
+    friend Z operator*(const Z &lhs, const Z &rhs) {
+        Z res = lhs;
+        res *= rhs;
+        return res;
+    }
+
+    friend bool operator==(const Z &lhs, const Z &rhs) {
+        return lhs.x == rhs.x;
+    }
+
+    friend Z operator+(const Z &lhs, const Z &rhs) {
+        Z res = lhs;
+        res += rhs;
+        return res;
+    }
+
+    friend Z operator-(const Z &lhs, const Z &rhs) {
+        Z res = lhs;
+        res -= rhs;
+        return res;
+    }
+
+    friend Z operator/(const Z &lhs, const Z &rhs) {
+        Z res = lhs;
+        res /= rhs;
+        return res;
+    }
+
+    friend std::istream &operator>>(std::istream &is, Z &a) {
+        i64 v;
+        is >> v;
+        a = Z(v);
+        return is;
+    }
+
+    friend std::ostream &operator<<(std::ostream &os, const Z &a) {
+        return os << a.val();
+    }
+};
+
+template<class T>
+struct Segt_ {
+    struct node {
+        int l, r;
+        T w, Min;
+        T lazy;
+    };
+    vector<T> w;
+    vector<node> t;
+
+    Segt_(int n) {
+        w.resize(n + 1);
+        t.resize((n << 2) + 1);
+        build(1, n);
+    }
+
+    Segt_(vector<T> in) {
+        int n = in.size() - 1;
+        w.resize(n + 1);
+        for (int i = 1; i <= n; i++) {
+            w[i] = in[i];
+        }
+        t.resize((n << 2) + 1);
+        build(1, n);
+    }
+
+    void pushdown(node &p, T lazy) { // 在此更新下递函数
+        p.w += (p.r - p.l + 1) * lazy;
+        p.Min += lazy;
+        p.lazy += lazy;
+    }
+
+    void pushup(node &p, node &l, node &r) { // 在此更新上传函数
+        p.w = l.w + r.w;
+        //p.Min = min(l.Min, r.Min);
+    }
+
+#define GL (k << 1)
+#define GR (k << 1 | 1)
+
+    void pushdown(int k) { // 不需要动
+        Z zero = 0;
+        if (t[k].lazy == zero) return;
+        pushdown(t[GL], t[k].lazy);
+        pushdown(t[GR], t[k].lazy);
+        t[k].lazy = 0;
+    }
+
+    void pushup(int k) { // 不需要动
+        pushup(t[k], t[GL], t[GR]);
+    }
+
+    void build(int l, int r, int k = 1) {
+        if (l == r) {
+            t[k] = {l, r, w[l], w[l]};
+            return;
+        }
+        t[k] = {l, r};
+        int mid = (l + r) / 2;
+        build(l, mid, GL);
+        build(mid + 1, r, GR);
+        pushup(k);
+    }
+
+    void modify(int l, int r, T val, int k = 1) { // 区间修改
+        if (l <= t[k].l && t[k].r <= r) {
+            pushdown(t[k], val);
+            return;
+        }
+        pushdown(k);
+        int mid = (t[k].l + t[k].r) / 2;
+        if (l <= mid) modify(l, r, val, GL);
+        if (mid < r) modify(l, r, val, GR);
+        pushup(k);
+    }
+
+    T Min(int l, int r, int k = 1) { // 区间询问最小值
+        if (l <= t[k].l && t[k].r <= r) {
+            return t[k].Min;
+        }
+        pushdown(k);
+        int mid = (t[k].l + t[k].r) / 2;
+        T ans = 1E18;
+        if (l <= mid) ans = min(ans, Min(l, r, GL));
+        if (mid < r) ans = min(ans, Min(l, r, GR));
+        return ans;
+    }
+
+    T ask(int l, int r, int k = 1) { // 区间询问，不合并
+        if (l <= t[k].l && t[k].r <= r) {
+            return t[k].w;
+        }
+        pushdown(k);
+        int mid = (t[k].l + t[k].r) / 2;
+        T ans = 0;
+        if (l <= mid) ans += ask(l, r, GL);
+        if (mid < r) ans += ask(l, r, GR);
+        return ans;
+    }
+
+    node Ask(int l, int r, int k = 1) { // 区间合并
+        if (l <= t[k].l && t[k].r <= r) {
+            return t[k];
+        }
+        pushdown(k);
+        int mid = (t[k].l + t[k].r) / 2;
+        // 区间合并这里的if是反过来的
+        if (r <= mid) return Ask(l, r, GL);
+        if (mid < l) return Ask(l, r, GR);
+        auto left = Ask(l, r, GL), right = Ask(l, r, GR);
+        node res = {0, 0, 0, 0};
+        pushup(res, left, right); // 合并left和right为新区间
+        return res;
+    }
+
+    void debug(int k = 1) {
+        cout << "[" << t[k].l << ", " << t[k].r << "]: ";
+        cout << "w = " << t[k].w << ", ";
+        cout << "Min = " << t[k].Min << ", ";
+        cout << "lazy = " << t[k].lazy << ", ";
+        cout << endl;
+        if (t[k].l == t[k].r) return;
+        debug(GL), debug(GR);
+    }
+
+#undef GL
+#undef GR
+};
+
+using Segt = Segt_<int>;
 
 struct HLD {
     int n;  // 树的节点数
@@ -32,7 +266,7 @@ struct HLD {
         in.resize(n);
         out.resize(n);
         seq.resize(n);
-        cur = 0;
+        cur = 1;
         adj.assign(n, {});
     }
 
@@ -149,18 +383,71 @@ struct HLD {
 };
 
 void nhir() {
-    i32 n,m,r,p;
-    std::cin>>n>>m>>r>>p;
+    i32 n, m, r;
+    std::cin >> n >> m >> r >> P;
     HLD hld(n);
-    for(i32 i = 1;i<n;i++){
-        i32 u,v;
-        std::cin>>u>>v;
-        u--,v--;
-        hld.addEdge(u,v);
-    }
-    
-    while(m--){
 
+    std::vector<Z> num(n + 1);
+    for (i32 i = 1; i <= n; i++) std::cin >> num[i];
+//    for (auto &i: num) std::cin >> i;
+    Segt_<Z> st(num);
+    for (i32 i = 1; i < n; i++) {
+        i32 u, v;
+        std::cin >> u >> v;
+        u--, v--;
+        hld.addEdge(u, v);
+    }
+    hld.work(r - 1);
+//    for (i32 i = 0; i < n; i++) {
+//        st.modify(i + 1, i + 1, num[i]);
+//    }
+//    auto todfs = [&hld](i32 x) -> i32 {
+//        return hld.in[x - 1] + 1;
+//    };
+    while (m--) {
+        i32 op;
+        cin >> op;
+        if (op == 1) {
+            i32 x, y;
+            Z z;
+            std::cin >> x >> y >> z;
+            x--, y--;
+//            x = todfs(x);
+//            y = todfs(y);
+            while (hld.top[x] != hld.top[y]) {
+                if (hld.dep[hld.top[x]] < hld.dep[hld.top[y]]) swap(x, y);
+                st.modify(hld.in[hld.top[x]], hld.in[x], z);
+                x = hld.parent[hld.top[x]];
+            }
+            if (hld.dep[x] > hld.dep[y]) swap(x, y);
+            st.modify(hld.in[x], hld.in[y], z);
+        }
+        if (op == 2) {
+            i32 x, y;
+            std::cin >> x >> y;
+            x--, y--;
+            Z res = 0;
+            while (hld.top[x] != hld.top[y]) {
+                if (hld.dep[hld.top[x]] < hld.dep[hld.top[y]]) swap(x, y);
+                res += st.ask(hld.in[hld.top[x]], hld.in[x]);
+                x = hld.parent[hld.top[x]];
+            }
+            if (hld.dep[x] > hld.dep[y]) swap(x, y);
+            res += st.ask(hld.in[x], hld.in[y]);
+            std::cout << res << '\n';
+        }
+        if (op == 3) {
+            i32 x, y;
+            std::cin >> x >> y;
+            x--;
+            st.modify(hld.in[x], hld.in[x] + hld.siz[x - 1] - 1, y);
+        }
+        if (op == 4) {
+            i32 x;
+            std::cin >> x;
+            x--;
+            std::cout << st.ask(hld.in[x], hld.in[x] + hld.siz[x - 1] - 1) << '\n';
+        }
     }
 }
 

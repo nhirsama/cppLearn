@@ -2,6 +2,5 @@
 <project version="4">
   <component name="settings.Project">
     <option name="askBeforeFileGeneration" value="false" />
-    <option name="defaultFileExtension" value="rs" />
   </component>
 </project>

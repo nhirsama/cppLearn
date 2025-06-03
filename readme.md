@@ -59,6 +59,9 @@ CLion [2024.2.3](https://www.jetbrains.com.cn/clion/whatsnew/)
 在洛谷OJ中提交368次，Accepted 154题。
 其余还零零散散地在其他OJ中通过若干道题。
 
+## 奖项
+[2025年郑州邀请赛](https://codeforces.com/gym/105941/standings) 银奖
+
 -------------------------------------
 
 Copyright © 2024-2025 Nhirsama. All rights reserved. 

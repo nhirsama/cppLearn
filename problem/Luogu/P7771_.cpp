@@ -12,14 +12,14 @@ void nhir() {
     i32 n, m;
     std::cin >> n >> m;
     std::vector<i32> id(n);
-    std::vector g(n, std::vector<arr2>());
+    std::vector g(n, std::vector<i32>());
     for (i32 i = 0; i < m; i++) {
         i32 u, v;
         std::cin >> u >> v;
         u--, v--;
         id[v]++;
         // od[u]++;
-        g[u].push_back({v, i});
+        g[u].push_back(v);
     }
     i32 s = -1;
     for (i32 i = 0; i < n; i++) {
@@ -36,25 +36,33 @@ void nhir() {
             } else s = i;
         }
     }
-    std::stack<i32> ans;
-    std::vector<bool> vis(m);
-    std::vector<i32> cnt(n);
-    auto dfs = [&](auto &&self, i32 u)-> void {
-        for (auto &[v,it]: g[u]) {
-            if (vis[it]) continue;
-            vis[it] = true;
-            cnt[v]++;
-            self(self, v);
-            if (cnt[v] >= g[v].size()) break;
+//    std::stack<i32> ans;
+    std::vector<i32> ans(m + 1);
+    i32 it = 0;
+    std::vector<i32> cnt(n, 0);
+    auto dfs = [&](auto &&self, i32 u) -> void {
+        for (; cnt[u] < g[u].size();) {
+            self(self, g[u][cnt[u]++]);
         }
-        ans.push(u);
+//        for (auto &[v, it]: g[u]) {
+//            if (vis[it]) continue;
+//            vis[it] = true;
+//            cnt[u]++;
+//            self(self, v);
+//            if (cnt[u] >= g[u].size()) break;
+//        }
+//        ans.push(u);
+        ans[it++] = u;
     };
     dfs(dfs, s == -1 ? 0 : s);
-    if (ans.size() == m + 1) {
-        while (!ans.empty()) {
-            std::cout << ans.top() + 1 << ' ';
-            ans.pop();
+    if (it == m + 1) {
+        for (i32 j = m; j >= 0; j--) {
+            std::cout << ans[j] + 1 << ' ';
         }
+//        while (!ans.empty()) {
+//            std::cout << ans.top() + 1 << ' ';
+//            ans.pop();
+//        }
     } else {
         std::cout << "No\n";
     }
@@ -104,6 +112,7 @@ void nhir() {
 signed main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
+    std::freopen("inAndoutFile/P7771_10.in", "r", stdin);
     int T = 1;
     // std::cin >> T;
     while (T--) nhir();

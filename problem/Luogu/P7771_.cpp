@@ -112,7 +112,7 @@ void nhir() {
 signed main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
-    std::freopen("inAndoutFile/P7771_10.in", "r", stdin);
+//    std::freopen("inAndoutFile/P7771_10.in", "r", stdin);
     int T = 1;
     // std::cin >> T;
     while (T--) nhir();

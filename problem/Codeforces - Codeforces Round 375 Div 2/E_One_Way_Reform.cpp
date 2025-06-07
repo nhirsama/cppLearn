@@ -80,7 +80,7 @@ signed main() {
             dsu[u] = dsu[v];
         }
         std::map<i32, std::vector<i32> > mp;
-        for (i32 i = 0; i < m; i++) {
+        for (i32 i = 0; i < n; i++) {
             mp[dsu[i]].push_back(i);
         }
         i32 p = m;
@@ -93,15 +93,15 @@ signed main() {
                     temp.push_back(v);
                 } else cntt++;
             }
-            std::cout << "___" << temp.size() << endl;
-//            for (i32 i = 0, v = 0, u = 0; i < temp.size(); i += 2) {
-//                v = temp[i];
-//                u = temp[i + 1];
-//                g[v].push_back({u, p});
-//                g[u].push_back({v, p});
-//                //vis.push_back(true);
-//                p++;
-//            }
+            //std::cout << "___" << temp.size() << endl;
+            for (i32 i = 0, v = 0, u = 0; i < temp.size(); i += 2) {
+                v = temp[i];
+                u = temp[i + 1];
+                g[v].push_back({u, p});
+                g[u].push_back({v, p});
+                //vis.push_back(true);
+                p++;
+            }
         }
         std::vector<bool> used(p, false);
         std::vector<std::array<i32, 2>> ans(m);
@@ -119,7 +119,7 @@ signed main() {
         };
         for (i32 i = 0; i < n; i++) {
             if (!g[i].empty()) {
-                //dfs(i);
+                dfs(i);
             }
         }
         std::cout << cntt << endl;

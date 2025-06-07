@@ -69,7 +69,7 @@ signed main() {
     i32 n, m;
     if (std::cin >> n >> m) {
         std::vector<bool> vis(n);
-        std::vector g(n, std::vector<i32>());
+        std::vector g(n, std::vector<i32>(n));
         std::vector<i32> id(n);
         UnionFind uf(n);
         i32 ansss = 0;
@@ -77,13 +77,16 @@ signed main() {
             i32 u, v;
             std::cin >> u >> v;
             u--, v--;
-            g[u].push_back(v);
-            g[v].push_back(u);
+            g[u][v]++;
+            g[v][u]++;
+            // g[u].push_back(v);
+            // g[v].push_back(u);
             id[v]++;
             id[u]++;
             uf[v] = uf[u];
         }
-        std::map<i32, std::vector<i32>> mp;
+        std::vector st(n, std::vector<bool>(n));
+        std::map<i32, std::vector<i32> > mp;
         for (i32 i = 0; i < n; i++) {
             if (id[i] & 1) {
                 mp[uf[i]].push_back(i);
@@ -91,8 +94,10 @@ signed main() {
         }
         for (auto &[_, vv]: mp) {
             for (i32 i = 0; i < vv.size(); i += 2) {
-                g[vv[i]].push_back(vv[i + 1]);
-                g[vv[i + 1]].push_back(vv[i]);
+                g[vv[i]][vv[i + 1]] += 100;
+                g[vv[i + 1]][vv[i]] += 100;
+                // g[vv[i]].push_back(vv[i + 1]);
+                // g[vv[i + 1]].push_back(vv[i]);
                 //std::cout << vv[i] << ' ' << vv[i + 1] << ' ';
             }
             //std::cout << endl;
@@ -101,7 +106,13 @@ signed main() {
         std::vector<i32> ans;
         auto dfs = [&](this auto &&self, i32 u) -> void {
             vis[u] = true;
-            for (; cnt[u] < g[u].size();) {
+            for (; cnt[u] < n;) {
+                if (st[u][cnt[u]]) {
+                    cnt[u]++;
+                    continue;
+                }
+                st[cnt[u]][u] = true;
+                st[u][cnt[u]] = true;
                 self(g[u][cnt[u]++]);
             }
             ans.push_back(u);

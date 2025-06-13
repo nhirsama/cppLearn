@@ -10,16 +10,22 @@ constexpr i64 inf_i64 = 0x3f3f3f3f3f3f3f3f;
 void nhir() {
     i32 a, b;
     std::cin >> a >> b;
-    std::vector<i32> v(a * 2);
-    for (auto &x: v) {
-        std::cin >> x;
-    }
+    std::vector<i32> v(a);
     i32 ans = 0;
+    for (i32 i = 0; i < a; i++) {
+        std::cin >> v[i];
+    }
+    for (i32 i = 0; i < a; i++) {
+        i32 t;
+        std::cin >> t;
+        ans += std::max(t, v[i]);
+        v[i] = std::min(t, v[i]);
+    }
     std::ranges::sort(v, std::greater());
-    a -= std::min(b, a - b);
-    for (i32 i = 0; i < a * 2; i++) ans += v[i];
-    std::cout << ans << endl;
+    for (i32 i = 0; i < b - 1; i++) ans += v[i];
+    ans++;
 
+    std::cout << ans << endl;
 }
 
 signed main() {

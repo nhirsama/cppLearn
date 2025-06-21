@@ -11,10 +11,9 @@ void nhir() {
     i32 a, b;
     std::cin >> a >> b;
     i32 ans = 0;
-//    std::cout << a << b << endl;
     for (i32 i = 0; i < a; i++) {
         std::string s;
-//        std::cin >> s;
+        std::cin >> s;
         if (s.size() <= b) {
             b -= s.size();
             ans++;

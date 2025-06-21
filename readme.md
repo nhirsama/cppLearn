@@ -49,8 +49,9 @@ git config --global http.https://github.com.proxy socks5://127.0.0.1:7890
 | **Email** |        ***[nhirsama@outlook.com]()***        |
 
 ## 所用环境
-CLion [2024.2.3](https://www.jetbrains.com.cn/clion/whatsnew/)  
-语言标准 [C20](https://zh.cppreference.com/w/c/23)  
+CLion: [2025.1](https://www.jetbrains.com.cn/clion/whatsnew/)  
+C++语言标准: [C23](https://zh.cppreference.com/w/c/23)  
+Python解释器: [Python 3.12](https://www.python.org/downloads/release/python-3120/)  
 
 ## Git 神！
 
@@ -64,5 +65,5 @@ CLion [2024.2.3](https://www.jetbrains.com.cn/clion/whatsnew/)
 
 -------------------------------------
 
-Copyright © 2024-2025 Nhirsama. All rights reserved. 
+Copyright © 2024-2025 nhirsama. All rights reserved. 
 

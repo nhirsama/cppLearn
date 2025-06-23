@@ -14,7 +14,7 @@ void nhir() {
     for (i32 i = 0; i < t; i++) {
         i32 dx, dy, x, y;
         std::cin >> dx >> dy >> x >> y;
-        if (x + y == a) ans++;
+        if (x + y == a || x == y) ans++;
     }
     std::cout << ans << endl;
 }

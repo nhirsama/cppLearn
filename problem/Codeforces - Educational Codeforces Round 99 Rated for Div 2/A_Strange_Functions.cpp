@@ -1,4 +1,4 @@
-//  C. Ping-pong
+//  A. Strange Functions
 #include <bits/stdc++.h>
 
 using i64 = long long int;
@@ -8,9 +8,9 @@ constexpr char endl = '\n';
 constexpr i64 inf_i64 = 0x3f3f3f3f3f3f3f3f;
 
 void nhir() {
-    i32 a, b;
-    std::cin >> a >> b;
-    std::cout << --a << ' ' << b << endl;
+    std::string s;
+    std::cin >> s;
+    std::cout << s.size() << endl;
 }
 
 signed main() {

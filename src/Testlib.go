@@ -2,7 +2,7 @@ package main
 
 /*
 #include <stdio.h>
-void main(){
+void Cmain(){
 	int a,b;
 	scanf("%d%d",&a,&b);
 	printf("%d",a+b);
@@ -11,5 +11,5 @@ void main(){
 import "C"
 
 func main() {
-	C.main()
+	C.Cmain()
 }

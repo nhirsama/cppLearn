@@ -1,13 +1,15 @@
 package main
 
-import "fmt"
+/*
+#include <stdio.h>
+void main(){
+	int a,b;
+	scanf("%d%d",&a,&b);
+	printf("%d",a+b);
+}
+*/
+import "C"
 
 func main() {
-	var n int
-	fmt.Scan(&n)
-	var str string
-	fmt.Scan(&str)
-	for i := 0; i < n; i++ {
-		fmt.Println(str)
-	}
+	C.main()
 }

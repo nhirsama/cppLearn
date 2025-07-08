@@ -12,8 +12,14 @@ var w = bufio.NewWriter(os.Stdout)
 
 func nhir() {
 	var a, b int32
-	fmt.Fscanf(r, "%c%c", &a, &b)
-	fmt.Fprintln(w, a, b)
+	fmt.Fscanf(r, "\n%c%c", &a, &b)
+	for i := 'a'; i <= 'h'; i++ {
+		for j := '1'; j <= '8'; j++ {
+			if (a == i || b == j) && !(a == i && b == j) {
+				fmt.Fprintf(w, "%c%c\n", i, j)
+			}
+		}
+	}
 }
 func main() {
 	var T = 1

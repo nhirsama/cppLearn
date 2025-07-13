@@ -1,6 +1,7 @@
 //  D. Reachability and Tree
 #include <bits/stdc++.h>
 
+#define gcd std::gcd
 using i64 = long long int;
 using i32 = long long int;
 constexpr int mod = 1e9 + 7;

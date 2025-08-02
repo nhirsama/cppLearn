@@ -1,28 +1,49 @@
-#include <bits/stdc++.h>
+#include "bits/stdc++.h"
 
-using namespace std;
-
-void solve() {
-    int n, m, k;
-    cin >> n >> m >> k;
-    vector vis1(n + 10, vector<bool>(m + 10));
-    vector vis2(n + 10, vector<bool>(m + 10));
-    std::vector qwq(n, std::vector<bool>(m));
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            if (i < 0 || i >= n || j < 0 || j >= m) continue;
-            qwq[i][j] = (vis1[i][j] && !vis2[i][j]);
+class Solution {
+public:
+    int subarraysWithKDistinct(std::vector<int> &nums, int k) {
+        int n = nums.size();
+        int ans = 0, cur = 0;
+        std::vector<int> cnt(n + 1);
+        for (int l = 0, r = 0; r < n;) {
+            cnt[nums[r]]++;
+            if (cnt[nums[r]] == 1) cur++;
+            while (l < r && cur > k) {
+                cnt[nums[l]]--;
+                if (!cnt[nums[l]]) cur--;
+                l++;
+            }
+            while (0 < l && cur < k) {
+                cnt[nums[l - 1]]++;
+                if (cnt[nums[l - 1]] == 1) cur++;
+                l--;
+            }
+            while (0 < l && cur == k) {
+                if (cnt[nums[l - 1]] == 0) break;
+                cnt[nums[l - 1]]++;
+                l--;
+            }
+            while (l < r && cur == k) {
+                ans++;
+                if (cnt[nums[l]] == 1) break;
+                cnt[nums[l]]--;
+                l++;
+            }
+            std::cout << l << ' ' << r << std::endl;
+            r++;
         }
+        return ans;
     }
-}
+};
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
+    int n, k;
+    std::cin >> n >> k;
+    std::vector<int> nums(n);
+    for (auto &i: nums) {
+        std::cin >> i;
     }
-    return 0;
+    Solution t;
+    std::cout << t.subarraysWithKDistinct(nums, k);
 }

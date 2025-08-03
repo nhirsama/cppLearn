@@ -13,15 +13,52 @@ constexpr std::string OJ_NAME{"AtCoder"};
 void nhir() {
     int64 n, m, x, y;
     std::cin >> n >> m >> x >> y;
-    std::vector<std::array<int, 2>> adj(m);
-    std::vector<int> dp(n, 0x3f3f3f3f);
-    for (auto &[u, v]: adj) {
+    x--, y--;
+    std::vector g(n, std::vector<int>());
+    for (int i = 0; i < m; i++) {
+        int u, v;
         std::cin >> u >> v;
         u--, v--;
-        dp[u] = std::min(dp[u], v);
-        dp[v] = std::min(dp[v], u);
+        g[u].push_back({v});
+        g[v].push_back({u});
     }
-
+    for (auto &i: g) {
+        std::ranges::sort(i);
+    }
+    std::vector<bool> vis(n);
+    std::vector<int> cnt(n);
+    std::stack<int> ans;
+    vis[x] = true;
+    auto dfs = [&](auto &&self, int u) {
+        if (u == y) {
+//            ans.push(u);
+            return true;
+        }
+        for (int i = 0; i < g[u].size(); i++) {
+            if (vis[g[u][i]]) continue;
+            vis[g[u][i]] = true;
+            if (self(self, g[u][i])) {
+                ans.push(g[u][i]);
+                return true;
+            };
+        }
+        return false;
+//        if (!vis[u] && cnt[u] < g[u].size()) {
+//            vis[u] = true;
+//            ans.push_back(g[u][cnt[u]][0]);
+//            self(g[u][cnt[u]++][0]);
+//        }
+    };
+    dfs(dfs, x);
+    ans.push(x);
+    while (!ans.empty()) {
+        std::cout << ans.top() + 1 << ' ';
+        ans.pop();
+    }
+    std::cout << endl;
+//    for (auto i: ans) {
+//        std::cout << i << ' ';
+//    }
 }
 
 signed main() {

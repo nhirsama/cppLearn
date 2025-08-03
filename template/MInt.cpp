@@ -1,3 +1,14 @@
+template<class T>
+constexpr T power(T a, int64_t b) {
+    T res = 1;
+    for (; b; b /= 2, a *= a) {
+        if (b % 2) {
+            res *= a;
+        }
+    }
+    return res;
+}
+
 template<int P>
 struct MInt {
     using i64 = int64_t;
@@ -5,7 +16,7 @@ struct MInt {
 
     constexpr MInt() : x{} {}
 
-    constexpr MInt(i64 x) : x{norm(x % getMod())} {}
+    constexpr MInt(int64_t x) : x{norm(x % getMod())} {}
 
     static int Mod;
 
@@ -51,7 +62,7 @@ struct MInt {
     }
 
     constexpr MInt &operator*=(MInt rhs) &{
-        x = 1LL * x * rhs.x % getMod();
+        x = int64_t(1) * x * rhs.x % getMod();
         return *this;
     }
 
@@ -94,7 +105,7 @@ struct MInt {
     }
 
     friend constexpr std::istream &operator>>(std::istream &is, MInt &a) {
-        i64 v;
+        int64_t v;
         is >> v;
         a = MInt(v);
         return is;

@@ -21,7 +21,7 @@ void nhir() {
     }
     int64 ans = 0;
     for (int i = 1; i < n; i++) {
-        ans = std::max(ans, std::abs(pre_max[i] - v[i]));
+        ans = std::max(ans, pre_max[i] - v[i]);
     }
     std::cout << ans << endl;
 }

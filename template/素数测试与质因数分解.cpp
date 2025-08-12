@@ -1,16 +1,7 @@
-//  P4718 【模板】Pollard-Rho
-//  00:22
-#include <bits/stdc++.h>
-
-using int64 = int64_t;
-using i32 = int64_t;
-constexpr int mod = 1e9 + 7;
-constexpr char endl = '\n';
-constexpr char enld = '\n';
-constexpr int64 inf_i64 = 0x3f3f3f3f3f3f3f3f;
-constexpr std::string OJ_NAME{"Luogu"};
-
 namespace TEMPLATE {
+    //
+    // https://www.luogu.com.cn/user/432948
+    //
     using namespace std;
     using u64 = unsigned long long;
     using u32 = unsigned int;
@@ -258,26 +249,4 @@ namespace TEMPLATE {
         }
         return ans;
     }
-}
-
-
-void nhir() {
-    int64 p;
-    std::cin >> p;
-    auto v = TEMPLATE::Factorize<true>(p);
-    if (v.back().first == p) {
-        std::cout << "Prime\n";
-        return;
-    }
-    std::cout << v.back().first << endl;
-}
-
-signed main() {
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    int T = 1;
-    if (OJ_NAME != "AtCoder")
-        std::cin >> T;
-    while (T--) nhir();
-    return 0;
 }

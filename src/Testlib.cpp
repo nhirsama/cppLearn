@@ -31,7 +31,7 @@ void nhir() {
         if (h < 0) return 0x3f3f3f3f;
         return std::min(dp[u][h], cnt[u] + fib[h]);
     };
-    auto dfs = [&](auto &&self, int u)-> void {
+    auto dfs = [&](auto &&self, int u) -> void {
         int ls = t[u * 2], rs = t[u * 2 + 1];
         if (ls) {
             self(self, ls);
@@ -94,16 +94,27 @@ void nhir() {
     */
 }
 
-signed main() {
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    int T = 1;
-    fib[1] = 1;
-    for (int i = 2; i <= maxh; i++) {
-        fib[i] = fib[i - 1] + fib[i - 2] + 1;
+struct s1 {
+    int a;
+    bool b;
+
+    s1 operator+(const s1 c) const {
+        return {this->a + c.a, static_cast<bool>((this->b) & c.b)};
     }
-    if (OJ_NAME != "AtCoder")
-        std::cin >> T;
-    while (T--) nhir();
+};
+
+struct s2 {
+    int a;
+    bool b;
+
+    s2 operator-(const s2 c) const {
+        return {this->a - c.a, static_cast<bool>((this->b) ^ c.b)};
+    }
+};
+
+signed main() {
+    auto t = {10, true};
+    s1 tt{10, false};
+    auto a = std::move(tt);
     return 0;
 }

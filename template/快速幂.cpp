@@ -11,3 +11,13 @@ int power(long long _a, long long b, int p) {
     }
     return res;
 }
+
+long long power(long long a, long long b) {
+    long long res = 1;
+    for (; b; b /= 2, a = a * a) {
+        if (b % 2) {
+            res = res * a;
+        }
+    }
+    return res;
+}

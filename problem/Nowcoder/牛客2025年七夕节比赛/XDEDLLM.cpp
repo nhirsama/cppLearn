@@ -23,6 +23,6 @@ signed main() {
     int T = 1;
     if (OJ_NAME != "AtCoder")
         // std::cin >> T;
-        while (T--) nhir();
+            while (T--) nhir();
     return 0;
 }

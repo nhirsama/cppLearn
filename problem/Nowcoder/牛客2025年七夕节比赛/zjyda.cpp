@@ -1,5 +1,5 @@
-//  薛定谔的LLM
-//  19:44
+//  转角遇到爱
+//  21:09
 #include <bits/stdc++.h>
 
 using int64 = int64_t;
@@ -11,9 +11,13 @@ constexpr int64 inf_i64 = 0x3f3f3f3f3f3f3f3f;
 constexpr std::string OJ_NAME{"NowCoder"};
 
 void nhir() {
-    int t;
-    std::cin >> t;
-    std::cout << (t - 1) / 1000 << " " << t / 600;
+    int x;
+    std::cin >> x;
+    if (x < 3) {
+        std::cout << "Yes\n";
+    } else {
+        std::cout << "No\n";
+    }
 }
 
 signed main() {
@@ -21,7 +25,7 @@ signed main() {
     std::cin.tie(nullptr);
     int T = 1;
     if (OJ_NAME != "AtCoder")
-        // std::cin >> T;
-        while (T--) nhir();
+        std::cin >> T;
+    while (T--) nhir();
     return 0;
 }

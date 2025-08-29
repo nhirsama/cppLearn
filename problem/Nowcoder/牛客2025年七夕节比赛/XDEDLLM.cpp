@@ -13,8 +13,7 @@ constexpr std::string OJ_NAME{"NowCoder"};
 void nhir() {
     int t;
     std::cin >> t;
-    int a = (t - 1) / 1000, b = (t - 1) / 600;
-    std::cout << a << ' ' << b;
+    std::cout << (t - 1) / 1000 << " " << t / 600;
 }
 
 signed main() {

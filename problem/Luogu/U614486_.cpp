@@ -72,6 +72,13 @@ void nhir() {
     for (int i = 0; i < n; i++) {
         m[uf[i]]++;
     }
+    if (n == 1 && k == 0) {
+        std::cout << "YES\n";
+        return;
+    } else if (n == 1 && k) {
+        std::cout << "NO\n";
+        return;
+    }
     if (n - m.size() > k) {
         std::cout << "NO\n";
     } else {

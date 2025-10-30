@@ -3,6 +3,7 @@
 //
 #include <bits/stdc++.h>
 
+// 哈夫曼树，使用 build 方法可以打印出每个符号的编码
 struct huffman {
     char ch;
     int freq;
@@ -16,7 +17,7 @@ struct huffman {
         delete right;
     }
 
-    void build(const std::string& s) const {
+    void build(const std::string &s) const {
         if (this->ch != '\0') {
             std::cout << ch << ':' << s << '\n';
         }
@@ -32,6 +33,71 @@ struct huffman {
     }
 };
 
+// 二叉堆，可在 O(logn) 的时间复杂度和 O(n) 的空间复杂度内取出 freq 最小的一个元素
+struct priority_queue {
+private:
+    std::vector<huffman *> data;
+
+    void up(int i) {
+        while (i > 0) {
+            int parent = (i - 1) / 2;
+            if (data[i]->freq < data[parent]->freq) {
+                std::swap(data[i], data[parent]);
+                i = parent;
+            } else {
+                break;
+            }
+        }
+    }
+
+    void down(int i) {
+        int n = data.size();
+        while (true) {
+            int left = 2 * i + 1;
+            int right = 2 * i + 2;
+            int largest = i;
+
+            if (left < n && data[left]->freq < data[largest]->freq) {
+                largest = left;
+            }
+            if (right < n && data[right]->freq < data[largest]->freq) {
+                largest = right;
+            }
+            if (largest != i) {
+                std::swap(data[i], data[largest]);
+                i = largest;
+            } else {
+                break;
+            }
+        }
+    }
+
+public:
+    void push(huffman *huffman) {
+        data.push_back(huffman);
+        up(data.size() - 1);
+    }
+
+    huffman *pop() {
+        if (data.empty()) return nullptr;
+        std::swap(data[0], data[data.size() - 1]);
+        huffman *maxNode = data.back();
+        data.pop_back();
+        down(0);
+        return maxNode;
+    }
+
+    huffman *top() {
+        if (data.empty()) return nullptr;
+        return data[0];
+    }
+
+    int size() {
+        return data.size();
+    }
+};
+
+// 总体时间复杂度为O(nlogn) 空间复杂度为 O(n)
 int main() {
     std::string s;
     std::cin >> s;
@@ -39,9 +105,7 @@ int main() {
     for (auto i: s) {
         mp[i]++;
     }
-    std::priority_queue<huffman *, std::vector<huffman *>, decltype([](huffman *a, huffman *b) {
-        return a->freq > b->freq;
-    })> pq;
+    priority_queue pq;
     for (auto &[x,y]: mp) {
         pq.push(new huffman(x, y));
     }

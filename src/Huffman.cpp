@@ -118,52 +118,31 @@ public:
 int main() {
     std::string s;
     std::cin >> s;
-    std::map<char, int> mp;
-    for (auto i: s) {
-        mp[i]++;
-    }
-    priority_queue pq(true);
-    for (auto &[x,y]: mp) {
-        pq.push(new huffman(x, y));
-    }
-    while (pq.size() > 1) {
-        huffman *left = pq.top();
-        pq.pop();
-        huffman *right = pq.top();
-        pq.pop();
-        huffman *parent = new huffman('\0', left->freq + right->freq);
-        parent->left = left;
-        parent->right = right;
-        pq.push(parent);
-    }
+    //当频率相同时有限将ascii码大的置后
+    for (auto f:{true,false}) {
+        std::map<char, int> mp;
+        for (auto i: s) {
+            mp[i]++;
+        }
+        priority_queue pq(f);
+        for (auto &[x,y]: mp) {
+            pq.push(new huffman(x, y));
+        }
+        while (pq.size() > 1) {
+            huffman *left = pq.top();
+            pq.pop();
+            huffman *right = pq.top();
+            pq.pop();
+            huffman *parent = new huffman('\0', left->freq + right->freq);
+            parent->left = left;
+            parent->right = right;
+            pq.push(parent);
+        }
 
-    huffman *root = pq.top();
-    pq.pop();
-    root->build();
-    delete root;
-
-    //当频率相同时有限将ascii码大的
-    mp = std::map<char, int>();
-    for (auto i: s) {
-        mp[i]++;
-    }
-    pq = priority_queue(false);
-    for (auto &[x,y]: mp) {
-        pq.push(new huffman(x, y));
-    }
-    while (pq.size() > 1) {
-        huffman *left = pq.top();
+        huffman *root = pq.top();
         pq.pop();
-        huffman *right = pq.top();
-        pq.pop();
-        huffman *parent = new huffman('\0', left->freq + right->freq);
-        parent->left = left;
-        parent->right = right;
-        pq.push(parent);
+        root->build();
+        delete root;
+        std::cout<<std::endl;
     }
-
-    root = pq.top();
-    pq.pop();
-    root->build();
-    delete root;
 }

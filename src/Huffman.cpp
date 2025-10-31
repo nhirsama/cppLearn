@@ -34,14 +34,26 @@ struct huffman {
 };
 
 // 二叉堆，可在 O(logn) 的时间复杂度和 O(n) 的空间复杂度内取出 freq 最小的一个元素
+
 struct priority_queue {
 private:
     std::vector<huffman *> data;
 
+    bool comp(int i, int parent) {
+        if (data[i]->freq == data[parent]->freq) {
+            if (flag) {
+                return data[i]->ch < data[parent]->ch;
+            } else {
+                return data[i]->ch > data[parent]->ch;
+            }
+        }
+        return data[i]->freq < data[parent]->freq;
+    }
+
     void up(int i) {
         while (i > 0) {
             int parent = (i - 1) / 2;
-            if (data[i]->freq < data[parent]->freq) {
+            if (comp(i, parent)) {
                 std::swap(data[i], data[parent]);
                 i = parent;
             } else {
@@ -57,10 +69,10 @@ private:
             int right = 2 * i + 2;
             int largest = i;
 
-            if (left < n && data[left]->freq < data[largest]->freq) {
+            if (left < n && comp(left, largest)) {
                 largest = left;
             }
-            if (right < n && data[right]->freq < data[largest]->freq) {
+            if (right < n && comp(right, largest)) {
                 largest = right;
             }
             if (largest != i) {
@@ -73,6 +85,11 @@ private:
     }
 
 public:
+    bool flag;
+
+    priority_queue(bool flag) : flag(flag) {
+    }
+
     void push(huffman *huffman) {
         data.push_back(huffman);
         up(data.size() - 1);
@@ -105,7 +122,7 @@ int main() {
     for (auto i: s) {
         mp[i]++;
     }
-    priority_queue pq;
+    priority_queue pq(true);
     for (auto &[x,y]: mp) {
         pq.push(new huffman(x, y));
     }
@@ -121,6 +138,31 @@ int main() {
     }
 
     huffman *root = pq.top();
+    pq.pop();
+    root->build();
+    delete root;
+
+    //当频率相同时有限将ascii码大的
+    mp = std::map<char, int>();
+    for (auto i: s) {
+        mp[i]++;
+    }
+    pq = priority_queue(false);
+    for (auto &[x,y]: mp) {
+        pq.push(new huffman(x, y));
+    }
+    while (pq.size() > 1) {
+        huffman *left = pq.top();
+        pq.pop();
+        huffman *right = pq.top();
+        pq.pop();
+        huffman *parent = new huffman('\0', left->freq + right->freq);
+        parent->left = left;
+        parent->right = right;
+        pq.push(parent);
+    }
+
+    root = pq.top();
     pq.pop();
     root->build();
     delete root;

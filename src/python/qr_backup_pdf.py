@@ -16,9 +16,9 @@ from reportlab.lib.units import mm
 from datetime import date
 
 # ==================== 配置参数 =====================
-INPUT_FILE = "info.txt"           # 输入文件（密钥/二进制文本）
+INPUT_FILE = "/home/ling/Downloads/nhir_0x7F00B43756503B74_SECRET.asc"           # 输入文件（密钥/二进制文本）
 OUTPUT_PDF = "key_backup.pdf"      # 输出 PDF 文件
-PAGE_TITLE = "Backup"  # 页眉标题
+PAGE_TITLE = "nhir_0x7F00B43756503B74 Private Key Backup"  # 页眉标题
 BYTES_PER_QR = 800                # 每个二维码存储字节数
 ERROR_LEVEL = "h"                   # QR 纠错等级 H (30%)
 FONT_PATH = "/usr/share/fonts/wenquanyi/wqy-zenhei/wqy-zenhei.ttc"  # WenQuanYi Zen Hei 字体文件

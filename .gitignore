@@ -1,5 +1,9 @@
+*
+!*/
+!*.*
 /target/
 *.exe
 .autocp
-.idea
 src/gcm.cache
+.idea
+gcm.cache

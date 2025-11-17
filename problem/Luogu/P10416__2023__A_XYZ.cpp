@@ -13,6 +13,10 @@ constexpr std::string OJ_NAME{"Luogu"};
 void nhir() {
     int64 l, r;
     std::cin >> l >> r;
+    if (r - 2 * l < 0) {
+        std::cout << 0 << enld;
+        return;
+    }
     std::cout << (r - 2 * l + 1) * (r - 2 * l + 2) / 2 << endl;
 }
 

@@ -23,7 +23,7 @@ void nhir() {
     }
     int64 ans = 0;
     if ()
-    ans += std::abs(ty1 - sy1) + std::abs(tx1 - sx1);
+        ans += std::abs(ty1 - sy1) + std::abs(tx1 - sx1);
     if (sx1 - sx2 != tx1 - tx2) ans++;
     std::cout << ans << enld;
 }

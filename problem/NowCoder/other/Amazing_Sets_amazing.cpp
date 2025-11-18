@@ -84,24 +84,24 @@ void nhir() {
     auto bel = g.work();
     std::vector<int64> nw(g.cnt);
     std::vector t(g.cnt, std::vector<int>());
-//    std::vector invt(g.cnt, std::vector<int>());
-//    d = std::vector<int>(g.cnt);
+    //    std::vector invt(g.cnt, std::vector<int>());
+    //    d = std::vector<int>(g.cnt);
     for (int i = 0; i < n; i++) {
         nw[bel[i]] += w[i];
         for (auto v: g.adj[i]) {
             if (bel[i] == bel[v]) continue;
             t[bel[i]].push_back(bel[v]);
-//            invt[bel[v]].push_back(bel[i]);
+            //            invt[bel[v]].push_back(bel[i]);
         }
     }
     n = g.cnt;
     r = bel[r];
     for (int i = 0; i < n; i++) {
         std::ranges::sort(t[i]);
-//        std::ranges::sort(invt[i]);
+        //        std::ranges::sort(invt[i]);
         t[i].erase(std::unique(t[i].begin(), t[i].end()), t[i].end());
-//        invt[i].erase(std::unique(invt[i].begin(), invt[i].end()), invt[i].end());
-//        d[i] = t[i].size();
+        //        invt[i].erase(std::unique(invt[i].begin(), invt[i].end()), invt[i].end());
+        //        d[i] = t[i].size();
     }
     std::vector dp(n, std::vector<bool>());
     auto dfs = [&](auto &&self, int u, int f) -> void {
@@ -121,16 +121,16 @@ void nhir() {
                 }
             }
             std::swap(dp[u], tmp);
-//            for (int i = 4000; ~i; i--) {
-//                for (int j = 0; j <= i; j++) {
-//                    dp[u][i] = dp[u][i] | (dp[u][i - j] & dp[v][j]);
-//                }
-//            }
-//            for (int i = 4000; ~i; i--) {
-//                for (int j = 4000 - i; ~j; j--) {
-//                    dp[u][i + j] = dp[u][i + j] | (dp[u][i] & dp[v][j]);
-//                }
-//            }
+            //            for (int i = 4000; ~i; i--) {
+            //                for (int j = 0; j <= i; j++) {
+            //                    dp[u][i] = dp[u][i] | (dp[u][i - j] & dp[v][j]);
+            //                }
+            //            }
+            //            for (int i = 4000; ~i; i--) {
+            //                for (int j = 4000 - i; ~j; j--) {
+            //                    dp[u][i + j] = dp[u][i + j] | (dp[u][i] & dp[v][j]);
+            //                }
+            //            }
         }
         dp[u].resize(nw[u] + 1);
         dp[u][nw[u]] = true;
@@ -141,26 +141,26 @@ void nhir() {
         ans += i;
     }
     std::cout << ans << endl;
-//    std::vector<std::set<int>> vs(n);
-/*
-    std::queue<int> tup;
-    for (int i = 0; i < n; i++) {
-        if (d[i] == 0) {
-            tup.push(i);
-        }
-    }
-
-    while (!tup.empty()) {
-        int u = tup.front();
-        tup.pop();
-        for (int v: invt[u]) {
-            dp[u] += dp[v];
-            if (--d[v] == 0) {
-                tup.push(v);
+    //    std::vector<std::set<int>> vs(n);
+    /*
+        std::queue<int> tup;
+        for (int i = 0; i < n; i++) {
+            if (d[i] == 0) {
+                tup.push(i);
             }
         }
-    }
-    */
+
+        while (!tup.empty()) {
+            int u = tup.front();
+            tup.pop();
+            for (int v: invt[u]) {
+                dp[u] += dp[v];
+                if (--d[v] == 0) {
+                    tup.push(v);
+                }
+            }
+        }
+        */
     /*
     while (!tup.empty()) {
         int u = tup.front();
@@ -234,7 +234,7 @@ signed main() {
     std::cin.tie(nullptr);
     int T = 1;
     if (OJ_NAME != "AtCoder")
-//        std::cin >> T;
+        //        std::cin >> T;
         while (T--) nhir();
     return 0;
 }

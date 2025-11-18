@@ -21,8 +21,8 @@ void nhir() {
     while (l < r) {
         auto check = [&](int64 mid) {
             int64 cnt = mid;
-            for (int64 i = y; i < y + std::min(y, x); i++) {
-                cnt -= mid / i;
+            for (int64 i = 0; i < x; i++) {
+                cnt -= cnt / y;
             }
             if (cnt >= k) return true;
             else return false;

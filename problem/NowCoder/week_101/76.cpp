@@ -1,5 +1,4 @@
-//  薛定谔的LLM
-//  19:44
+//  76修地铁
 #include <bits/stdc++.h>
 
 using int64 = int64_t;
@@ -8,20 +7,21 @@ constexpr int mod = 1e9 + 7;
 constexpr char endl = '\n';
 constexpr char enld = '\n';
 constexpr int64 inf_i64 = 0x3f3f3f3f3f3f3f3f;
-constexpr std::string OJ_NAME{"NowCoder"};
 
 void nhir() {
-    int t;
-    std::cin >> t;
-    std::cout << (t - 1) / 1000 << " " << t / 600;
+    i32 n;
+    std::cin >> n;
+    std::cout << n / 5 * 2 << ' ';
+    std::cout << (n + 5) / 10 << ' ';
+    std::cout << n / 20 * 3 << ' ';
+    std::cout << n * 2 - n / 20 * 2 << ' ';
 }
 
 signed main() {
     std::ios::sync_with_stdio(false);
     std::cin.tie(nullptr);
     int T = 1;
-    if (OJ_NAME != "AtCoder")
-        // std::cin >> T;
-            while (T--) nhir();
+    //    std::cin >> T;
+    while (T--) nhir();
     return 0;
 }

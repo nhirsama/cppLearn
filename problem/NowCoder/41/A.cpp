@@ -5,7 +5,7 @@ using i64 = long long int;
 using i32 = int;
 typedef std::pair<i32, i32> pii;
 constexpr int N = 1e5 + 10;
-constexpr int mod = 1e9+7;
+constexpr int mod = 1e9 + 7;
 #define IOS std::ios::sync_with_stdio(false); std::cin.tie(nullptr); std::cout.tie(nullptr);
 #define x first
 #define y second
@@ -14,15 +14,14 @@ constexpr int mod = 1e9+7;
 
 void nhir() {
     i64 n;
-    std::cin>>n;
-    if(n<=1){
-        std::cout<<-1<<endl;
+    std::cin >> n;
+    if (n <= 1) {
+        std::cout << -1 << endl;
         return;
     }
-    for(i32 i = 1;i<=n;i++){
-        std::cout<<n-i+1<< ' ';
+    for (i32 i = 1; i <= n; i++) {
+        std::cout << n - i + 1 << ' ';
     }
-    
 }
 
 signed main() {

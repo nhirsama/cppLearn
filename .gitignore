@@ -7,3 +7,5 @@
 src/gcm.cache
 .idea
 gcm.cache
+a.out
+.zig-cache

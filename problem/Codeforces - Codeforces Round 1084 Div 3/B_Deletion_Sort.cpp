@@ -1,0 +1,35 @@
+//  B. Deletion Sort
+//  21:00
+#include <bits/stdc++.h>
+
+using int64 = int64_t;
+using i32 = int64_t;
+constexpr int mod = 1e9 + 7;
+constexpr char endl = '\n';
+constexpr char enld = '\n';
+constexpr int64 inf_i64 = 0x3f3f3f3f3f3f3f3f;
+constexpr std::string OJ_NAME{"Codeforces"};
+
+void nhir() {
+    i32 n;
+    std::cin >> n;
+    std::vector<i32> v(n);
+    for (auto &i: v) std::cin >> i;
+    for (i32 i = 0; i < n - 1; i++) {
+        if (v[i + 1] < v[i]) {
+            std::cout << 1 << enld;
+            return;
+        }
+    }
+    std::cout << n << enld;
+}
+
+signed main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    int T = 1;
+    if (OJ_NAME != "AtCoder")
+        std::cin >> T;
+    while (T--) nhir();
+    return 0;
+}
